@@ -7,14 +7,25 @@ const app = express();
 
 app.use(bodyParser.json());
 
+
+const repositories = [];
 app.use('/graphql', graphqlHttp({
     schema: buildSchema(`
+        type Repository {
+            id: ID!
+            url: String!
+        }
+
+        input RepositoryInput {
+            url: String!
+        }
+
         type RootQuery {
-            repositories: [String!]!
+            repositories: [Repository!]!
         }
 
         type RootMutation {
-            createRepository(url: String): String
+            createRepository(repositoryInput: RepositoryInput): Repository
         }
 
         schema {
@@ -24,10 +35,18 @@ app.use('/graphql', graphqlHttp({
     `),
     rootValue: {
         repositories: () => {
-            return ['https://github.com/blockedtodo/blockedtodo', 'https://github.com/dominicroystang/uvindex/']
+            return repositories;
         },
-        createRepository: ({url}) => {
-            return url
+        createRepository: ({repositoryInput}) => {
+            console.log(repositoryInput);
+            const repo = {
+                id: Math.random().toString(),
+                url: repositoryInput.url
+            };
+
+            repositories.push(repo);
+
+            return repo;
         }
     },
     graphiql: true
