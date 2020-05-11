@@ -8,7 +8,6 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const repositories = [];
 app.use('/graphql', graphqlHttp({
     schema: buildSchema(`
         type Repository {
@@ -34,19 +33,12 @@ app.use('/graphql', graphqlHttp({
         }
     `),
     rootValue: {
-        repositories: () => {
-            return repositories;
+        repositories: async () => {
+            return await Repository.findAll();
         },
-        createRepository: ({repositoryInput}) => {
+        createRepository: async ({repositoryInput}) => {
             console.log(repositoryInput);
-            const repo = {
-                id: Math.random().toString(),
-                url: repositoryInput.url
-            };
-
-            repositories.push(repo);
-
-            return repo;
+            return await Repository.create({url: repositoryInput.url});
         }
     },
     graphiql: true
@@ -57,9 +49,3 @@ app.get('/', (req, res, next) => {
 });
 
 app.listen(3000);
-
-const createRepo = async () => {
-    const repo = await Repository.create({url: "github.com"});
-    console.log(repo);
-}
-createRepo();
