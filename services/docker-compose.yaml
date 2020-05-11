@@ -6,15 +6,21 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - database
+        - database
     build:
-      context: ./backend
+        context: ./backend
+    environment:
+        - DATABASE_HOST=database
+        - DATABASE_PORT=5432
+        - DATABASE_NAME=app-database
+        - DATABASE_USER=app-database-user
+        - DATABASE_PASSWORD=app-database-password
     command: npm start
     ports:
-      - 3000:3000
+        - 3000:3000
     volumes:
-      - ./backend:/backend
-      - backend-node-modules:/backend/node_modules
+        - ./backend:/backend
+        - backend-node-modules:/backend/node_modules
 
   database:
     image: postgres:12.2
@@ -23,10 +29,10 @@ services:
         POSTGRES_USER: app-database-user
         POSTGRES_PASSWORD: app-database-password
     ports:
-      - 5432:5432
+        - 5432:5432
     volumes:
-      - database-data:/var/lib/postgresql/data
+        - database-data:/var/lib/postgresql/data
 
 volumes:
-  backend-node-modules:
-  database-data:
+    backend-node-modules:
+    database-data:
