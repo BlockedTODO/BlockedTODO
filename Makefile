@@ -17,7 +17,7 @@ build:
 	docker-compose --file services/docker-compose.yaml build
 
 start:
-	docker-compose --file services/docker-compose.yaml up --build --renew-anon-volumes
+	docker-compose --file services/docker-compose.yaml up --renew-anon-volumes
 
 stop:
 	docker stop `docker ps -aq`

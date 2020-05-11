@@ -15,7 +15,7 @@ services:
         - DATABASE_NAME=app-database
         - DATABASE_USER=app-database-user
         - DATABASE_PASSWORD=app-database-password
-    command: npm start
+    command: sh ./scripts/docker-start-dev.sh
     ports:
         - 3000:3000
     volumes:
