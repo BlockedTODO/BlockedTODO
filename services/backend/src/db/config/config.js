@@ -12,7 +12,6 @@ module.exports = {
         dialect: 'postgres',
         define: {
             underscored: false,
-            freezeTableName: true,
         },
         benchmark: true,
     },
@@ -25,7 +24,6 @@ module.exports = {
         dialect: 'postgres',
         define: {
             underscored: false,
-            freezeTableName: true,
         },
         benchmark: true,
     },
@@ -38,7 +36,6 @@ module.exports = {
         dialect: 'postgres',
         define: {
             underscored: false,
-            freezeTableName: true,
         },
         benchmark: true,
     },

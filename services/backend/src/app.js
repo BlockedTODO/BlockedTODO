@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const graphqlHttp = require('express-graphql');
 const {buildSchema} = require('graphql');
+const {Repository} = require('db/models');
 
 const app = express();
 
 app.use(bodyParser.json());
-
 
 const repositories = [];
 app.use('/graphql', graphqlHttp({
@@ -57,3 +57,9 @@ app.get('/', (req, res, next) => {
 });
 
 app.listen(3000);
+
+const createRepo = async () => {
+    const repo = await Repository.create({url: "github.com"});
+    console.log(repo);
+}
+createRepo();
