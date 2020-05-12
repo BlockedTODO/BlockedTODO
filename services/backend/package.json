@@ -19,7 +19,14 @@
     "nodemon": "^2.0.3"
   },
   "homepage": "https://github.com/blockedtodo/blockedtodo#readme",
-  "keywords": ["blocked", "todo", "blockedtodo", "github", "app", "bot"],
+  "keywords": [
+    "blocked",
+    "todo",
+    "blockedtodo",
+    "github",
+    "app",
+    "bot"
+  ],
   "license": "UNLICENSED",
   "main": "index.js",
   "name": "backend",
