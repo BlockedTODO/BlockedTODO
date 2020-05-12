@@ -6,6 +6,9 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+# Source run-time environment variables
+ENV NODE_PATH=src
+
 # Expose ports in the container
 EXPOSE 3000
 

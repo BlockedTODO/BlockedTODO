@@ -1,40 +1,8 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "Backend for BlockedTODO",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_PATH=src nodemon src/app.js",
-    "start:prod": "NODE_PATH=src node src/app.js",
-    "sequelize:help": "\"Tip: use `npx sequelize-cli --help` to run sequelize commands from a container\"",
-    "sequelize:init": "sequelize init",
-    "sequelize:generate:model": "sequelize model:create",
-    "sequelize:generate:migration": "sequelize migration:create",
-    "sequelize:generate:seed": "sequelize seed:create",
-    "db:create": "sequelize db:create",
-    "db:seed": "NODE_PATH=src sequelize db:seed:all",
-    "db:migrate": "NODE_PATH=src sequelize db:migrate",
-    "db:retryable-migrate": "sh ./scripts/retryable-db-migrate.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blockedtodo/blockedtodo.git"
-  },
-  "keywords": [
-    "blocked",
-    "todo",
-    "blockedtodo",
-    "github",
-    "app",
-    "bot"
-  ],
   "author": "Dominic Roy-Stang",
-  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/blockedtodo/blockedtodo/issues"
   },
-  "homepage": "https://github.com/blockedtodo/blockedtodo#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -46,7 +14,26 @@
     "sequelize": "^5.21.8",
     "sequelize-cli": "^5.5.1"
   },
+  "description": "Backend for BlockedTODO",
   "devDependencies": {
     "nodemon": "^2.0.3"
-  }
+  },
+  "homepage": "https://github.com/blockedtodo/blockedtodo#readme",
+  "keywords": ["blocked", "todo", "blockedtodo", "github", "app", "bot"],
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "name": "backend",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blockedtodo/blockedtodo.git"
+  },
+  "scripts": {
+    "db:migrate": "sequelize db:migrate",
+    "db:seed": "sequelize db:seed:all",
+    "sequelize:help": "echo 'Tip: use `npx sequelize-cli --help` to run sequelize commands from a container'",
+    "start": "nodemon src/app.js",
+    "start:prod": "node src/app.js",
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "version": "1.0.0"
 }
