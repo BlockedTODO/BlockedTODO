@@ -13,6 +13,10 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            salt: {
+                type: Sequelize.STRING,
+                allowNull: false,
+            },
             ...generateDateAttributes(Sequelize),
         });
     },
