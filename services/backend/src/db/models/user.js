@@ -5,31 +5,44 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         email: {
             type: DataTypes.STRING,
-            unique: true,
-        },
-        password: {
-            type: DataTypes.STRING,
-            get() {
-                /* use getters to tell Sequelize to treat those rows as functions instead of variables,
-                 * preventing them from showing up on queries like findAll() or findById(1). */
-                return () => this.getDataValue('password');
+            unique: {
+                args: true,
+                msg: 'A user already exists with this email address. Please try to log in.',
+                fields: [sequelize.fn('lower', sequelize.col('email'))]
+            },
+            validate: {
+                isEmail: true
             }
         },
-        salt: {
+        password: { // Hashed and salted password
             type: DataTypes.STRING,
-            get() {
-                /* use getters to tell Sequelize to treat those rows as functions instead of variables,
-                 * preventing them from showing up on queries like findAll() or findById(1). */
-                return () => this.getDataValue('salt');
+            validate: {
+                len: [8, 512] // Password must be between 8 and 512 characters long (inclusively)
             }
+        },
+        salt: DataTypes.STRING
+    }, {
+        defaultScope: {
+            attributes: { exclude: ['password', 'salt'] },
         }
-    }, {});
-    User.associate = function (models) {
+    });
+    User.associate = (models) => {
         // associations can be defined here
     };
     User.addHook('beforeCreate', async (user, options) => {
         user.salt = await bcrypt.genSalt(13);
         user.password = await bcrypt.hash(user.password, user.salt);
     });
+    User.addHook('afterCreate', async (user, options) => {
+        // Reload the user to apply the created defaultScope (that excludes password and salt) to the returned object.
+        await user.reload();
+    })
+    User.prototype.isPasswordValid = async (password) => {
+        /* Note: Bcrypt incorporates the salt into the hash (as plaintext). That's why the salt isn't used here.
+         * The compare function simply pulls the salt out of the hash and then uses it to hash the password and perform the comparison.
+         * We technically don't need to store the salt again in a separate column, but we do for convenience. */
+        return await bcrypt.compare(password, this.password);
+    }
+
     return User;
 };

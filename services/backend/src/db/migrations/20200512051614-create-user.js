@@ -8,8 +8,9 @@ module.exports = {
             email: {
                 type: Sequelize.STRING,
                 allowNull: false,
+                unique: true,
             },
-            password: {
+            password: { // Hashed and salted password
                 type: Sequelize.STRING,
                 allowNull: false,
             },
