@@ -8,14 +8,14 @@ const generateIdDefinition = (Sequelize) => {
         allowNull: false,
         autoIncrement: false,
         primaryKey: true
-    }
+    };
 };
 
 /* Create id attribute key/value pair to be used in migrations
  * It is initialized with a value that defaults to a uuidv4 in postgres
  * It will typically be used with the spread operator in an object ie. `...generateIdAttribute(Sequelize)` */
 const generateIdAttribute = (Sequelize) => {
-    return {id: generateIdDefinition(Sequelize)}
+    return {id: generateIdDefinition(Sequelize)};
 };
 
 module.exports = {

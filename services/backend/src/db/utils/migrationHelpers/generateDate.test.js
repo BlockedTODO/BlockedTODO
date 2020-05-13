@@ -14,10 +14,10 @@ describe('generateDateDefinition', () => {
 
 describe('generateDateAttributes', () => {
     it('generates date attributes', () => {
-        expectedAttributes = {
+        const expectedAttributes = {
             createdAt: expectedStructure,
             updatedAt: expectedStructure,
-        }
+        };
         expect(generateDateAttributes(Sequelize)).toMatchObject(expectedAttributes);
     });
-})
+});

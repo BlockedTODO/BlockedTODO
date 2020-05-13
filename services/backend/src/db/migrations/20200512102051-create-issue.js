@@ -14,7 +14,7 @@ module.exports = {
 
         await queryInterface.addIndex('Issues', ['url']);
     },
-    down: (queryInterface, Sequelize) => {
+    down: (queryInterface, _Sequelize) => {
         return queryInterface.dropTable('Issues');
     }
 };

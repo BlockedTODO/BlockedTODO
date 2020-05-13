@@ -21,7 +21,7 @@ module.exports = {
             ...generateDateAttributes(Sequelize),
         });
     },
-    down: (queryInterface, Sequelize) => {
+    down: (queryInterface, _Sequelize) => {
         return queryInterface.dropTable('Users');
     }
 };

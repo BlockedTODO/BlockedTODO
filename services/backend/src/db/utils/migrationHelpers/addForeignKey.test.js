@@ -7,11 +7,11 @@ const expectedStructure = (target) => {
         type: Sequelize.UUID,
         references: {
             model: target,
-            key: "id",
+            key: 'id',
         },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-    }
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+    };
 };
 
 describe('addForeignKey', () => {

@@ -19,4 +19,4 @@ describe('generateIdAttribute', () => {
     it('generates id attribute', () => {
         expect(generateIdAttribute(Sequelize)).toMatchObject({id: expectedStructure});
     });
-})
+});

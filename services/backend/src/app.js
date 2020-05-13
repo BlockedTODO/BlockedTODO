@@ -65,8 +65,9 @@ app.use('/graphql', graphqlHttp({
     graphiql: true
 }));
 
+// eslint-disable-next-line no-unused-vars
 app.get('/', (req, res, next) => {
-    res.send("Hello world");
+    res.send('Hello world');
 });
 
 app.listen(3000);

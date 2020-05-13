@@ -24,7 +24,7 @@
         ],
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "semi": [
             "error",
@@ -35,7 +35,10 @@
         ],
         "no-unused-vars": [
             "error",
-            {"varsIgnorePattern": "([A-Z][a-zA-Z]*)"}
+            {
+                "varsIgnorePattern": "([A-Z][a-zA-Z]*)",
+                "argsIgnorePattern": "^_"
+            }
         ],
         "max-len": [
             "error",

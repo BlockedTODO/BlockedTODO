@@ -43,4 +43,4 @@ module.exports = {
         benchmark: true,
         logging: (message) => logger.debug(message),
     },
-}
+};

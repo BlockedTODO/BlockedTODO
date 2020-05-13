@@ -18,6 +18,8 @@
   },
   "description": "Backend for BlockedTODO",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.0.0",
     "jest": "^26.0.1",
     "nodemon": "^2.0.3"
   },
@@ -40,11 +42,13 @@
   "scripts": {
     "db:migrate": "sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
+    "lint": "eslint 'src/**/*.js'",
     "repl": "node --experimental-repl-await ./repl.js",
     "sequelize:help": "echo 'Tip: use `npx sequelize-cli --help` to run sequelize commands from a container'",
     "start": "nodemon src/app.js",
     "start:prod": "node src/app.js",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watchAll"
   },
   "version": "1.0.0"
 }

@@ -6,10 +6,10 @@ const addForeignKey = (queryInterface, Sequelize) => async (source, target, colu
         type: Sequelize.UUID,
         references: {
             model: target,
-            key: "id"
+            key: 'id'
         },
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL"
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
     });
 
     await queryInterface.addIndex(source, [columnName]);

@@ -4,7 +4,7 @@ const generateDateDefinition = (Sequelize) => {
     return {
         type: Sequelize.DATE,
         allowNull: false,
-    }
+    };
 };
 
 /* Creates createdAt and updatedAt attribute key/value pairs to be used in migrations
@@ -14,10 +14,10 @@ const generateDateAttributes = (Sequelize) => {
     return {
         createdAt: generateDateDefinition(Sequelize),
         updatedAt: generateDateDefinition(Sequelize),
-    }
+    };
 };
 
 module.exports = {
     generateDateDefinition,
     generateDateAttributes,
-}
+};
