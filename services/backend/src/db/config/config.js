@@ -1,5 +1,6 @@
 // Using js config instead of json so that I can use separate environment variables
 // As per examples on https://github.com/sequelize/cli/issues/77
+const logger = require('utils/logger');
 require('dotenv').config();
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
             underscored: false,
         },
         benchmark: true,
+        logging: (message) => logger.debug(message),
     },
     test: {
         database: process.env.DATABASE_NAME,
@@ -26,6 +28,7 @@ module.exports = {
             underscored: false,
         },
         benchmark: true,
+        logging: (message) => logger.debug(message),
     },
     production: {
         database: process.env.DATABASE_NAME,
@@ -38,5 +41,6 @@ module.exports = {
             underscored: false,
         },
         benchmark: true,
+        logging: (message) => logger.debug(message),
     },
 }
