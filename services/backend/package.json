@@ -38,6 +38,7 @@
   "scripts": {
     "db:migrate": "sequelize db:migrate",
     "db:seed": "sequelize db:seed:all",
+    "repl": "node --experimental-repl-await ./repl.js",
     "sequelize:help": "echo 'Tip: use `npx sequelize-cli --help` to run sequelize commands from a container'",
     "start": "nodemon src/app.js",
     "start:prod": "node src/app.js",
