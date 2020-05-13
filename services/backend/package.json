@@ -17,6 +17,7 @@
   },
   "description": "Backend for BlockedTODO",
   "devDependencies": {
+    "jest": "^26.0.1",
     "nodemon": "^2.0.3"
   },
   "homepage": "https://github.com/blockedtodo/blockedtodo#readme",
@@ -42,7 +43,7 @@
     "sequelize:help": "echo 'Tip: use `npx sequelize-cli --help` to run sequelize commands from a container'",
     "start": "nodemon src/app.js",
     "start:prod": "node src/app.js",
-    "test": "echo 'Error: no test specified' && exit 1"
+    "test": "jest"
   },
   "version": "1.0.0"
 }
