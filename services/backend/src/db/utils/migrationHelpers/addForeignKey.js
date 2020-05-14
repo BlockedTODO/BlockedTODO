@@ -1,7 +1,7 @@
 /* Creates a foreign key to be used in migrations
  * It is intended for situations such as Model.hasMany(OtherModel)
  * example usage: `await addForeignKey(queryInterface, Sequelize)('SourceModel', 'TargetModel', 'targetIdRenamed');` */
-const addForeignKey = (queryInterface, Sequelize) => async (source, target, columnName) => {
+const addForeignKey = (queryInterface, Sequelize) => async (source, target, columnName, overrides = {}) => {
     await queryInterface.addColumn(source, columnName, {
         type: Sequelize.UUID,
         references: {
@@ -9,7 +9,8 @@ const addForeignKey = (queryInterface, Sequelize) => async (source, target, colu
             key: 'id'
         },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
+        onDelete: 'SET NULL',
+        ...overrides
     });
 
     await queryInterface.addIndex(source, [columnName]);

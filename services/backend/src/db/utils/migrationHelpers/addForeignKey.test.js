@@ -34,4 +34,19 @@ describe('addForeignKey', () => {
         await addForeignKey(mockQueryInterface(), Sequelize)('SourceModel', 'TargetModel', 'targetIdRenamed');
         expect(mockAddIndex).toHaveBeenCalledWith('SourceModel', ['targetIdRenamed']);
     });
+
+    it('does not change default options when overrides parameter is not specified', async () => {
+        await addForeignKey(mockQueryInterface(), Sequelize)('SourceModel', 'TargetModel', 'targetIdRenamed');
+        expect(mockAddColumn).toHaveBeenCalledWith('SourceModel', 'targetIdRenamed', expectedStructure('TargetModel'));
+    });
+
+    it('changes only the specified parameters if the overrides parameter is provided', async () => {
+        const modifiedExpectedStructure = {
+            ...expectedStructure('TargetModel'),
+            onDelete: 'CASCADE'
+        }
+        const foreignKeyAdder = addForeignKey(mockQueryInterface(), Sequelize)
+        await foreignKeyAdder('SourceModel', 'TargetModel', 'targetIdRenamed', {onDelete: 'CASCADE'});
+        expect(mockAddColumn).toHaveBeenCalledWith('SourceModel', 'targetIdRenamed', modifiedExpectedStructure);
+    });
 });
