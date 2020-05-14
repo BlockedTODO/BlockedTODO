@@ -33,11 +33,11 @@ module.exports = (sequelize, DataTypes) => {
             as: 'repositories',
         });
     };
-    User.addHook('beforeCreate', async (user, _options) => {
+    User.addHook('beforeCreate', async (user, options) => {
         user.salt = await bcrypt.genSalt(13);
         user.password = await bcrypt.hash(user.password, user.salt);
     });
-    User.addHook('afterCreate', async (user, _options) => {
+    User.addHook('afterCreate', async (user, options) => {
         // Reload the user to apply the created defaultScope (that excludes password and salt) to the returned object.
         await user.reload();
     });

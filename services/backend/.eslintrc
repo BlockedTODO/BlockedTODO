@@ -37,7 +37,8 @@
             "error",
             {
                 "varsIgnorePattern": "([A-Z][a-zA-Z]*)",
-                "argsIgnorePattern": "^_"
+                "argsIgnorePattern": "^_",
+                "args": "none"
             }
         ],
         "max-len": [

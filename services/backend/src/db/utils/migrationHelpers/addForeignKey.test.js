@@ -44,8 +44,8 @@ describe('addForeignKey', () => {
         const modifiedExpectedStructure = {
             ...expectedStructure('TargetModel'),
             onDelete: 'CASCADE'
-        }
-        const foreignKeyAdder = addForeignKey(mockQueryInterface(), Sequelize)
+        };
+        const foreignKeyAdder = addForeignKey(mockQueryInterface(), Sequelize);
         await foreignKeyAdder('SourceModel', 'TargetModel', 'targetIdRenamed', {onDelete: 'CASCADE'});
         expect(mockAddColumn).toHaveBeenCalledWith('SourceModel', 'targetIdRenamed', modifiedExpectedStructure);
     });
