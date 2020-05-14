@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     Task.associate = (models) => {
-        // associations can be defined here
+        // Delete/update related tasks if attached repository or issue is deleted/updated
+        Task.belongsTo(models.Repository, {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
+        Task.belongsTo(models.Issue, {onDelete: 'CASCADE', onUpdate: 'CASCADE'});
     };
 
     return Task;
