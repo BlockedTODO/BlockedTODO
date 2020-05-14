@@ -1,7 +1,6 @@
 'use strict';
 const {addForeignKey} = require('db/utils/migrationHelpers');
 
-// add-associations
 module.exports = {
     up: async (queryInterface, Sequelize) => {
       const foreignKeyAdder = addForeignKey(queryInterface, Sequelize);

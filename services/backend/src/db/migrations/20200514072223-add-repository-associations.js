@@ -3,13 +3,13 @@ const {generateDateAttributes} = require('db/utils/migrationHelpers');
 
 module.exports = {
     up: async (queryInterface, Sequelize) => {
-        // Issue belongs to many Repository
-        await queryInterface.createTable('RepositoryIssues', {
-            repositoryId: {
+        // Repository belongs to many User
+        await queryInterface.createTable('UserRepositories', {
+            userId: {
                 type: Sequelize.UUID,
                 primaryKey: true,
             },
-            issueId: {
+            repositoryId: {
                 type: Sequelize.UUID,
                 primaryKey: true,
             },
@@ -18,6 +18,6 @@ module.exports = {
     },
 
     down: async (queryInterface, _Sequelize) => {
-        await queryInterface.dropTable('RepositoryIssues');
+        await queryInterface.dropTable('UserRepositories');
     }
 };

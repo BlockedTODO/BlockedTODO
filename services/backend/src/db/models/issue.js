@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         Issue.belongsToMany(models.Repository, {
             through: 'RepositoryIssues',
             foreignKey: 'repositoryId',
+            as: 'repositories',
         });
     };
 

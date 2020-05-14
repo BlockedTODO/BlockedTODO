@@ -27,7 +27,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
     User.associate = (models) => {
-        // associations can be defined here
+        User.belongsToMany(models.Repository, {
+            through: 'UserRepositories',
+            foreignKey: 'repositoryId',
+            as: 'repositories',
+        });
     };
     User.addHook('beforeCreate', async (user, _options) => {
         user.salt = await bcrypt.genSalt(13);
