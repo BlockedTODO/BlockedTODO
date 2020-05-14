@@ -10,6 +10,7 @@
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^15.0.0",
+    "morgan": "^1.10.0",
     "pg": "^8.1.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.8",
@@ -45,8 +46,8 @@
     "lint": "eslint 'src/**/*.js'",
     "repl": "node --experimental-repl-await ./repl.js",
     "sequelize:help": "echo 'Tip: use `npx sequelize-cli --help` to run sequelize commands from a container'",
-    "start": "nodemon src/app.js",
-    "start:prod": "node src/app.js",
+    "start": "nodemon src/",
+    "start:prod": "node src/",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watchAll"
   },

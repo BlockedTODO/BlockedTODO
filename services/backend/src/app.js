@@ -1,12 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
 const graphqlHttp = require('express-graphql');
 const {buildSchema} = require('graphql');
-const {Repository, User} = require('db/models');
+const {logger} = require("utils/");
+const {Repository, User, sequelize} = require('db/models');
 
 const app = express();
 
+app.set('host', process.env.DOMAIN_NAME || 'localhost');
+app.set('port', process.env.PORT || '3000');
+
 app.use(bodyParser.json());
+app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
 
 app.use('/graphql', graphqlHttp({
     schema: buildSchema(`
@@ -70,4 +76,4 @@ app.get('/', (req, res, next) => {
     res.send('Hello world');
 });
 
-app.listen(3000);
+module.exports = app;

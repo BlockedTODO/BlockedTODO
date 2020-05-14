@@ -11,3 +11,9 @@ All of these are already set in development mode when running with docker & dock
 * `DATABASE_PASSWORD`
 * `DATABASE_HOST`
 * `DATABASE_PORT` (usually 5432 for postgres)
+
+# Optional environment variables
+The environment variables listed below aren't required, and have sensible defaults. Here are some example values.
+
+* `DOMAIN_NAME=BlockedTODO.com`
+* `PORT=3000`
