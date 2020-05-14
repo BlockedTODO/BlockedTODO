@@ -15,7 +15,7 @@ module.exports = {
             underscored: false,
         },
         benchmark: true,
-        logging: (message) => logger.debug(message),
+        logging: (message) => logger.info(message),
     },
     test: {
         database: process.env.DATABASE_NAME,
@@ -28,7 +28,7 @@ module.exports = {
             underscored: false,
         },
         benchmark: true,
-        logging: (message) => logger.debug(message),
+        logging: (message) => logger.info(message),
     },
     production: {
         database: process.env.DATABASE_NAME,
@@ -41,6 +41,6 @@ module.exports = {
             underscored: false,
         },
         benchmark: true,
-        logging: (message) => logger.debug(message),
+        logging: (message) => logger.info(message),
     },
 };

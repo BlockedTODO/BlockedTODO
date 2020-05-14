@@ -7,10 +7,10 @@ module.exports = {
       const foreignKeyAdder = addForeignKey(queryInterface, Sequelize);
 
       // Task belongs to Repository
-      await foreignKeyAdder('Task', 'Repository', 'repositoryId', {onDelete: 'CASCADE'});
+      await foreignKeyAdder('Tasks', 'Repositories', 'repositoryId', {onDelete: 'CASCADE'});
 
       // Task belongs to Issue
-      await foreignKeyAdder('Task', 'Issue', 'issueId', {onDelete: 'CASCADE'});
+      await foreignKeyAdder('Tasks', 'Issues', 'issueId', {onDelete: 'CASCADE'});
     },
 
     down: async (queryInterface, _Sequelize) => {

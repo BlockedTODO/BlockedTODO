@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     Issue.associate = (models) => {
-        // associations can be defined here
+        Issue.belongsToMany(models.Repository, {
+            through: 'RepositoryIssues',
+            foreignKey: 'repositoryId',
+        });
     };
 
     return Issue;
