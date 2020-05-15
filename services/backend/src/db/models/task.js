@@ -3,6 +3,11 @@ module.exports = (sequelize, DataTypes) => {
     const Task = sequelize.define('Task', {
         url: {
             type: DataTypes.STRING,
+            unique: {
+                args: true,
+                msg: 'A task with this url already exists.',
+                fields: [sequelize.fn('lower', sequelize.col('email'))]
+            },
             validate: {
                 isUrl: true
             }

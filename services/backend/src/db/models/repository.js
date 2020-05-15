@@ -3,6 +3,11 @@ module.exports = (sequelize, DataTypes) => {
     const Repository = sequelize.define('Repository', {
         url: {
             type: DataTypes.STRING,
+            unique: {
+                args: true,
+                msg: 'A repository with this url already exists.',
+                fields: [sequelize.fn('lower', sequelize.col('email'))]
+            },
             validate: {
                 isUrl: true
             }
