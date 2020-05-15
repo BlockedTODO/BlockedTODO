@@ -1,10 +1,4 @@
 module.exports = `
-    type Repository {
-        id: ID!
-        url: String!
-        users: [User!]!
-    }
-
     type User {
         id: ID!
         email: String!
@@ -12,13 +6,23 @@ module.exports = `
         repositories: [Repository!]!
     }
 
+    type Repository {
+        id: ID!
+        url: String!
+        users: [User!]!
+    }
+
+    type Issue {
+        id: ID!
+        url: String!
+        repositories: [Repository!]!
+    }
+
     type Task {
         id: ID!
         url: String!
-    }
-
-    input RepositoryInput {
-        url: String!
+        repository: Repository!
+        issue: Issue!
     }
 
     input UserInput {
@@ -26,19 +30,29 @@ module.exports = `
         password: String!
     }
 
+    input RepositoryInput {
+        url: String!
+    }
+
+    input IssueInput {
+        url: String!
+    }
+
     input TaskInput {
         url: String!
     }
 
     type RootQuery {
-        repositories: [Repository!]!
         users: [User!]!
+        repositories: [Repository!]!
+        issues: [Issue!]!
         tasks: [Task!]!
     }
 
     type RootMutation {
-        createRepository(repositoryInput: RepositoryInput): Repository
         createUser(userInput: UserInput): User
+        createRepository(repositoryInput: RepositoryInput): Repository
+        createIssue(issueInput: IssueInput): Issue
         createTask(taskInput: TaskInput): Task
     }
 
