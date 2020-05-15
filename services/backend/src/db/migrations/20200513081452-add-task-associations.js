@@ -7,12 +7,14 @@ module.exports = {
 
         // Task belongs to Repository
         await foreignKeyAdder('Tasks', 'Repositories', 'repositoryId', {
-            onDelete: 'CASCADE'
+            allowNull: false,
+            onDelete: 'CASCADE',
         });
 
         // Task belongs to Issue
         await foreignKeyAdder('Tasks', 'Issues', 'issueId', {
-            onDelete: 'CASCADE'
+            allowNull: false,
+            onDelete: 'CASCADE',
         });
     },
 

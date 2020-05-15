@@ -10,6 +10,7 @@ module.exports = `
         id: ID!
         url: String!
         users: [User!]!
+        issues: [Issue!]!
     }
 
     type Issue {
@@ -36,10 +37,13 @@ module.exports = `
 
     input IssueInput {
         url: String!
+        repositoryId: ID!
     }
 
     input TaskInput {
         url: String!
+        repositoryId: ID!
+        issueId: ID!
     }
 
     type RootQuery {

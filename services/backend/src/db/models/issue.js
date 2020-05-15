@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: {
                 args: true,
                 msg: 'An issue with this url already exists.',
-                fields: [sequelize.fn('lower', sequelize.col('email'))]
+                fields: [sequelize.fn('lower', sequelize.col('url'))]
             },
             validate: {
                 isUrl: true
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     Issue.associate = (models) => {
         Issue.belongsToMany(models.Repository, {
             through: 'RepositoryIssues',
-            foreignKey: 'repositoryId',
+            foreignKey: 'issueId',
             as: 'repositories',
         });
     };

@@ -3,7 +3,8 @@ module.exports = {
         repositories: (parent, args, context, info) => parent.getRepositories()
     },
     Repository: {
-        users: (parent, args, context, info) => parent.getUsers()
+        users: (parent, args, context, info) => parent.getUsers(),
+        issues: (parent, args, context, info) => parent.getIssues(),
     },
     Issue: {
         repositories: (parent, args, context, info) => parent.getRepositories()
@@ -32,15 +33,29 @@ module.exports = {
 
             return repository;
         },
-        createIssue: async (parent, {issueInput}, {Issue}, info) => {
-            const [issue, created] = await Issue.findOrCreate({
-                where: {url: issueInput.url}
-            });
+        createIssue: async (parent, {issueInput}, {Issue, Repository, sequelize}, info) => {
+            const transaction = await sequelize.transaction();
+            try {
+                const repository = await Repository.findByPk(issueInput.repositoryId);
+                const [issue, created] = await Issue.findOrCreate({
+                    where: {url: issueInput.url}
+                });
 
-            return issue;
+                await issue.addRepository(repository);
+                transaction.commit();
+
+                return issue;
+            } catch(e) {
+                transaction.rollback();
+            }
         },
-        createTask: async (parent, {taskInput}, {Task}, info) => {
-            return await Task.create({url: taskInput.url});
+        createTask: async (parent, {taskInput}, {Task, Repository, Issue}, info) => {
+            const {url, repositoryId, issueId} = taskInput;
+            const [repository, issue] = await Promise.all([Repository.findByPk(repositoryId), Issue.findByPk(issueId)]);
+            console.log(repository.id);
+            console.log(issue.id);
+
+            return await Task.create({url: url, repositoryId: repository.id, issueId: issue.id});
         }
     }
 };
