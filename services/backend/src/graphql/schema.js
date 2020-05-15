@@ -12,6 +12,11 @@ module.exports = `
         repositories: [Repository!]!
     }
 
+    type Task {
+        id: ID!
+        url: String!
+    }
+
     input RepositoryInput {
         url: String!
     }
@@ -21,14 +26,20 @@ module.exports = `
         password: String!
     }
 
+    input TaskInput {
+        url: String!
+    }
+
     type RootQuery {
         repositories: [Repository!]!
         users: [User!]!
+        tasks: [Task!]!
     }
 
     type RootMutation {
         createRepository(repositoryInput: RepositoryInput): Repository
         createUser(userInput: UserInput): User
+        createTask(taskInput: TaskInput): Task
     }
 
     schema {

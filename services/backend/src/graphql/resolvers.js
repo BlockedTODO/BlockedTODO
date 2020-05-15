@@ -8,16 +8,28 @@ module.exports = {
     RootQuery: {
         repositories: (parent, args, {Repository}, info) => Repository.findAll(),
         users: (parent, args, {User}, info) => User.findAll(),
+        tasks: (parent, args, {Task}, info) => Task.findAll(),
     },
     RootMutation: {
         createRepository: async (parent, {repositoryInput}, {Repository}, info) => {
-            return await Repository.create({url: repositoryInput.url});
+            const [repository, created] = await Repository.findOrCreate({
+                where: {url: repositoryInput.url}
+            });
+
+            return repository;
         },
         createUser: async (parent, {userInput}, {User}, info) => {
             return await User.create({
                 email: userInput.email,
                 password: userInput.password
             });
+        },
+        createTask: async (parent, {taskInput}, {Task}, info) => {
+            const [task, created] = await Task.findOrCreate({
+                where: {url: taskInput.url}
+            });
+
+            return task;
         }
     }
 };
