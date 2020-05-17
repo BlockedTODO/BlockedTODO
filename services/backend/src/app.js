@@ -7,7 +7,7 @@ const apolloServer = require('graphql/apolloServer');
 const app = express();
 
 app.set('host', process.env.DOMAIN_NAME || 'localhost');
-app.set('port', process.env.PORT || '3000');
+app.set('port', process.env.PORT || '3001');
 
 app.use(bodyParser.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
