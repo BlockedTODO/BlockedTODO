@@ -1,0 +1,14 @@
+# Files we don't want in the built container (doesn't affect mounted volumes)
+
+# Information and configuration
+Dockerfile
+.dockerignore
+.gitignore
+README.md
+
+# Dev tools
+repl.js
+
+# Build artifacts
+node_modules
+build
