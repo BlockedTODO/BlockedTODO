@@ -4,7 +4,7 @@ const repositoryQueries = {
 
 const repositoryMutations = {
     createRepository: async (parent, {repositoryInput}, {Repository}, info) => {
-        const [repository, created] = await Repository.findOrCreate({
+        const [repository, _created] = await Repository.findOrCreate({
             where: {url: repositoryInput.url}
         });
 

@@ -31,9 +31,9 @@ const authenticationQueries = {
             userId: user.id,
             token: token,
             tokenExpiration: tokenExpiration,
-        }
+        };
     }
-}
+};
 
 module.exports = {
     authenticationQueries

@@ -11,8 +11,8 @@ const context = ({req}) => {
     return {
         ...db,
         request: req,
-    }
-}
+    };
+};
 
 const apolloServer = new ApolloServer({
     typeDefs: gql(typeDefs),

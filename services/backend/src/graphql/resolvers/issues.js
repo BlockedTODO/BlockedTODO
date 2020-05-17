@@ -7,7 +7,7 @@ const issueMutations = {
         const transaction = await sequelize.transaction();
         try {
             const repository = await Repository.findByPk(issueInput.repositoryId);
-            const [issue, created] = await Issue.findOrCreate({
+            const [issue, _created] = await Issue.findOrCreate({
                 where: {url: issueInput.url}
             });
 
@@ -15,8 +15,9 @@ const issueMutations = {
             transaction.commit();
 
             return issue;
-        } catch(e) {
+        } catch (error) {
             transaction.rollback();
+            throw error;
         }
     }
 };

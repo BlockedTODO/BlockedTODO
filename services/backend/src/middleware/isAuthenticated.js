@@ -16,7 +16,7 @@ const isAuthenticated = (req, res, next) => {
     let decodedToken;
     try {
         decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    } catch(error) {
+    } catch (error) {
         return next();
     }
 
