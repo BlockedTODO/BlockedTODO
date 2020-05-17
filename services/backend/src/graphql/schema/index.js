@@ -26,6 +26,12 @@ module.exports = `
         issue: Issue!
     }
 
+    type AuthenticationData {
+        userId: ID!
+        token: String!
+        tokenExpiration: Int!
+    }
+
     input UserInput {
         email: String!
         password: String!
@@ -46,11 +52,17 @@ module.exports = `
         issueId: ID!
     }
 
+    input AuthenticationInput {
+        email: String!
+        password: String!
+    }
+
     type RootQuery {
         users: [User!]!
         repositories: [Repository!]!
         issues: [Issue!]!
         tasks: [Task!]!
+        login(authenticationInput: AuthenticationInput): AuthenticationData!
     }
 
     type RootMutation {
