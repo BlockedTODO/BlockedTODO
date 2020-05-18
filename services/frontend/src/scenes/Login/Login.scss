@@ -1,0 +1,17 @@
+@import 'styles/_colors.scss';
+@import 'styles/_dimens.scss';
+
+.login {
+    align-items: center;
+    background-color: $color-background-neutral;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem;
+    padding-top: 10vh;
+    width: 100%;
+
+    .login-logo {
+        margin-bottom: 3rem;
+    }
+}

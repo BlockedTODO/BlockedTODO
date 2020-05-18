@@ -1,18 +1,22 @@
 import React from 'react';
-import {BlockedTodoLogoIcon} from 'assets/icons';
+import {Route, Router, Redirect, Switch} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
+import {Login} from './scenes';
 import './App.scss';
 
-const App = () => {
-    return (
-        <div className='App'>
-            <header className='App-header'>
-                <BlockedTodoLogoIcon className='App-logo' alt='logo' />
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-            </header>
-        </div>
-    );
-};
+const App = () => (
+    <div id='app'>
+        <Router history={createBrowserHistory({forceRefresh: false})}>
+            <Switch>
+                <Route path='/login' component={Login} />
+                <Route path='*' component={LoginRedirect} />
+            </Switch>
+        </Router>
+    </div>
+);
+
+const LoginRedirect = ({location}) => (
+    <Redirect to={{pathname: '/login', state: {from: location}}} />
+);
 
 export default App;
