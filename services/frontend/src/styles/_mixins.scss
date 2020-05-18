@@ -3,3 +3,11 @@
 @mixin smooth-transition-all() {
     transition: all $default-transition-time $smooth-transition;
 }
+
+@mixin header-font() {
+    font-family: 'Nunito', sans-serif;
+}
+
+@mixin body-font() {
+    font-family: 'PT Sans', sans-serif;
+}
