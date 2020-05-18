@@ -1,16 +1,18 @@
 import React from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
-import {Login, Repositories} from './scenes';
+import {Login, NotFound, Repositories} from './scenes';
 import './App.scss';
 
 const App = () => (
     <div id='app'>
         <Router history={createBrowserHistory({forceRefresh: false})}>
             <Switch>
+                <Route path='/404' component={NotFound} />
                 <Route path='/login' component={Login} />
                 <PrivateRoute path='/repositories' component={Repositories} />
-                <PrivateRoute path='*' component={Repositories} />
+                <Redirect from='/' to='/repositories' exact />
+                <Redirect from='*' to='/404' />
             </Switch>
         </Router>
     </div>
