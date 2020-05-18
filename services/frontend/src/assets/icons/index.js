@@ -1,1 +1,1 @@
-export {ReactComponent as BlockedTodoLogoIcon} from "./BlockedTodoLogoIcon.svg";
+export {ReactComponent as BlockedTodoLogoIcon} from './BlockedTodoLogoIcon.svg';
