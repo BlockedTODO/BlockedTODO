@@ -1,10 +1,10 @@
-# dependencies
+# Dependencies
 node_modules
 .pnp
 .pnp.js
 
-# testing
+# Testing
 coverage
 
-# production
+# Production
 build
