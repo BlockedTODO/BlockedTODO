@@ -1,4 +1,6 @@
-.PHONY: show-help build start stop down nuke inspect-backend attach-backend inspect-backend-database
+.PHONY: show-help build start stop down nuke \
+	inspect-backend attach-backend inspect-backend-database \
+	inspect-frontend attach-frontend
 
 .DEFAULT_GOAL := show-help
 
@@ -38,3 +40,9 @@ attach-backend:
 
 inspect-backend-database:
 	docker-compose --file services/docker-compose.yaml exec database psql app-database app-database-user
+
+inspect-frontend:
+	docker-compose --file services/docker-compose.yaml exec frontend /bin/sh
+
+attach-frontend:
+	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_frontend_1
