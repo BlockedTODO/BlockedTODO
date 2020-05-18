@@ -1,0 +1,5 @@
+@import 'styles/_dimens.scss';
+
+@mixin smooth-transition-all() {
+    transition: all $default-transition-time $smooth-transition;
+}
