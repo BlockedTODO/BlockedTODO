@@ -44,11 +44,10 @@
     "url": "git+https://github.com/blockedtodo/blockedtodo.git"
   },
   "scripts": {
-    "db:migrate": "sequelize db:migrate",
-    "db:seed": "sequelize db:seed:all",
+    "db:migrate": "knex migrate:latest --knexfile=src/db2/config/knexfile.js",
+    "db:seed": "knex seed:run --knexfile=src/db2/config/knexfile.js",
     "lint": "eslint 'src/**/*.js'",
     "repl": "node --experimental-repl-await ./repl.js",
-    "sequelize:help": "echo 'Tip: use `npx sequelize-cli --help` to run sequelize commands from a container'",
     "start": "nodemon src/",
     "start:debug": "nodemon --inspect=0.0.0.0:9229 src/",
     "start:prod": "node src/",

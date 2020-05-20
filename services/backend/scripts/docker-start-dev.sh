@@ -7,7 +7,7 @@ npm install --no-progress --no-audit
 dockerize -wait tcp://$DATABASE_HOST:$DATABASE_PORT -timeout 1m
 
 # Run migrations
-npx sequelize db:migrate
+npm run db:migrate
 
 # Start server
 npm run start:debug
