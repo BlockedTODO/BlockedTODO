@@ -1,4 +1,4 @@
-const {logger} = require('utils/');
+const logger = require('utils/logger');
 const app = require('./app');
 
 const host = app.get('host');

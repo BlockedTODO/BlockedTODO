@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const isAuthenticated = require('middleware/isAuthenticated');
 const apolloServer = require('graphql/apolloServer');
+const isAuthenticated = require('middleware/isAuthenticated');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(isAuthenticated);
 
 // eslint-disable-next-line no-unused-vars
 app.get('/', (req, res, next) => {
-    res.send('Hello world');
+    res.send('BlockedTODO Backend Server');
 });
 
 /* This applyMiddleware call must be the last registered middleware

@@ -43,7 +43,9 @@ const replServer = repl.start({
 
 // Import in the context of the repl server
 Object.assign(replServer.context, {
-    ...require('db/models'),
+    //...require('db/models'),
+    db: require('db2/'),
+    ...require('db2/models'),
     printDepth,
     getOwnMethods,
     getAllMethods,
