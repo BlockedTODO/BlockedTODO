@@ -27,6 +27,7 @@ class Repository extends mixins(BaseModel) {
 
     static get relationMappings() {
         const Issue = require('./issue');
+        const User = require('./user');
 
         return {
             issues: {
@@ -34,11 +35,23 @@ class Repository extends mixins(BaseModel) {
                 modelClass: Issue,
                 join: {
                     from: 'repositories.id',
+                    to: 'issues.id',
                     through: {
                         from: 'repository_issues.repository_id',
                         to: 'repository_issues.issue_id',
                     },
-                    to: 'issues.id',
+                }
+            },
+            users: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: User,
+                join: {
+                    from: 'repositories.id',
+                    to: 'users.id',
+                    through: {
+                        from: 'user_repositories.repository_id',
+                        to: 'user_repositories.user_id',
+                    },
                 }
             }
         }

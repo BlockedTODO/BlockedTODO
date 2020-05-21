@@ -34,11 +34,11 @@ class Issue extends mixins(BaseModel) {
                 modelClass: Repository,
                 join: {
                     from: 'issues.id',
+                    to: 'repositories.id',
                     through: {
                         from: 'repository_issues.issue_id',
                         to: 'repository_issues.repository_id',
                     },
-                    to: 'repositories.id',
                 }
             }
         }
