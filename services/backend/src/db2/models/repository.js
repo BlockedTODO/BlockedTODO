@@ -8,7 +8,7 @@ const mixins = compose(
 
 class Repository extends mixins(BaseModel) {
     static get tableName() {
-        return 'repositories'
+        return 'repositories';
     }
 
     // Whenever a model instance is created it is checked against this schema for validation.
