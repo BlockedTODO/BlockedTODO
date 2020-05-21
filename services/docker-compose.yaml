@@ -4,7 +4,6 @@ services:
     frontend:
         image: frontend
         stdin_open: true
-        tty: true
         depends_on:
             - database
             - backend
