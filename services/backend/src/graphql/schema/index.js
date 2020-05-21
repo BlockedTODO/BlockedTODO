@@ -2,7 +2,6 @@ module.exports = `
     type User {
         id: ID!
         email: String!
-        password: String
         repositories: [Repository!]!
     }
 
