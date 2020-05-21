@@ -1,6 +1,6 @@
 const {Model} = require('objection');
 const Knex = require('knex');
-const knexConfig = require('db2/config/knexfile');
+const knexConfig = require('db/config/knexfile');
 const logger = require('utils/logger');
 
 const environment = process.env.NODE_ENV || 'development';

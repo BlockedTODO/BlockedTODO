@@ -46,9 +46,9 @@
     "url": "git+https://github.com/blockedtodo/blockedtodo.git"
   },
   "scripts": {
-    "db:migrate": "knex migrate:latest --knexfile=src/db2/config/knexfile.js",
-    "db:rollback": "knex migrate:rollback --knexfile=src/db2/config/knexfile.js",
-    "db:seed": "knex seed:run --knexfile=src/db2/config/knexfile.js",
+    "db:migrate": "knex migrate:latest --knexfile=src/db/config/knexfile.js",
+    "db:rollback": "knex migrate:rollback --knexfile=src/db/config/knexfile.js",
+    "db:seed": "knex seed:run --knexfile=src/db/config/knexfile.js",
     "lint": "eslint 'src/**/*.js'",
     "repl": "node --experimental-repl-await ./repl.js",
     "start": "nodemon src/",

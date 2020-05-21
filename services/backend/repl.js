@@ -2,7 +2,6 @@
  * It behaves in a similar manner to rails console.
  * Run with `node --experimental-repl-await ./repl.js` */
 const repl = require('repl');
-const db = require('db2/');
 
 // Helper methods to add in the context of the repl
 const getOwnMethods = (object) => {
@@ -44,9 +43,8 @@ const replServer = repl.start({
 
 // Import in the context of the repl server
 Object.assign(replServer.context, {
-    //...require('db/models'),
-    ...require('db2/models'),
-    db,
+    db: require('db/'),
+    ...require('db/models'),
     printDepth,
     getOwnMethods,
     getAllMethods,

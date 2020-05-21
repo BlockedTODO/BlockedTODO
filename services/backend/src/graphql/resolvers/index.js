@@ -6,18 +6,18 @@ const {authenticationQueries} = require('./authentication');
 
 module.exports = {
     User: {
-        repositories: (parent, args, context, info) => parent.getRepositories()
+        repositories: (parent, args, context, info) => parent.$relatedQuery('repositories')
     },
     Repository: {
-        users: (parent, args, context, info) => parent.getUsers(),
-        issues: (parent, args, context, info) => parent.getIssues(),
+        users: (parent, args, context, info) => parent.$relatedQuery('users'),
+        issues: (parent, args, context, info) => parent.$relatedQuery('issues'),
     },
     Issue: {
-        repositories: (parent, args, context, info) => parent.getRepositories()
+        repositories: (parent, args, context, info) => parent.$relatedQuery('repositories')
     },
     Task: {
-        repository: (parent, args, context, info) => parent.getRepository(),
-        issue: (parent, args, context, info) => parent.getIssue(),
+        repository: (parent, args, context, info) => parent.$relatedQuery('repository'),
+        issue: (parent, args, context, info) => parent.$relatedQuery('issue'),
     },
     RootQuery: {
         ...userQueries,

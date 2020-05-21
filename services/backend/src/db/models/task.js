@@ -1,40 +1,47 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-    const Task = sequelize.define('Task', {
-        url: {
-            type: DataTypes.STRING,
-            unique: {
-                args: true,
-                msg: 'A task with this url already exists.',
-                fields: [sequelize.fn('lower', sequelize.col('url'))]
-            },
-            validate: {
-                isUrl: true
+const {Model, compose} = require('objection');
+const guid = require('objection-guid');
+const BaseModel = require('./baseModel');
+
+const mixins = compose(
+    guid(),
+);
+
+class Task extends mixins(BaseModel) {
+    static get tableName() {
+        return 'tasks';
+    }
+
+    // Whenever a model instance is created it is checked against this schema for validation.
+    static get jsonSchema() {
+        return {
+            type: 'object',
+            required: ['url'],
+
+            properties: {
+                url: {type: 'string', format: 'uri'},
+                createdAt: {type: 'string', format: 'date-time'},
+                updatedAt: {type: 'string', format: 'date-time'}
             }
-        },
-        repositoryId: DataTypes.UUID,
-        issueId: DataTypes.UUID,
-    }, {});
+        }
+    }
 
-    Task.associate = (models) => {
-        // Delete/update related tasks if attached repository or issue is deleted/updated
-        Task.belongsTo(models.Repository, {
-            foreignKey: {
-                name: 'repositoryId',
-                allowNull: false,
-            },
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        });
-        Task.belongsTo(models.Issue, {
-            foreignKey: {
-                name: 'issueId',
-                allowNull: false,
-            },
-            onDelete: 'CASCADE',
-            onUpdate: 'CASCADE',
-        });
-    };
+    static get relationMappings() {
+        const Repository = require('./repository');
+        const Issue = require('./issue');
 
-    return Task;
-};
+        return {
+            repository: {
+                relation: BaseModel.BelongsToOneRelation,
+                modelClass: Repository,
+                join: {from: 'tasks.repositoryId', to: 'repositories.id'}
+            },
+            issue: {
+                relation: BaseModel.BelongsToOneRelation,
+                modelClass: Issue,
+                join: {from: 'tasks.issueId', to: 'issues.id'}
+            }
+        }
+    }
+}
+
+module.exports = Task;

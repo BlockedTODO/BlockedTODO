@@ -1,31 +1,61 @@
-'use strict';
-module.exports = (sequelize, DataTypes) => {
-    const Repository = sequelize.define('Repository', {
-        url: {
-            type: DataTypes.STRING,
-            unique: {
-                args: true,
-                msg: 'A repository with this url already exists.',
-                fields: [sequelize.fn('lower', sequelize.col('url'))]
-            },
-            validate: {
-                isUrl: true
+const {compose} = require('objection');
+const guid = require('objection-guid');
+const BaseModel = require('./baseModel');
+
+const mixins = compose(
+    guid(),
+);
+
+class Repository extends mixins(BaseModel) {
+    static get tableName() {
+        return 'repositories';
+    }
+
+    // Whenever a model instance is created it is checked against this schema for validation.
+    static get jsonSchema() {
+        return {
+            type: 'object',
+            required: ['url'],
+
+            properties: {
+                url: {type: 'string', format: 'uri'},
+                createdAt: {type: 'string', format: 'date-time'},
+                updatedAt: {type: 'string', format: 'date-time'}
             }
         }
-    }, {});
+    }
 
-    Repository.associate = (models) => {
-        Repository.belongsToMany(models.User, {
-            through: 'UserRepositories',
-            foreignKey: 'repositoryId',
-            as: 'users',
-        });
-        Repository.belongsToMany(models.Issue, {
-            through: 'RepositoryIssues',
-            foreignKey: 'repositoryId',
-            as: 'issues',
-        });
-    };
+    static get relationMappings() {
+        const Issue = require('./issue');
+        const User = require('./user');
 
-    return Repository;
-};
+        return {
+            issues: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: Issue,
+                join: {
+                    from: 'repositories.id',
+                    to: 'issues.id',
+                    through: {
+                        from: 'repository_issues.repository_id',
+                        to: 'repository_issues.issue_id',
+                    },
+                }
+            },
+            users: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: User,
+                join: {
+                    from: 'repositories.id',
+                    to: 'users.id',
+                    through: {
+                        from: 'user_repositories.repository_id',
+                        to: 'user_repositories.user_id',
+                    },
+                }
+            }
+        }
+    }
+}
+
+module.exports = Repository;

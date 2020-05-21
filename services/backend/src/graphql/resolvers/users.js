@@ -1,10 +1,10 @@
 const userQueries = {
-    users: (parent, args, {User}, info) => User.findAll()
+    users: (parent, args, {User}, info) => User.query()
 };
 
 const userMutations = {
     createUser: async (parent, {userInput}, {User}, info) => {
-        return await User.create({
+        return await User.query().insert({
             email: userInput.email,
             password: userInput.password
         });
