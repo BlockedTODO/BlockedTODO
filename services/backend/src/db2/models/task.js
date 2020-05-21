@@ -1,4 +1,4 @@
-const {compose} = require('objection');
+const {Model, compose} = require('objection');
 const guid = require('objection-guid');
 const BaseModel = require('./baseModel');
 
@@ -21,6 +21,24 @@ class Task extends mixins(BaseModel) {
                 url: {type: 'string', format: 'uri'},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
+            }
+        }
+    }
+
+    static get relationMappings() {
+        const Repository = require('./repository');
+        const Issue = require('./issue');
+
+        return {
+            repository: {
+                relation: BaseModel.BelongsToOneRelation,
+                modelClass: Repository,
+                join: {from: 'tasks.repositoryId', to: 'repositories.id'}
+            },
+            issue: {
+                relation: BaseModel.BelongsToOneRelation,
+                modelClass: Issue,
+                join: {from: 'tasks.issueId', to: 'issues.id'}
             }
         }
     }
