@@ -27,6 +27,25 @@ class User extends mixins(BaseModel) {
             }
         }
     }
+
+    static get relationMappings() {
+        const Repository = require('./repository');
+
+        return {
+            repositories: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: Repository,
+                join: {
+                    from: 'users.id',
+                    to: 'repositories.id',
+                    through: {
+                        from: 'user_repositories.user_id',
+                        to: 'user_repositories.repository_id',
+                    },
+                }
+            }
+        }
+    }
 }
 
 module.exports = User;
