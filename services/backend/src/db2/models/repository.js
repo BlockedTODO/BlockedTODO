@@ -24,6 +24,25 @@ class Repository extends mixins(BaseModel) {
             }
         }
     }
+
+    static get relationMappings() {
+        const Issue = require('./issue');
+
+        return {
+            issues: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: Issue,
+                join: {
+                    from: 'repositories.id',
+                    through: {
+                        from: 'repository_issues.repository_id',
+                        to: 'repository_issues.issue_id',
+                    },
+                    to: 'issues.id',
+                }
+            }
+        }
+    }
 }
 
 module.exports = Repository;
