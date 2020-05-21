@@ -1,49 +1,51 @@
-'use strict';
-const bcrypt = require('bcryptjs');
+const {compose} = require('objection');
+const guid = require('objection-guid');
+const password = require('objection-password');
+const BaseModel = require('./baseModel');
 
-module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('User', {
-        email: {
-            type: DataTypes.STRING,
-            unique: {
-                args: true,
-                msg: 'A user already exists with this email address. Please try to log in.',
-                fields: [sequelize.fn('lower', sequelize.col('email'))]
-            },
-            validate: {
-                isEmail: true
+const mixins = compose(
+    guid(),
+    password({rounds: 13}),
+);
+
+class User extends mixins(BaseModel) {
+    static get tableName() {
+        return 'users';
+    }
+
+    // Whenever a model instance is created it is checked against this schema for validation.
+    static get jsonSchema() {
+        return {
+            type: 'object',
+            required: ['email', 'password'],
+
+            properties: {
+                email: {type: 'string', format: 'email'},
+                password: {type: 'string', minLength: 4, maxLength: 512},
+                createdAt: {type: 'string', format: 'date-time'},
+                updatedAt: {type: 'string', format: 'date-time'}
             }
-        },
-        password: { // Hashed and salted password
-            type: DataTypes.STRING,
-            validate: {
-                len: [8, 512] // Password must be between 8 and 512 characters long (inclusively)
-            }
-        },
-        salt: DataTypes.STRING
-    }, {
-        defaultScope: {
-            attributes: {exclude: ['password', 'salt']},
-        },
-        scopes: {
-            withPassword: {attributes: {}}
         }
-    });
-    User.associate = (models) => {
-        User.belongsToMany(models.Repository, {
-            through: 'UserRepositories',
-            foreignKey: 'userId',
-            as: 'repositories',
-        });
-    };
-    User.addHook('beforeCreate', async (user, options) => {
-        user.salt = await bcrypt.genSalt(13);
-        user.password = await bcrypt.hash(user.password, user.salt);
-    });
-    User.addHook('afterCreate', async (user, options) => {
-        // Reload the user to apply the created defaultScope (that excludes password and salt) to the returned object.
-        await user.reload();
-    });
+    }
 
-    return User;
-};
+    static get relationMappings() {
+        const Repository = require('./repository');
+
+        return {
+            repositories: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: Repository,
+                join: {
+                    from: 'users.id',
+                    to: 'repositories.id',
+                    through: {
+                        from: 'user_repositories.user_id',
+                        to: 'user_repositories.repository_id',
+                    },
+                }
+            }
+        }
+    }
+}
+
+module.exports = User;
