@@ -1,3 +1,4 @@
+const {urlNormalizer} = require('utils/');
 const BaseModel = require('./baseModel');
 
 class Repository extends BaseModel {
@@ -49,6 +50,13 @@ class Repository extends BaseModel {
                 }
             }
         };
+    }
+
+    $beforeValidate(schema, json) {
+        super.$beforeValidate();
+        if ('url' in json) {
+            json.url = urlNormalizer(json.url);
+        }
     }
 }
 
