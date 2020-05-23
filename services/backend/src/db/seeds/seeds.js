@@ -1,6 +1,7 @@
 const {User, Repository, Issue, Task} = require('../models/');
 require('../'); // connect db
 
+/* eslint-disable */
 const seed = async (_knex) => {
     // Create resources
     const user0 = await User.query().insert({email: 'test0@test.com', password: 'password0'}); // user 0 is empty (no associations/repositories)
@@ -76,7 +77,8 @@ const seed = async (_knex) => {
     await repository4.$relatedQuery('issues').relate([issue4, issue5]);
     await repository5.$relatedQuery('issues').relate([issue5]);
 };
+/* eslint-enable */
 
 module.exports = {
     seed,
-}
+};

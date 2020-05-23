@@ -1,4 +1,4 @@
-const {Model, compose} = require('objection');
+const {compose} = require('objection');
 const guid = require('objection-guid');
 const BaseModel = require('./baseModel');
 
@@ -22,7 +22,7 @@ class Task extends mixins(BaseModel) {
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }
-        }
+        };
     }
 
     static get relationMappings() {
@@ -40,7 +40,7 @@ class Task extends mixins(BaseModel) {
                 modelClass: Issue,
                 join: {from: 'tasks.issueId', to: 'issues.id'}
             }
-        }
+        };
     }
 }
 
