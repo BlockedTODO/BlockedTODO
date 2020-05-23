@@ -22,7 +22,7 @@ class Issue extends mixins(BaseModel) {
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }
-        }
+        };
     }
 
     static get relationMappings() {
@@ -41,7 +41,7 @@ class Issue extends mixins(BaseModel) {
                     },
                 }
             }
-        }
+        };
     }
 }
 

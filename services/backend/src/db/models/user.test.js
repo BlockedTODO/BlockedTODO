@@ -42,3 +42,17 @@ describe('insert', () => {
         await expect(insertQuery).rejects.toThrowError();
     });
 });
+
+describe('verifyPassword', () => {
+    it('returns true when it receives a valid password', async () => {
+        const password = 'hunter1';
+        const user = await User.query().insert({email: 'test@test.com', password: password});
+        expect(await user.verifyPassword(password)).toBe(true);
+    });
+
+    it('returns false when it receives an invalid password', async () => {
+        const password = 'hunter1';
+        const user = await User.query().insert({email: 'test@test.com', password: password});
+        expect(await user.verifyPassword('invalidPassword')).toBe(false);
+    });
+});

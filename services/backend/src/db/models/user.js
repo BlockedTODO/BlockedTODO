@@ -25,7 +25,7 @@ class User extends mixins(BaseModel) {
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }
-        }
+        };
     }
 
     static get relationMappings() {
@@ -44,7 +44,7 @@ class User extends mixins(BaseModel) {
                     },
                 }
             }
-        }
+        };
     }
 }
 

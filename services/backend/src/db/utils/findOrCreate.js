@@ -1,5 +1,5 @@
 const findOrCreate = async (Model, params) => {
-    let instance = await Model.query().findOne(params);
+    const instance = await Model.query().findOne(params);
 
     if (instance) { // instance is found, return it
         return instance;
