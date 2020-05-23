@@ -38,11 +38,13 @@ class Task extends BaseModel {
         };
     }
 
-    $beforeValidate(_schema, json) {
+    $beforeValidate(schema, json) {
         super.$beforeValidate();
         if ('url' in json) {
             json.url = urlNormalizer(json.url);
         }
+
+        return schema;
     }
 }
 

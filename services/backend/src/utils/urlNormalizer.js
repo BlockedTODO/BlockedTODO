@@ -16,4 +16,4 @@ const urlNormalizer = (url) => {
     return normalizeUrl(url, options);
 };
 
-module.exports = urlNormalizer
+module.exports = urlNormalizer;

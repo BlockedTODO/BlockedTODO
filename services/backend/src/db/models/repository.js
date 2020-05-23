@@ -57,6 +57,8 @@ class Repository extends BaseModel {
         if ('url' in json) {
             json.url = urlNormalizer(json.url);
         }
+
+        return schema;
     }
 }
 
