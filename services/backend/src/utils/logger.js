@@ -1,9 +1,12 @@
 const {createLogger, format, transports} = require('winston');
 
+const environment = process.env.NODE_ENV || 'development';
+const logLevel = environment === 'test' ? 'warn' : 'info';
+
 // Configure the Winston logger. For the complete documentation see https://github.com/winstonjs/winston
 const logger = createLogger({
     // To see more detailed errors, change this to "debug"
-    level: 'info',
+    level: logLevel,
     format: format.combine(
         format.splat(),
         format.simple(),
