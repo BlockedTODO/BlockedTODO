@@ -1,12 +1,6 @@
-const {compose} = require('objection');
-const guid = require('objection-guid');
 const BaseModel = require('./baseModel');
 
-const mixins = compose(
-    guid(),
-);
-
-class Task extends mixins(BaseModel) {
+class Task extends BaseModel {
     static get tableName() {
         return 'tasks';
     }

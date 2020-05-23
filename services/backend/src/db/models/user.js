@@ -1,10 +1,8 @@
 const {compose} = require('objection');
-const guid = require('objection-guid');
 const password = require('objection-password');
 const BaseModel = require('./baseModel');
 
 const mixins = compose(
-    guid(),
     password({rounds: 13}),
 );
 
