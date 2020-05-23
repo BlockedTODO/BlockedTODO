@@ -33,7 +33,7 @@ nuke:
 	- docker system prune --all --volumes
 
 inspect-backend:
-	docker-compose --file services/docker-compose.yaml exec backend /bin/sh
+	docker-compose --file services/docker-compose.yaml exec backend /bin/bash
 
 attach-backend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_backend_1
