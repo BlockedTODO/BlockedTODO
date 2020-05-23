@@ -9,5 +9,8 @@ dockerize -wait tcp://$DATABASE_HOST:$DATABASE_PORT -timeout 1m
 # Run migrations
 npm run db:migrate
 
+# Run seeds
+npm run db:seed
+
 # Start server
 npm run start:debug
