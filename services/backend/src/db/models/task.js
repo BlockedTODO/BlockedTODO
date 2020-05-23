@@ -1,3 +1,4 @@
+const {urlNormalizer} = require('utils/');
 const BaseModel = require('./baseModel');
 
 class Task extends BaseModel {
@@ -35,6 +36,13 @@ class Task extends BaseModel {
                 join: {from: 'tasks.issueId', to: 'issues.id'}
             }
         };
+    }
+
+    $beforeValidate(_schema, json) {
+        super.$beforeValidate();
+        if ('url' in json) {
+            json.url = urlNormalizer(json.url);
+        }
     }
 }
 
