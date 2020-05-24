@@ -1,4 +1,4 @@
-const {urlNormalizer} = require('utils/');
+const {urlNormalizer} = require('../../utils/');
 const BaseModel = require('./baseModel');
 
 class Issue extends BaseModel {

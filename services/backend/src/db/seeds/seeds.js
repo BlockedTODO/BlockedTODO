@@ -1,8 +1,52 @@
 const {User, Repository, Issue, Task} = require('../models/');
 require('../'); // connect db
 
+const seed = async (knex) => {
+    const seededUsers = await User.query().whereIn(
+        'email',
+        ['test0@test.com', 'test1@test.com', 'test2@test.com', 'test3@test.com']
+    );
+
+    if (seededUsers.length < 4) {
+        await deleteSeedData(knex);
+        await generateSeedData(knex);
+    }
+};
+
+const deleteSeedData = async (_knex) => {
+    // Deleting these models will cascade through associated tasks and join tables.
+    await User.query().delete().whereIn(
+        'email',
+        ['test0@test.com', 'test1@test.com', 'test2@test.com', 'test3@test.com']
+    );
+
+    await Repository.query().delete().whereIn(
+        'url',
+        [
+            'http://github.com/user1/repo0',
+            'http://github.com/user1/repo1',
+            'http://github.com/user2/repo2',
+            'http://github.com/user3/repo3',
+            'http://github.com/someuser/repo4',
+            'http://github.com/someuser/repo5',
+        ]
+    );
+
+    await Issue.query().delete().whereIn(
+        'url',
+        [
+            'http://github.com/user1/repo0/issues/0',
+            'http://github.com/user1/repo0/issues/1',
+            'http://github.com/someuser/somerepo/issues/2',
+            'http://github.com/someuser/somerepo/issues/3',
+            'http://github.com/someuser/somerepo/issues/4',
+            'http://github.com/someuser/somerepo/issues/5',
+        ]
+    )
+};
+
 /* eslint-disable */
-const seed = async (_knex) => {
+const generateSeedData = async (knex) => {
     // Create resources
     const user0 = await User.query().insert({email: 'test0@test.com', password: 'password0'}); // user 0 is empty (no associations/repositories)
     const user1 = await User.query().insert({email: 'test1@test.com', password: 'password1'}); // user 1 has many repos and issues, each issue has one task but no data is shared with other users
@@ -80,5 +124,5 @@ const seed = async (_knex) => {
 /* eslint-enable */
 
 module.exports = {
-    seed,
+    seed
 };

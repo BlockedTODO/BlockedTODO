@@ -1,4 +1,4 @@
-const {urlNormalizer} = require('utils/');
+const {urlNormalizer} = require('../../utils/');
 const BaseModel = require('./baseModel');
 
 class Repository extends BaseModel {
