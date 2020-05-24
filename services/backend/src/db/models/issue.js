@@ -39,8 +39,8 @@ class Issue extends BaseModel {
         };
     }
 
-    $beforeValidate(schema, json) {
-        super.$beforeValidate();
+    $beforeValidate(schema, json, ...rest) {
+        super.$beforeValidate(schema, json, ...rest);
         if ('url' in json) {
             json.url = urlNormalizer(json.url);
         }

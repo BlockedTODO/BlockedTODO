@@ -11,15 +11,15 @@ class BaseModel extends mixins(Model) {
         return snakeCaseMappers();
     }
 
-    $beforeInsert() {
-        super.$beforeInsert();
+    $beforeInsert(...args) {
+        super.$beforeInsert(...args);
         const timestamp = new Date().toISOString();
         this.createdAt = timestamp;
         this.updatedAt = timestamp;
     }
 
-    $beforeUpdate() {
-        super.$beforeUpdate();
+    $beforeUpdate(...args) {
+        super.$beforeUpdate(...args);
         this.updatedAt = new Date().toISOString();
     }
 }
