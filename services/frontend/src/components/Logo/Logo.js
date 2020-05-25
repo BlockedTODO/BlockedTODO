@@ -4,13 +4,11 @@ import {ToDoIcon} from 'assets/icons';
 import './Logo.scss';
 
 const Logo = ({route = '/'}) => (
-    <Link to={route}>
-        <div class='logo-container'>
-            <ToDoIcon className='logo-icon' />
-            <h2> {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
-                <code className='logo-text'>// BlockedTODO</code>
-            </h2>
-        </div>
+    <Link className='logo-container' to={route}>
+        <ToDoIcon className='logo-icon' />
+        <h3> {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}
+            <code className='logo-text'>// BlockedTODO</code>
+        </h3>
     </Link>
 );
 

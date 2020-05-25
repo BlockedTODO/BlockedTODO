@@ -1,26 +1,27 @@
-@import 'styles/_colors.scss';
 @import 'styles/_mixins.scss';
+@import 'styles/_colors.scss';
 @import 'styles/_dimens.scss';
 
-.logo-container {
+.user-avatar-container {
+    align-items: center;
     border-radius: $border-radius-card;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
     padding: 0.2rem;
+
+    &:hover {
+        cursor: pointer;
+    }
 
     @include hover-background($color-background-white, $color-background-light);
 
-    .logo-icon {
+    .user-icon {
         width: 2.5rem;
         height: 2.5rem;
     }
 
-    .logo-text {
-        line-height: 0;
+    .user-name {
         padding-left: 1rem;
         padding-right: 1rem;
-        vertical-align: text-bottom;
-        white-space: nowrap;
     }
 }
