@@ -1,0 +1,18 @@
+@import 'styles/_colors.scss';
+
+.logo-container {
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: row;
+
+    .logo-icon {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .logo-text {
+        line-height: 0;
+        padding-left: 1rem;
+        vertical-align: text-bottom;
+    }
+}
