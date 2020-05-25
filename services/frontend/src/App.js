@@ -2,6 +2,7 @@ import React from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import {Login, NotFound, Repositories} from './scenes';
+import {Header} from './components';
 import './App.scss';
 
 const App = () => (
@@ -23,12 +24,21 @@ const LoginRedirect = ({location}) => (
 );
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const isLoggedIn = false; // TODO: replace this with logged in logic
+    const isLoggedIn = true; // TODO: replace this with logged in logic
 
     return (
         <Route
             {...rest}
-            render={(props) => isLoggedIn ? <Component {...props} /> : <LoginRedirect {...props} />}
+            render={(props) => (
+                isLoggedIn ? (
+                    <React.Fragment>
+                        <Header />
+                        <Component {...props} />
+                    </React.Fragment>
+                ) : (
+                    <LoginRedirect {...props} />
+                )
+            )}
         />
     );
 }
