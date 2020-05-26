@@ -6,7 +6,7 @@ $background-color: $color-background-white;
 
 .logo-container {
     background-color: $background-color;
-    border-radius: $border-radius-card;
+    border-radius: $default-border-radius;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
