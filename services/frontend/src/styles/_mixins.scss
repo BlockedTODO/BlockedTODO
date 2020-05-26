@@ -17,6 +17,10 @@
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+@mixin dropshadow-card() {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.16);
+}
+
 @mixin hover-background($color, $hover-color) {
     @include smooth-transition-all();
 
@@ -32,5 +36,23 @@
 
     &:hover, &:focus {
         background-color: darken($color, 4%);
+    }
+}
+
+@mixin hover-darken-border($color) {
+    @include smooth-transition-all();
+
+    &:hover, &:focus {
+        border-color: darken($color, 4%);
+    }
+}
+
+@mixin hover-text($color, $hover-color) {
+    @include smooth-transition-all();
+
+    color: $color;
+
+    &:hover, &:focus {
+        color: $hover-color;
     }
 }
