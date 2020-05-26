@@ -10,7 +10,7 @@
 }
 
 @mixin body-font() {
-    font-family: 'PT Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 @mixin dropshadow-standard() {
@@ -26,3 +26,4 @@
         background-color: $hover-color;
     }
 }
+
