@@ -2,5 +2,7 @@
 @import 'styles/_dimens.scss';
 
 .not-found {
-    background-color: white;
+    background-color: $color-background-light;
+    height: 100%;
+    width: 100%;
 }

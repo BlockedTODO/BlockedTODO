@@ -27,3 +27,10 @@
     }
 }
 
+@mixin hover-darken-background($color) {
+    @include smooth-transition-all();
+
+    &:hover, &:focus {
+        background-color: darken($color, 4%);
+    }
+}

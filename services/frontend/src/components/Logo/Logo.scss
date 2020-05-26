@@ -2,18 +2,22 @@
 @import 'styles/_mixins.scss';
 @import 'styles/_dimens.scss';
 
+$background-color: $color-background-white;
+
 .logo-container {
+    background-color: $background-color;
     border-radius: $border-radius-card;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     padding: 0.2rem;
 
-    @include hover-background($color-background-white, $color-background-light);
+    @include hover-darken-background($background-color);
 
     .logo-icon {
         width: 2.5rem;
         height: 2.5rem;
+        fill: $color-text-primary;
     }
 
     .logo-text {
