@@ -2,8 +2,11 @@
 @import 'styles/_colors.scss';
 @import 'styles/_dimens.scss';
 
+$background-color: $color-background-white;
+
 .user-avatar-container {
     align-items: center;
+    background-color: $background-color;
     border-radius: $border-radius-card;
     display: flex;
     flex-direction: row;
@@ -13,15 +16,17 @@
         cursor: pointer;
     }
 
-    @include hover-background($color-background-white, $color-background-light);
+    @include hover-darken-background($background-color);
 
     .user-icon {
         width: 2.5rem;
         height: 2.5rem;
+        fill: $color-text-primary;
     }
 
     .user-name {
         padding-left: 1rem;
         padding-right: 1rem;
+        font-weight: bold;
     }
 }

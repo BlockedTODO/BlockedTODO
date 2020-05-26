@@ -8,8 +8,9 @@ h1, h2, h3, h4, h5, h6 {
     color: $color-text-primary;
 }
 
-div, a, p, button, input {
+div, a, p, span, button, input {
     @include body-font();
+    color: $color-text-primary;
 }
 
 html, body, #root, #app {
@@ -20,4 +21,5 @@ html, body, #root, #app {
 #app {
     display: flex;
     flex-direction: column;
+    background-color: $color-background-light;
 }
