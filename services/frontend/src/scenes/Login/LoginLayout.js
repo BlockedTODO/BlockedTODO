@@ -1,5 +1,5 @@
 import React from 'react';
-import {Logo, LoadingButton} from 'components/';
+import {Logo, LoadingButton, TextField} from 'components/';
 import './Login.scss';
 
 const LoginLayout = () => (
@@ -14,17 +14,9 @@ const LoginCard = () => (
         <CardTitle />
 
         <div className='form-container card-section'>
-            <input
-                className='form-input'
-                placeholder='Email'
-                type='email'
-            />
+            <TextField className='form-input' label='Email' type='email' />
 
-            <input
-                className='form-input'
-                placeholder='Password'
-                type='password'
-            />
+            <TextField className='form-input' label='Password' type='password' />
 
             <div className='buttons-container'>
                 <LoadingButton className='login-button' label='login' />
