@@ -1,0 +1,34 @@
+@import 'styles/_colors.scss';
+@import 'styles/_dimens.scss';
+@import 'styles/_mixins.scss';
+
+.text-field {
+    .label {
+        @include body-font();
+        color: $color-text-secondary !important;
+    }
+
+    .root {
+        border-radius: $default-border-radius !important;
+
+        .notched-outline {
+            border: 1px solid $color-neutral-9 !important;
+        }
+
+        &:focus-within:active {
+            .notched-outline {
+                border: 2px solid $color-text-primary !important;
+            }
+        }
+
+        &:hover:not([disabled]) {
+            .notched-outline {
+                border: 2px solid $color-text-primary !important;
+            }
+        }
+    }
+
+    .focused {
+        color: $color-text-primary !important;
+    }
+}
