@@ -7,7 +7,7 @@ export const extractOnChangeValue = (value) => {
         if (value.target.value) {
             return value.target.value;
         } else {
-            return "";
+            return '';
         }
     } else {
         return value;

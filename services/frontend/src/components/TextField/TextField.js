@@ -14,7 +14,7 @@ const TextField = (props) => (
                     root: props.disabled ? 'input-disabled' : 'input',
                     notchedOutline: 'input-notched-outline',
                     focused: 'input-focused',
-               }
+                }
             }}
             InputLabelProps={{
                 classes: {

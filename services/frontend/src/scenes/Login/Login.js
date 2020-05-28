@@ -23,11 +23,11 @@ const Login = () => {
 
     const onSubmit = () => {
         getUser({variables: {email: emailInput.value, password: passwordInput.value}});
-    }
+    };
 
     return (
         <LoginLayout isLoading={loading} emailInput={emailInput} passwordInput={passwordInput} onSubmit={onSubmit} />
     );
-}
+};
 
 export default Login;
