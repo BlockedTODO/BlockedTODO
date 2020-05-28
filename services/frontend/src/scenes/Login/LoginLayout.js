@@ -18,7 +18,7 @@ const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading}) => (
             <TextField className='form-input' label='Password' type='password' {...passwordInput} />
 
             <div className='buttons-container'>
-                <LoadingButton className='login-button' label='login' onClick={onSubmit} isLoading={isLoading}/>
+                <LoadingButton className='login-button' label='login' onClick={onSubmit} isLoading={isLoading} />
                 <button className='signup-button'>create account</button>
             </div>
         </div>

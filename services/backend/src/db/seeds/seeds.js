@@ -42,7 +42,7 @@ const deleteSeedData = async (_knex) => {
             'http://github.com/someuser/somerepo/issues/4',
             'http://github.com/someuser/somerepo/issues/5',
         ]
-    )
+    );
 };
 
 /* eslint-disable */

@@ -10,7 +10,7 @@ const AppRouter = () => (
             <Route path='/404' component={NotFound} />
             <Route path='/login' component={Login} />
             <PrivateRoute path='/repositories' component={Repositories} />
-            <Redirect from='/' to='/repositories' exact />
+            <Redirect from='/' to='/repositories' exact={true} />
             <Redirect from='*' to='/404' />
         </Switch>
     </Router>
@@ -38,6 +38,6 @@ const PrivateRoute = ({component: Component, ...rest}) => {
             )}
         />
     );
-}
+};
 
 export default AppRouter;
