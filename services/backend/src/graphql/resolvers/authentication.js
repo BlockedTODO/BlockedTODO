@@ -7,7 +7,7 @@ const authenticationQueries = {
             throw new Error('User does not exist');
         }
 
-        if (!await user.validatePassword(authenticationInput.password)) {
+        if (!await user.verifyPassword(authenticationInput.password)) {
             throw new Error('Password is incorrect');
         }
 

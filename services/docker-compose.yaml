@@ -10,7 +10,8 @@ services:
         build:
             context: ./frontend
         environment:
-            - REACT_APP_BACKEND_HOST=backend
+            - REACT_APP_BACKEND_PROTOCOL=http
+            - REACT_APP_BACKEND_HOST=localhost
             - REACT_APP_BACKEND_PORT=3001
         command: sh ./scripts/docker-start-dev.sh
         ports:

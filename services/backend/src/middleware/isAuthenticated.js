@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const {User} = require('db/models/');
 
-const isAuthenticated = (req, res, next) => {
+const isAuthenticated = async (req, res, next) => {
     req.authentication = {isAuthenticated: false};
 
     const authHeader = req.get('Authorization');
@@ -24,9 +25,14 @@ const isAuthenticated = (req, res, next) => {
         return next();
     }
 
+    const user = await User.query().findById(decodedToken.userId);
+    if (!user) {
+        return next();
+    }
+
     req.authentication = {
         isAuthenticated: true,
-        userId: decodedToken.userId,
+        user: user,
     };
 
     next();
