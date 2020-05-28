@@ -18,7 +18,7 @@ const Login = () => {
     const emailInput = useInput();
     const passwordInput = useInput();
     const [getUser, {loading}] = useLazyQuery(loginQuery, {
-        onCompleted: (datum) => console.dir(datum)
+        onCompleted: ({login}) => localStorage.setItem('authentication_token', login.token)
     });
 
     const onSubmit = () => {
