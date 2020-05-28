@@ -9,7 +9,7 @@ const LoginLayout = (props) => (
     </div>
 );
 
-const LoginCard = ({emailInput, passwordInput, onSubmit}) => (
+const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading}) => (
     <div className='login-card'>
         <CardTitle />
 
@@ -18,7 +18,7 @@ const LoginCard = ({emailInput, passwordInput, onSubmit}) => (
             <TextField className='form-input' label='Password' type='password' {...passwordInput} />
 
             <div className='buttons-container'>
-                <LoadingButton className='login-button' label='login' onClick={onSubmit}/>
+                <LoadingButton className='login-button' label='login' onClick={onSubmit} isLoading={isLoading}/>
                 <button className='signup-button'>create account</button>
             </div>
         </div>
