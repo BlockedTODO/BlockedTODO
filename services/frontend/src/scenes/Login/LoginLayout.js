@@ -9,10 +9,10 @@ const LoginLayout = (props) => (
     </div>
 );
 
-const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading}) => (
+const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading, errorMessage}) => (
     <div className='login-card'>
         <CardTitle />
-        <FormError />
+        <FormError message={errorMessage} />
 
         <div className='form-container card-section'>
             <TextField className='form-input' label='Email' type='email' {...emailInput} />
