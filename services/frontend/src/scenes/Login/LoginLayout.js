@@ -1,5 +1,5 @@
 import React from 'react';
-import {Logo, LoadingButton, TextField} from 'components/';
+import {Logo, LoadingButton, TextField, FormError} from 'components/';
 import './Login.scss';
 
 const LoginLayout = (props) => (
@@ -12,6 +12,7 @@ const LoginLayout = (props) => (
 const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading}) => (
     <div className='login-card'>
         <CardTitle />
+        <FormError />
 
         <div className='form-container card-section'>
             <TextField className='form-input' label='Email' type='email' {...emailInput} />
