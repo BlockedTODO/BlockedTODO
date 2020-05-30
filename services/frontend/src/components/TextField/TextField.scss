@@ -22,12 +22,6 @@
         }
     }
 
-    /* We need a disabled class because the disabled prop is not set on the fieldset that controls the notched outline.
-     * So we have to check if the input is disabled, and manually apply either the input or input-disabled class */
-    .input-disabled {
-        border-radius: $default-border-radius;
-    }
-
     .input-notched-outline {
         border: 1px solid $color-neutral-9 !important;
     }
@@ -37,6 +31,55 @@
 
         .input-notched-outline {
             border: 2px solid $color-text-primary !important;
+        }
+    }
+}
+
+/* We need a disabled class because the disabled prop is not set on the fieldset that controls the notched outline.
+ * So we have to check if the input is disabled, and manually apply either the input or input-disabled class */
+.text-field-disabled {
+    .label {
+        @include body-font();
+        color: $color-text-secondary !important;
+    }
+
+    .input {
+        background-color: $color-neutral-9;
+        border-radius: $default-border-radius;
+    }
+}
+
+/* We need a disabled class because the disabled prop is not set on the fieldset that controls the notched outline.
+ * So we have to check if the input is disabled, and manually apply either the input or input-disabled class */
+.text-field-error {
+    .label {
+        @include body-font();
+        color: $color-text-secondary !important;
+    }
+
+    .label-focused {
+        color: $color-error !important;
+    }
+
+    .input {
+        border-radius: $default-border-radius;
+
+        &:hover {
+            .input-notched-outline {
+                border: 2px solid $color-error !important;
+            }
+        }
+    }
+
+    .input-notched-outline {
+        border: 1px solid $color-error !important;
+    }
+
+    .input-focused {
+        color: $color-text-primary !important;
+
+        .input-notched-outline {
+            border: 2px solid $color-error !important;
         }
     }
 }
