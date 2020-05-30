@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
-import {Login, NotFound, Repositories} from './scenes';
+import {Login, NotFound, Repositories, Signup} from './scenes';
 import {Header} from './components';
 
 const AppRouter = () => (
@@ -9,6 +9,7 @@ const AppRouter = () => (
         <Switch>
             <Route path='/404' component={NotFound} />
             <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
             <PrivateRoute path='/repositories' component={Repositories} />
             <Redirect from='/' to='/repositories' exact={true} />
             <Redirect from='*' to='/404' />
