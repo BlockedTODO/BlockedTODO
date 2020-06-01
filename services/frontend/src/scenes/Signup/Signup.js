@@ -2,17 +2,8 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useInput} from 'utils/hooks';
 import {useMutation} from '@apollo/react-hooks';
-import {gql} from 'apollo-boost';
+import {signupMutation} from 'graphql/operations/';
 import SignupLayout from './SignupLayout';
-
-const signupMutation = gql`
-    mutation CreateUser($email: String!, $password: String!){
-        createUser(userInput: {email: $email, password: $password}) {
-            id
-            email
-        }
-    }
-`;
 
 const Signup = () => {
     const emailInput = useInput();
@@ -25,7 +16,7 @@ const Signup = () => {
     }
     const [createUser, {loading}] = useMutation(signupMutation, {
         onCompleted: onSuccessfulSignup,
-        onError: (e) => {setError(e.message); console.dir(e);}
+        onError: (e) => setError(e.message)
     });
 
     const onSignup = () => {
