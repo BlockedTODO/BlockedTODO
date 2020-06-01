@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useInput} from 'utils/hooks';
-import {useLazyQuery} from '@apollo/react-hooks';
+import {useMutation} from '@apollo/react-hooks';
 import {gql} from 'apollo-boost';
 import SignupLayout from './SignupLayout';
 
-const signupQuery = gql`
-    query User($email: String!, $password: String!){
-        createUser(authenticationInput: {email: $email, password: $password}) {
-            userId
+const signupMutation = gql`
+    mutation CreateUser($email: String!, $password: String!){
+        createUser(userInput: {email: $email, password: $password}) {
+            id
             email
         }
     }
@@ -20,20 +20,20 @@ const Signup = () => {
     const [error, setError] = useState('');
     const history = useHistory();
 
-    const onSuccessfulSignup = ({signup}) => {
+    const onSuccessfulSignup = (_data) => {
         history.push('/');
     }
-    const [createUser, {loading}] = useLazyQuery(signupQuery, {
+    const [createUser, {loading}] = useMutation(signupMutation, {
         onCompleted: onSuccessfulSignup,
-        onError: (e) => setError(e.message)
+        onError: (e) => {setError(e.message); console.dir(e);}
     });
 
-    const onSubmit = () => {
+    const onSignup = () => {
         createUser({variables: {email: emailInput.value, password: passwordInput.value}});
     };
 
     return (
-        <SignupLayout isLoading={loading} emailInput={emailInput} passwordInput={passwordInput} onSubmit={onSubmit} errorMessage={error} />
+        <SignupLayout isLoading={loading} emailInput={emailInput} passwordInput={passwordInput} onSignup={onSignup} errorMessage={error} />
     );
 };
 
