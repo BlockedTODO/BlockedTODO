@@ -2,18 +2,8 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useInput} from 'utils/hooks';
 import {useLazyQuery} from '@apollo/react-hooks';
-import {gql} from 'apollo-boost';
+import {loginQuery} from 'graphql/operations/';
 import LoginLayout from './LoginLayout';
-
-const loginQuery = gql`
-    query User($email: String!, $password: String!){
-        login(authenticationInput: {email: $email, password: $password}) {
-            userId
-            token
-            tokenExpiration
-        }
-    }
-`;
 
 const Login = () => {
     const emailInput = useInput();

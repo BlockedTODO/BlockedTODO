@@ -1,7 +1,7 @@
 import React from 'react';
 import {ApolloProvider} from '@apollo/react-hooks';
 import AppRouter from './AppRouter';
-import client from './store/client';
+import client from './graphql/client';
 import './App.scss';
 
 const App = () => (
