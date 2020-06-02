@@ -1,24 +1,13 @@
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {useInput} from 'utils/hooks';
-import {useLazyQuery} from '@apollo/react-hooks';
-import {loginQuery} from 'graphql/operations/';
+import {useInput, useLogin} from 'utils/hooks';
 import LoginLayout from './LoginLayout';
 
 const Login = () => {
     const emailInput = useInput();
     const passwordInput = useInput();
     const [error, setError] = useState('');
-    const history = useHistory();
 
-    /* FIXME: the current login implementation still has some vulnerabilities that need to be fixed before a full release.
-    * Follow the instructions here: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/#intro */
-    const onSuccessfulLogin = ({login}) => {
-        localStorage.setItem('authentication_token', login.token);
-        history.push('/');
-    }
-    const [getUser, {loading}] = useLazyQuery(loginQuery, {
-        onCompleted: onSuccessfulLogin,
+    const [getUser, {loading}] = useLogin({
         onError: (e) => setError(e.message)
     });
 
