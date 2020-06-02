@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
+import {useApolloClient} from '@apollo/react-hooks';
 import {createBrowserHistory} from 'history';
 import {Login, NotFound, Repositories, Signup} from './scenes';
 import {Header} from './components';
@@ -22,7 +23,8 @@ const LoginRedirect = ({location}) => (
 );
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const isLoggedIn = true; // TODO: replace this with logged in logic
+    const client = useApolloClient();
+    const isLoggedIn = client.cache.data.data.ROOT_QUERY?.authentication_token;
 
     return (
         <Route
