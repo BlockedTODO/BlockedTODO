@@ -11,7 +11,7 @@ const useLogin = ({onSuccess = () => {}, onError = () => {}}) => {
         onSuccess();
         localStorage.setItem('authentication_token', login.token);
         history.push('/');
-    }
+    };
 
     return useLazyQuery(loginQuery, {
         onCompleted: onLogin,
