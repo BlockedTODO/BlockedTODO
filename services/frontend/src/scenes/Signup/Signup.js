@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {useInput} from 'utils/hooks';
+import {useInput, useLogin} from 'utils/hooks';
 import {useMutation} from '@apollo/react-hooks';
 import {signupMutation} from 'graphql/operations/';
 import SignupLayout from './SignupLayout';
@@ -9,13 +8,12 @@ const Signup = () => {
     const emailInput = useInput();
     const passwordInput = useInput();
     const [error, setError] = useState('');
-    const history = useHistory();
 
-    const onSuccessfulSignup = (_data) => {
-        history.push('/');
-    }
-    const [createUser, {loading}] = useMutation(signupMutation, {
-        onCompleted: onSuccessfulSignup,
+    const [logIn, {loading: loginLoading}] = useLogin({
+        onError: (e) => setError(e.message)
+    });
+    const [createUser, {loading: signupLoading}] = useMutation(signupMutation, {
+        onCompleted: () => logIn({variables: {email: emailInput.value, password: passwordInput.value}}),
         onError: (e) => setError(e.message)
     });
 
@@ -24,7 +22,13 @@ const Signup = () => {
     };
 
     return (
-        <SignupLayout isLoading={loading} emailInput={emailInput} passwordInput={passwordInput} onSignup={onSignup} errorMessage={error} />
+        <SignupLayout
+            isLoading={signupLoading || loginLoading}
+            emailInput={emailInput}
+            passwordInput={passwordInput}
+            onSignup={onSignup}
+            errorMessage={error}
+        />
     );
 };
 

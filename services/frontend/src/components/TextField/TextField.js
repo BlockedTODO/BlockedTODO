@@ -5,11 +5,11 @@ import './TextField.scss';
 /* Custom text field as per https://material-ui.com/components/text-fields/#customized-inputs
  * Using scss styling as per https://material-ui.com/guides/interoperability/#plain-css */
 const TextField = (props) => {
-    let containerClass = 'text-field'
+    let containerClass = 'text-field';
     if (props.disabled) {
-        containerClass = 'text-field-disabled'
+        containerClass = 'text-field-disabled';
     } else if (props.error) {
-        containerClass = 'text-field-error'
+        containerClass = 'text-field-error';
     }
 
     return (

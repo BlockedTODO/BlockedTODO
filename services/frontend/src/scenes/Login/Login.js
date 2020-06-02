@@ -16,7 +16,13 @@ const Login = () => {
     };
 
     return (
-        <LoginLayout isLoading={loading} emailInput={emailInput} passwordInput={passwordInput} onSubmit={onSubmit} errorMessage={error} />
+        <LoginLayout
+            isLoading={loading}
+            emailInput={emailInput}
+            passwordInput={passwordInput}
+            onSubmit={onSubmit}
+            errorMessage={error}
+        />
     );
 };
 
