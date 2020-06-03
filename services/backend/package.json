@@ -4,6 +4,8 @@
     "url": "https://github.com/blockedtodo/blockedtodo/issues"
   },
   "dependencies": {
+    "@octokit/app": "^4.2.0",
+    "@octokit/webhooks": "^7.6.2",
     "apollo-server-express": "^2.14.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",

@@ -35,6 +35,7 @@ services:
             - DATABASE_USER=app-database-user
             - DATABASE_PASSWORD=app-database-password
             - TOKEN_SECRET=jwtsecret
+            - GITHUB_WEBHOOKS_SECRET
         command: sh ./scripts/docker-start-dev.sh
         ports:
             - 3001:3001

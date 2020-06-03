@@ -3,7 +3,7 @@ Backend service to interact with the BlockedTODO database.
 Exposes a GraphQL API.
 
 # Required environment variables
-All of these are automatically set when running with docker-compose, but do need to be set manually on production environments
+Most of these are automatically set when running with docker-compose, but all do need to be set manually on production environments
 
 * `NODE_PATH=src`
 * `DATABASE_NAME`
@@ -12,6 +12,7 @@ All of these are automatically set when running with docker-compose, but do need
 * `DATABASE_HOST`
 * `DATABASE_PORT`
 * `TOKEN_SECRET`
+* `GITHUB_WEBHOOKS_SECRET`
 
 # Optional environment variables
 The environment variables listed below aren't required, and have sensible defaults. Here are some example values.
