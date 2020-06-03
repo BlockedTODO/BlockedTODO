@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const apolloServer = require('graphql/apolloServer');
 const isAuthenticated = require('middleware/isAuthenticated');
-const githubWebhooks = require('github/githubWebhooks');
+const githubWebhooks = require('github/webhooks');
 
 const app = express();
 
