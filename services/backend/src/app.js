@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const apolloServer = require('graphql/apolloServer');
 const isAuthenticated = require('middleware/isAuthenticated');
+const githubWebhooks = require('github/githubWebhooks');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.set('port', process.env.PORT || '3001');
 app.use(bodyParser.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
 app.use(isAuthenticated);
+app.use(githubWebhooks.middleware);
 
 // eslint-disable-next-line no-unused-vars
 app.get('/', (req, res, next) => {
