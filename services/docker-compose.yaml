@@ -36,8 +36,11 @@ services:
             - DATABASE_PASSWORD=app-database-password
             - TOKEN_SECRET=jwtsecret
             - GITHUB_WEBHOOKS_SECRET
+            - GITHUB_APP_ID
+            - GITHUB_APP_PRIVATE_KEY
         command: sh ./scripts/docker-start-dev.sh
         ports:
+            - 80:80
             - 3001:3001
             - 9222:9229 # Debugger port
         volumes:
