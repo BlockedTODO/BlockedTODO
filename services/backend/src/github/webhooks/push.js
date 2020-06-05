@@ -1,4 +1,5 @@
 const fs = require('fs');
+const unzipper = require('unzipper');
 const createAppClient = require('github/axiosWrapper');
 const graphqlRequestBody = require('utils/graphqlRequestBody');
 
@@ -35,9 +36,10 @@ const onPush = async ({payload}) => {
     const urlResponse = await github.post('/graphql', getArchiveUrl);
     const downloadLink = urlResponse.data.data.node.defaultBranchRef.target.zipballUrl;
 
+    // Download and extract file
     const fileResponse = await github.get(downloadLink, {responseType: 'stream'});
-
     fileResponse.data.pipe(fs.createWriteStream('/downloadedrepo.zip'));
+    fs.createReadStream('/downloadedrepo.zip').pipe(unzipper.Extract({path: '/extractedrepo'}));
 };
 
 module.exports = {onPush};
