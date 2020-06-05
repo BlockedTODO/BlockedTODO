@@ -11,11 +11,16 @@ afterAll(() => {
 });
 
 describe('insert', () => {
+    const validTaskRelations = {
+        repository: {host: 'github', hostId: 'abc123'},
+        issue: {url: 'http://example.com'},
+    };
+
     it('is given an id automatically', async () => {
         const task = await Task.query().insertGraph({
-            url: 'http://example.com',
-            repository: {url: 'http://example.com'},
-            issue: {url: 'http://example.com'}
+            host: 'github',
+            hostId: 'abc123',
+            ...validTaskRelations,
         }, {relate: ['repository', 'issue']});
 
         expect(task).toHaveProperty('id');
@@ -24,9 +29,9 @@ describe('insert', () => {
 
     it('sets createdAt and updatedAt automatically', async () => {
         const task = await Task.query().insertGraph({
-            url: 'http://example.com',
-            repository: {url: 'http://example.com'},
-            issue: {url: 'http://example.com'}
+            host: 'github',
+            hostId: 'abc123',
+            ...validTaskRelations,
         }, {relate: ['repository', 'issue']});
 
         expect(task).toMatchObject({
@@ -35,23 +40,31 @@ describe('insert', () => {
         });
     });
 
-    it('normalizes urls before insertion', async () => {
-        const url = 'github.com/user?b=1&a=0';
-        const normalizedUrl = 'http://github.com/user?a=0&b=1';
-        const task = await Task.query().insertGraph({
-            url: url,
-            repository: {url: 'http://example.com'},
-            issue: {url: 'http://example.com'}
+    it('rejects an empty host', async () => {
+        const insertQuery = Task.query().insertGraph({
+            host: '',
+            hostId: 'abc123',
+            ...validTaskRelations,
         }, {relate: ['repository', 'issue']});
 
-        expect(task.url).toEqual(normalizedUrl);
+        await expect(insertQuery).rejects.toThrowError();
     });
 
-    it('rejects an empty url', async () => {
+    it('rejects an unsupported host', async () => {
         const insertQuery = Task.query().insertGraph({
-            url: '',
-            repository: {url: 'http://example.com'},
-            issue: {url: 'http://example.com'}
+            host: 'bitbucket',
+            hostId: 'abc123',
+            ...validTaskRelations,
+        }, {relate: ['repository', 'issue']});
+
+        await expect(insertQuery).rejects.toThrowError();
+    });
+
+    it('rejects an empty host id', async () => {
+        const insertQuery = Task.query().insertGraph({
+            host: 'github',
+            hostId: '',
+            ...validTaskRelations,
         }, {relate: ['repository', 'issue']});
 
         await expect(insertQuery).rejects.toThrowError();

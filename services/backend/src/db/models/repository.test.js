@@ -12,29 +12,31 @@ afterAll(() => {
 
 describe('insert', () => {
     it('is given an id automatically', async () => {
-        const repository = await Repository.query().insert({url: 'http://example.com'});
+        const repository = await Repository.query().insert({host: 'github', hostId: 'abc123'});
         expect(repository).toHaveProperty('id');
         expect(repository.id).not.toBeNull();
     });
 
     it('sets createdAt and updatedAt automatically', async () => {
-        const repository = await Repository.query().insert({url: 'http://example.com'});
+        const repository = await Repository.query().insert({host: 'github', hostId: 'abc123'});
         expect(repository).toMatchObject({
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
         });
     });
 
-    it('normalizes urls before insertion', async () => {
-        const url = 'github.com/user?b=1&a=0';
-        const normalizedUrl = 'http://github.com/user?a=0&b=1';
-
-        const repository = await Repository.query().insert({url: url});
-        expect(repository.url).toEqual(normalizedUrl);
+    it('rejects an empty host', async () => {
+        const insertQuery = Repository.query().insert({host: '', hostId: 'abc123'});
+        await expect(insertQuery).rejects.toThrowError();
     });
 
-    it('rejects an empty url', async () => {
-        const insertQuery = Repository.query().insert({url: ''});
+    it('rejects an unsupported host', async () => {
+        const insertQuery = Repository.query().insert({host: 'bitbucket', hostId: 'abc123'});
+        await expect(insertQuery).rejects.toThrowError();
+    });
+
+    it('rejects an empty host id', async () => {
+        const insertQuery = Repository.query().insert({host: 'github', hostId: ''});
         await expect(insertQuery).rejects.toThrowError();
     });
 });
