@@ -2,13 +2,11 @@ const {Repository, User} = require('db/models');
 const {findOrCreate} = require('db/utils/');
 
 const onInstallationCreated = async ({payload}) => {
-    const repositoryUrls = payload.repositories.map((repo) => `https://github.com/${repo.full_name}`);
-
     // Associate all repositories with user0 for dev testing
     const user0 = await User.query().findOne({email: 'test0@test.com'});
 
-    for (const repositoryUrl of repositoryUrls) {
-        const repository = await findOrCreate(Repository, {url: repositoryUrl});
+    for (const {node_id: hostId} of payload.repositories) {
+        const repository = await findOrCreate(Repository, {host: 'github', hostId: hostId});
 
         // In the future, users will be created when they "Sign in with GitHub" on the website
         await repository.$relatedQuery('users').relate([user0]);
@@ -25,21 +23,17 @@ const onInstallationDeleted = async ({payload}) => {
         return;
     }
 
-    const repositoryUrls = payload.repositories.map((repo) => `https://github.com/${repo.full_name}`);
-
-    for (const repositoryUrl of repositoryUrls) {
-        await Repository.query().delete().where({url: repositoryUrl});
+    for (const {node_id: hostId} of payload.repositories) {
+        await Repository.query().delete().where({host: 'github', hostId: hostId});
     }
 };
 
 const onInstallationRepositoriesAdded = async ({payload}) => {
-    const repositoryUrls = payload.repositories_added.map((repo) => `https://github.com/${repo.full_name}`);
-
     // Associate all repositories with user0 for dev testing
     const user0 = await User.query().findOne({email: 'test0@test.com'});
 
-    for (const repositoryUrl of repositoryUrls) {
-        const repository = await findOrCreate(Repository, {url: repositoryUrl});
+    for (const {node_id: hostId} of payload.repositories_added) {
+        const repository = await findOrCreate(Repository, {host: 'github', hostId: hostId});
 
         // In the future, users will be created when they "Sign in with GitHub" on the website
         await repository.$relatedQuery('users').relate([user0]);
@@ -49,10 +43,8 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
 };
 
 const onInstallationRepositoriesRemoved = async ({payload}) => {
-    const repositoryUrls = payload.repositories_removed.map((repo) => `https://github.com/${repo.full_name}`);
-
-    for (const repositoryUrl of repositoryUrls) {
-        await Repository.query().delete().where({url: repositoryUrl});
+    for (const {node_id: hostId} of payload.repositories_added) {
+        await Repository.query().delete().where({host: 'github', hostId: hostId});
     }
 };
 

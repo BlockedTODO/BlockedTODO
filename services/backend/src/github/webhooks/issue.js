@@ -7,8 +7,8 @@ const onIssueCommentCreated = async ({payload}) => {
     const installationAccessToken = await app.getInstallationAccessToken({
         installationId,
     });
-    data = {
-        "query":`
+    const data = {
+        'query':`
             mutation {
                 createIssue(input: {repositoryId: "${repositoryId}", title: "Auto-generated issue (using code!)"}) {
                     issue {
@@ -18,12 +18,12 @@ const onIssueCommentCreated = async ({payload}) => {
                 }
             }
         `,
-        "variables": {}
+        'variables': {}
     };
-    headers = {
+    const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${installationAccessToken}`,
-    }
+    };
 
     try {
         const response = await axios.post('https://api.github.com/graphql', data, {headers: headers});

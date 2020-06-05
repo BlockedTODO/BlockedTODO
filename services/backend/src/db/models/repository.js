@@ -1,5 +1,6 @@
-const {urlNormalizer} = require('../../utils/');
 const BaseModel = require('./baseModel');
+
+const REPOSITORY_HOSTS = ['github'];
 
 class Repository extends BaseModel {
     static get tableName() {
@@ -10,10 +11,11 @@ class Repository extends BaseModel {
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['url'],
+            required: ['host', 'hostId'],
 
             properties: {
-                url: {type: 'string', format: 'uri'},
+                host: {type: 'string', enum: REPOSITORY_HOSTS},
+                hostId: {type: 'string', minLength: 4},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }
@@ -50,15 +52,6 @@ class Repository extends BaseModel {
                 }
             }
         };
-    }
-
-    $beforeValidate(schema, json, ...rest) {
-        super.$beforeValidate(schema, json, ...rest);
-        if ('url' in json) {
-            json.url = urlNormalizer(json.url);
-        }
-
-        return schema;
     }
 }
 
