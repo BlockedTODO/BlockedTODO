@@ -2,6 +2,7 @@ const fs = require('fs');
 const stream = require('stream');
 const {promisify} = require('util');
 const unzipper = require('unzipper');
+const {asyncUnzip} = require('utils/');
 const globby = require('globby');
 const tempy = require('tempy');
 const del = require('del');
@@ -59,10 +60,7 @@ const downloadRepository = async (githubClient, downloadLink) => {
     fileResponse.data.pipe(fs.createWriteStream(zipLocation));
 
     // Extract files
-    await pipeline(
-        fs.createReadStream(zipLocation),
-        unzipper.Extract({path: tempFolder}),
-    );
+    await asyncUnzip(zipLocation, tempFolder);
 
     // Delete zip file
     await del(zipLocation, {force: true});
