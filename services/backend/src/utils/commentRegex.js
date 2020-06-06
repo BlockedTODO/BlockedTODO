@@ -7,17 +7,17 @@
 /* JavaScript single-line comments regex.
  * This uses a "match prefix but exclude" group (?<=), which is not very well documented.
  * It is a bit more complex to ensure that "http://" is not matched outside of a comment. */
-const JS_SINGLE_LINE_COMMENT = /(?<=[^\\:]|^)\/\/.*$/.source;
+const JS_SINGLE_LINE_COMMENT = /(?<=[^\\:]|^)\/\/.*$(?:\n[\t ]*\/\/.*?$)*/.source;
 
 /* JavaScript multi-line comments regex. */
 const JS_MULTILINE_COMMENT = /\/\*[\s\S]*?\*\//.source;
 
 /* Python single-line comments regex.
  * Two single-line comments on consecutive lines count as a single comment. */
-const PYTHON_SINGLE_LINE_COMMENT = /\#.*$(?:\n[\t ]*\#.*?$)*/.source;
+const PYTHON_SINGLE_LINE_COMMENT = /#.*$(?:\n[\t ]*#.*?$)*/.source;
 
 /* Python multi-line comments regex. */
-const PYTHON_MULTILINE_COMMENT = /\"\"\"[\s\S]*?\"\"\"/.source;
+const PYTHON_MULTILINE_COMMENT = /"""[\s\S]*?"""/.source;
 
 /* HTML comments regex. */
 const HTML_COMMENT = /<!--[\s\S]*?-->/.source;
