@@ -165,3 +165,36 @@ describe('Python multi-line comments', () => {
         expect(matches).toEqual([code]);
     });
 });
+
+describe('HTML comments', () => {
+    it('matches a basic comment (sanity test)', () => {
+        const code = '<!-- hello world -->';
+        const matches = code.match(COMMENT_REGEX);
+
+        expect(matches).toEqual([code]);
+    });
+
+    it('matches an inline comment', () => {
+        const code = '<br /> <!-- hello world -->';
+        const matches = code.match(COMMENT_REGEX);
+
+        expect(matches).toEqual(['<!-- hello world -->']);
+    });
+
+    it('matches a multi-line comment', () => {
+        const code = `<!-- first line
+                           second line -->`;
+        const matches = code.match(COMMENT_REGEX);
+
+        expect(matches).toEqual([code]);
+    });
+
+    it('matches a multi-line comment inside an html <div>', () => {
+        const comment = `<!-- first line
+                              second line -->`;
+        const code = `<div>${comment}</div>`;
+        const matches = code.match(COMMENT_REGEX);
+
+        expect(matches).toEqual([comment]);
+    });
+});

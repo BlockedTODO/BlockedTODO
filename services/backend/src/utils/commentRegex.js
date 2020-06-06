@@ -18,6 +18,9 @@ const PYTHON_SINGLE_LINE_COMMENT = /\#.*$/.source;
 /* Python multi-line comments regex. */
 const PYTHON_MULTILINE_COMMENT = /\"\"\"[\s\S]*?\"\"\"/.source;
 
+/* HTML comments regex. */
+const HTML_COMMENT = /<!--[\s\S]*?-->/.source;
+
 /* g = global: All matches (don't return after first match)
  * m = multi line: Causes ^ and $ to match the begin/end of each line (not only begin/end of string) */
 const GLOBAL_PATTERN_FLAGS = 'gm';
@@ -29,6 +32,7 @@ const COMMENT_REGEX = new RegExp(
         JS_SINGLE_LINE_COMMENT,
         PYTHON_SINGLE_LINE_COMMENT,
         PYTHON_MULTILINE_COMMENT,
+        HTML_COMMENT,
     ].join('|'),
     GLOBAL_PATTERN_FLAGS
 );
