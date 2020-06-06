@@ -125,9 +125,8 @@ describe('Python single-line comments', () => {
                       # Do something when the issue is resolved.`;
         const matches = code.match(COMMENT_REGEX);
 
-        //TODO:
-        //expect(matches.length).toBe(1);
-        //expect(matches).toEqual([code]);
+        expect(matches.length).toBe(1);
+        expect(matches).toEqual([code]);
     });
 
     it('matches two single-line comments on consecutive lines separated by some code as two comments', () => {

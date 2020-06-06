@@ -12,8 +12,9 @@ const JS_SINGLE_LINE_COMMENT = /(?<=[^\\:]|^)\/\/.*$/.source;
 /* JavaScript multi-line comments regex. */
 const JS_MULTILINE_COMMENT = /\/\*[\s\S]*?\*\//.source;
 
-/* Python single-line comments regex. */
-const PYTHON_SINGLE_LINE_COMMENT = /\#.*$/.source;
+/* Python single-line comments regex.
+ * Two single-line comments on consecutive lines count as a single comment. */
+const PYTHON_SINGLE_LINE_COMMENT = /\#.*$(?:\n[\t ]*\#.*?$)*/.source;
 
 /* Python multi-line comments regex. */
 const PYTHON_MULTILINE_COMMENT = /\"\"\"[\s\S]*?\"\"\"/.source;
