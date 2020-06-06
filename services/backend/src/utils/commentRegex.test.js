@@ -41,20 +41,30 @@ describe('JavaScript single-line comments', () => {
                       // Do something when the issue is resolved.`;
         const matches = code.match(COMMENT_REGEX);
 
-        //TODO:
-        //expect(matches.length).toBe(1);
-        //expect(matches).toEqual([code]);
+        expect(matches.length).toBe(1);
+        expect(matches).toEqual([code]);
     });
 
     it('matches two single-line comments on consecutive lines separated by some code as two comments', () => {
         const topComment = '// this code adds two numbers together';
-        const inlineComment = '// z is the sum of x and y'
+        const inlineComment = '// z is the sum of x and y';
         const code = `${topComment}
                       let z = x + y; ${inlineComment}`;
         const matches = code.match(COMMENT_REGEX);
 
         expect(matches.length).toBe(2);
         expect(matches).toEqual([topComment, inlineComment]);
+    });
+
+    it('correctly handles urls in consecutive single-line comments', () => {
+        const comment = `// BlockedTODO: https://github.com/BlockedTODO/BlockedTODO/issues/57
+                         // Visit http://github.com when the issue is resolved.`;
+        const code = `${comment}
+                      let website = "http://github.com
+                      ${comment}`;
+        const matches = code.match(COMMENT_REGEX);
+
+        expect(matches).toEqual([comment, comment]);
     });
 });
 
@@ -131,7 +141,7 @@ describe('Python single-line comments', () => {
 
     it('matches two single-line comments on consecutive lines separated by some code as two comments', () => {
         const topComment = '# this code adds two numbers together';
-        const inlineComment = '# z is the sum of x and y'
+        const inlineComment = '# z is the sum of x and y';
         const code = `${topComment}
                       z = x + y ${inlineComment}`;
         const matches = code.match(COMMENT_REGEX);
