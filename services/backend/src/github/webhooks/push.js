@@ -1,15 +1,11 @@
 const fs = require('fs');
-const stream = require('stream');
-const {promisify} = require('util');
-const unzipper = require('unzipper');
-const {asyncUnzip} = require('utils/');
+const {asyncUnzip, logger, COMMENT_REGEX} = require('utils/');
 const globby = require('globby');
 const tempy = require('tempy');
-const del = require('del');
 const createAppClient = require('github/axiosWrapper');
 const graphqlRequestBody = require('utils/graphqlRequestBody');
 
-const pipeline = promisify(stream.pipeline);
+const fsPromises = fs.promises;
 
 const onPush = async ({payload}) => {
     const defaultBranch = payload.repository.default_branch;
@@ -40,16 +36,36 @@ const onPush = async ({payload}) => {
         }
     `);
 
-
     const urlResponse = await github.post('/graphql', getArchiveUrl);
     const downloadLink = urlResponse.data.data.node.defaultBranchRef.target.zipballUrl;
 
     const codeFolder = await downloadRepository(github, downloadLink);
-    console.log(codeFolder);
+
+    const filesToScan = await globby(`${codeFolder}/**/*`);
+    logger.info(`files to scan: ${filesToScan}`);
+
+    const comments = [];
+
+    // Create promises for each file to scan
+    const scanComments = filesToScan.map(async (file) => {
+        try {
+            logger.info(`Gathering comments from file: ${file}`);
+            const contents = await fsPromises.readFile(file, {encoding: 'utf-8'});
+            const fileComments = contents.match(COMMENT_REGEX) || [];
+            comments.push(...fileComments);
+        } catch (error) {
+            logger.error(`Error occurred while reading file ${file}: ${error.toString()}`);
+            throw error;
+        }
+    });
+
+    // Scan all files asynchronously, continue when all files are scanned.
+    await Promise.allSettled(scanComments);
+
+    logger.info(comments);
 
     // Delete temp folder
 };
-
 
 const downloadRepository = async (githubClient, downloadLink) => {
     const tempFolder = tempy.directory();
@@ -63,7 +79,7 @@ const downloadRepository = async (githubClient, downloadLink) => {
     await asyncUnzip(zipLocation, tempFolder);
 
     // Delete zip file
-    await del(zipLocation, {force: true});
+    await fsPromises.unlink(zipLocation);
 
     // The archive is unzipped as a single folder with a random name that contains the code
     const codeFolder = (await globby(`${tempFolder}/*`, {onlyDirectories: true}))[0];
