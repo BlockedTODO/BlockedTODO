@@ -1,5 +1,5 @@
 const {createAppClient} = require('github/utils/');
-const graphqlRequestBody = require('utils/graphqlRequestBody');
+const {logger, graphqlRequestBody} = require('utils/');
 
 const onIssueCommentCreated = async ({payload}) => {
     const github = await createAppClient(payload.installation.id);
@@ -18,9 +18,9 @@ const onIssueCommentCreated = async ({payload}) => {
 
     try {
         const response = await github.post('/graphql', createIssue);
-        console.dir(response);
-    } catch (e) {
-        console.dir(e.response);
+        logger.info(response);
+    } catch (error) {
+        logger.error(error.response);
     }
 };
 
