@@ -23,7 +23,7 @@ const onPush = async ({payload}) => {
     logger.info(referencedIssues);
 
     // Delete temp folder
-    await fsPromises.unlink(destination);
+    await fsPromises.rmdir(destination, {recursive: true});
 };
 
 module.exports = {onPush};
