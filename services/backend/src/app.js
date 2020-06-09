@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const apolloServer = require('graphql/apolloServer');
-const isAuthenticated = require('middleware/isAuthenticated');
+const {isAuthenticated, errorHandler} = require('middleware/');
 const githubWebhooks = require('github/webhooks');
 
 const app = express();
@@ -19,6 +19,8 @@ app.use(githubWebhooks.middleware);
 app.get('/', (req, res, next) => {
     res.send('BlockedTODO Backend Server');
 });
+
+app.use(errorHandler);
 
 /* This applyMiddleware call must be the last registered middleware
  * BlockedTODO: https://github.com/apollographql/apollo-server/milestone/16
