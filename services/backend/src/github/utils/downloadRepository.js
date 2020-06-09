@@ -31,11 +31,9 @@ const repositoryDownloadLink = async (githubClient, repositoryId) => {
 };
 
 // Download repository, return the folder containing the downloaded & extracted repository
-const downloadRepository = async (githubClient, repositoryId) => {
-    const tempFolder = tempy.directory();
-    const zipLocation = `${tempFolder}/repository.zip`;
-
+const downloadRepository = async (githubClient, repositoryId, destination) => {
     // Download zip file
+    const zipLocation = `${destination}/repository.zip`;
     const downloadLink = await repositoryDownloadLink(githubClient, repositoryId);
     const fileResponse = await githubClient.get(downloadLink, {responseType: 'stream'});
     try {
@@ -47,7 +45,7 @@ const downloadRepository = async (githubClient, repositoryId) => {
 
     // Extract files
     try {
-        await asyncUnzip(zipLocation, tempFolder);
+        await asyncUnzip(zipLocation, destination);
     } catch (error) {
         logger.error(`Error occurred during asyncUnzip: ${error}`);
         throw error;
@@ -57,7 +55,7 @@ const downloadRepository = async (githubClient, repositoryId) => {
     await fsPromises.unlink(zipLocation);
 
     // The archive is unzipped as a single folder with a random name that contains the code
-    const codeFolder = (await globby(`${tempFolder}/*`, {onlyDirectories: true}))[0];
+    const codeFolder = (await globby(`${destination}/*`, {onlyDirectories: true}))[0];
 
     return codeFolder;
 };

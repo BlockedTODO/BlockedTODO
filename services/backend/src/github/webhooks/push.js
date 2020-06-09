@@ -1,3 +1,5 @@
+const tempy = require('tempy');
+const {promises: fsPromises} = require('fs');
 const parseCodebase = require('parser');
 const logger = require('utils/logger');
 const {createAppClient, downloadRepository} = require('github/utils/');
@@ -14,12 +16,14 @@ const onPush = async ({payload}) => {
     const githubClient = await createAppClient(payload.installation.id);
     const repositoryId = payload.repository.node_id;
 
-    const codeFolder = await downloadRepository(githubClient, repositoryId);
+    const destination = tempy.directory();
+    const codeFolder = await downloadRepository(githubClient, repositoryId, destination);
 
     const referencedIssues = await parseCodebase(codeFolder);
     logger.info(referencedIssues);
 
     // Delete temp folder
+    await fsPromises.unlink(destination);
 };
 
 module.exports = {onPush};
