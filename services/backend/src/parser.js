@@ -12,6 +12,8 @@ const scanComment = (comment) => {
     return issueUrls;
 };
 
+/* Scans one file for comments that match the proper regexes
+ * returns an array of objects with the following structure{<url>: {filePath, comment}} */
 const scanOneFile = async (file) => {
     try {
         logger.info(`Gathering comments from file: ${file}`);
@@ -20,7 +22,10 @@ const scanOneFile = async (file) => {
 
         const fileIssueUrls = [];
         for (const comment of fileComments) {
-            fileIssueUrls.push(...scanComment(comment));
+            const commentIssueUrls = scanComment(comment);
+            commentIssueUrls.forEach((url) => {
+                fileIssueUrls.push({[url]: {filePath: file, comment: comment}});
+            });
         }
         return fileIssueUrls;
     } catch (error) {
@@ -29,17 +34,27 @@ const scanOneFile = async (file) => {
     }
 };
 
-/* Create a set of issue URLs from a list of settled promises (no duplicates) */
-const mergeScanResults = (results) => {
-    const issueUrls = new Set();
-    for (const {status, value} of results) {
-        if (status !== 'fulfilled' || !value) {
+/* Create a set of issue URLs from a list of settled promises (no duplicates),
+ * represented as an object with the following structure: {<url>: [{filePath, comment}]}*/
+const mergeScanResults = (results, codeFolder) => {
+    const referencedIssues = {};
+    for (const {status, value: urlList} of results) {
+        if (status !== 'fulfilled' || !urlList) {
             continue;
         }
 
-        value.forEach((url) => issueUrls.add(url));
+        for (const urlObject of urlList) {
+            for (const key of Object.keys(urlObject)) {
+                if (key in referencedIssues) {
+                    referencedIssues[key].push(urlObject[key]);
+                } else {
+                    referencedIssues[key] = [urlObject[key]];
+                }
+            }
+        }
     }
-    return issueUrls;
+
+    return referencedIssues;
 };
 
 /* Take in a path to a codebase, return a set of issue URLs */
@@ -53,7 +68,7 @@ const parseCodebase = async (codeFolder) => {
     // Scan all files asynchronously, continue when all files are scanned.
     const results = await Promise.allSettled(scanPromises);
 
-    return mergeScanResults(results)
+    return mergeScanResults(results, codeFolder)
 };
 
 module.exports = parseCodebase;
