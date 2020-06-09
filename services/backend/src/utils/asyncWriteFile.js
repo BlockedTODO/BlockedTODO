@@ -1,5 +1,5 @@
 const fs = require('fs');
-const logger = require('utils/logger');
+const logger = require('./logger');
 
 /* Promisify writing a file from a stream function so we can use it with async/await
  * As per https://github.com/nodejs/node/issues/28545, the fs promises API does not support this functionality. */

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const unzipper = require('unzipper');
-const logger = require('utils/logger');
+const logger = require('./logger');
 
 /* Promisify stream unzip function so we can use it with async/await */
 const asyncUnzip = (zipFile, outputPath) => {

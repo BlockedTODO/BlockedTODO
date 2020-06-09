@@ -1,18 +1,11 @@
 const {createLogger, format, transports} = require('winston');
+const stringifyObject = require('stringify-object');
 
 const environment = process.env.NODE_ENV || 'development';
 const logLevel = environment === 'test' ? 'warn' : 'info';
 
-// Properly display JavaScript sets with JSON.stringify with this replacer
-const setToJSON = (key, value) => {
-    if (typeof value === 'object' && value instanceof Set) {
-        return [...value];
-    }
-    return value;
-}
-
 const logFormat = format.printf((data) => {
-    return `${data.level}: ${JSON.stringify(data.message, setToJSON, 4)}`;
+    return `${data.level}: ${stringifyObject(data.message, {indent: '    '})}`;
 });
 
 // Configure the Winston logger. For the complete documentation see https://github.com/winstonjs/winston
