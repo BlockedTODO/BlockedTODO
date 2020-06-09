@@ -1,4 +1,4 @@
-const createAppClient = require('github/axiosWrapper');
+const {createAppClient} = require('github/utils/');
 const graphqlRequestBody = require('utils/graphqlRequestBody');
 
 const onIssueCommentCreated = async ({payload}) => {
