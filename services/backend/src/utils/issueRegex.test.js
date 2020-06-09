@@ -25,7 +25,7 @@ describe('Prefix regex', () => {
     });
 
     it('matches several prefixes in one comment', () => {
-        const code = `/* BlockedTODO: github.com\nBlockedTODO: github.com */`;
+        const code = '/* BlockedTODO: github.com\nBlockedTODO: github.com */';
         const results = Array.from(code.matchAll(ISSUE_REGEX));
 
         expect(results.length).toBe(2);
@@ -36,7 +36,7 @@ describe('Prefix regex', () => {
 
 describe('URL regex', () => {
     it('matches a basic comment (sanity test)', () => {
-        const issueUrl = 'https://github.com/BlockedTODO/BlockedTODO/issues/57'
+        const issueUrl = 'https://github.com/BlockedTODO/BlockedTODO/issues/57';
         const code = `// BlockedTODO: ${issueUrl}`;
         const results = Array.from(code.matchAll(ISSUE_REGEX));
 
@@ -45,7 +45,7 @@ describe('URL regex', () => {
     });
 
     it('matches a url without a protocol', () => {
-        const issueUrl = 'github.com/BlockedTODO/BlockedTODO/issues/57'
+        const issueUrl = 'github.com/BlockedTODO/BlockedTODO/issues/57';
         const code = `// BlockedTODO: ${issueUrl}`;
         const results = Array.from(code.matchAll(ISSUE_REGEX));
 
@@ -61,7 +61,7 @@ describe('URL regex', () => {
     });
 
     it('matches several issue urls in one comment', () => {
-        const issueUrl = 'https://github.com/BlockedTODO/BlockedTODO/issues/57'
+        const issueUrl = 'https://github.com/BlockedTODO/BlockedTODO/issues/57';
         const code = `/* BlockedTODO: ${issueUrl}\nBlockedTODO: ${issueUrl} */`;
         const results = Array.from(code.matchAll(ISSUE_REGEX));
 

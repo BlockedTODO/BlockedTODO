@@ -1,6 +1,5 @@
 const fs = require('fs');
 const globby = require('globby');
-const tempy = require('tempy');
 const {asyncUnzip, asyncWriteFile, logger} = require('utils/');
 const graphqlRequestBody = require('utils/graphqlRequestBody');
 
