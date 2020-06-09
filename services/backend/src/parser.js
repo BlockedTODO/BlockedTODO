@@ -5,7 +5,7 @@ const {logger, urlNormalizer, COMMENT_REGEX, ISSUE_REGEX} = require('utils/');
 /* Return array of issue urls that match ISSUE_REGEX in a single comment */
 const scanComment = (comment) => {
     const results = comment.matchAll(ISSUE_REGEX);
-    issueUrls = []
+    const issueUrls = [];
     for (const result of results) {
         issueUrls.push(urlNormalizer(result.groups.url));
     }
@@ -35,7 +35,7 @@ const scanOneFile = async (file) => {
 };
 
 /* Create a set of issue URLs from a list of settled promises (no duplicates),
- * represented as an object with the following structure: {<url>: [{filePath, comment}]}*/
+ * represented as an object with the following structure: {<url>: [{file, comment}]}*/
 const mergeScanResults = (results, codeFolder) => {
     const referencedIssues = {};
     for (const {status, value: urlList} of results) {
@@ -44,11 +44,15 @@ const mergeScanResults = (results, codeFolder) => {
         }
 
         for (const urlObject of urlList) {
-            for (const key of Object.keys(urlObject)) {
+            for (const [key, commentDetails] of Object.entries(urlObject)) {
+                const relativeCommentDetails = {
+                    file: commentDetails.filePath.replace(codeFolder, ''),
+                    comment: commentDetails.comment,
+                };
                 if (key in referencedIssues) {
-                    referencedIssues[key].push(urlObject[key]);
+                    referencedIssues[key].push(relativeCommentDetails);
                 } else {
-                    referencedIssues[key] = [urlObject[key]];
+                    referencedIssues[key] = [relativeCommentDetails];
                 }
             }
         }
@@ -68,7 +72,7 @@ const parseCodebase = async (codeFolder) => {
     // Scan all files asynchronously, continue when all files are scanned.
     const results = await Promise.allSettled(scanPromises);
 
-    return mergeScanResults(results, codeFolder)
+    return mergeScanResults(results, codeFolder);
 };
 
 module.exports = parseCodebase;

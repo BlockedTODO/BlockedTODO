@@ -9,7 +9,7 @@ const asyncUnzip = (zipFile, outputPath) => {
             .pipe(unzipper.Extract({path: outputPath}));
 
         stream.on('close', () => {
-            logger.info(`file unzipped: ${outputPath}`);
+            logger.info(`file unzipped into: ${outputPath}`);
             resolve(outputPath);
         });
     });
