@@ -1,4 +1,5 @@
 const parseCodebase = require('parser');
+const logger = require('utils/logger');
 const {createAppClient, downloadRepository} = require('github/utils/');
 
 const onPush = async ({payload}) => {
@@ -6,7 +7,7 @@ const onPush = async ({payload}) => {
     const branch = payload.ref.match(/refs\/heads\/(?<branchName>.*)/).groups.branchName;
 
     if (branch !== defaultBranch) {
-        console.log('Not on the default branch, skipping repo scan');
+        logger.info('Not on the default branch, skipping repo scan');
         return;
     }
 
@@ -16,7 +17,7 @@ const onPush = async ({payload}) => {
     const codeFolder = await downloadRepository(githubClient, repositoryId);
 
     const referencedIssues = await parseCodebase(codeFolder);
-    console.dir(referencedIssues);
+    logger.info(referencedIssues);
 
     // Delete temp folder
 };

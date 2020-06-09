@@ -1,3 +1,4 @@
+const logger = require('utils/logger');
 const {Webhooks} = require('@octokit/webhooks');
 const {onInstallationCreated, onInstallationDeleted,
     onInstallationRepositoriesAdded, onInstallationRepositoriesRemoved} = require('./installation');
@@ -10,7 +11,7 @@ const webhooks = new Webhooks({
 });
 
 webhooks.on('*', ({id, name, payload}) => {
-    console.log(name, 'event received');
+    logger.info(`${name} event received`);
 });
 
 webhooks.on('installation.created', onInstallationCreated);
