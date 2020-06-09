@@ -1,7 +1,7 @@
 const fs = require('fs');
 const globby = require('globby');
 const tempy = require('tempy');
-const {asyncUnzip, logger} = require('utils/');
+const {asyncUnzip, asyncWriteFile, logger} = require('utils/');
 const graphqlRequestBody = require('utils/graphqlRequestBody');
 
 const fsPromises = fs.promises;
@@ -38,13 +38,19 @@ const downloadRepository = async (githubClient, repositoryId) => {
     // Download zip file
     const downloadLink = await repositoryDownloadLink(githubClient, repositoryId);
     const fileResponse = await githubClient.get(downloadLink, {responseType: 'stream'});
-    fileResponse.data.pipe(fs.createWriteStream(zipLocation));
+    try {
+        await asyncWriteFile(fileResponse.data, zipLocation);
+    } catch (error) {
+        logger.error(`Error occurred during asyncWriteFile: ${error}`);
+        throw error;
+    }
 
     // Extract files
     try {
         await asyncUnzip(zipLocation, tempFolder);
     } catch (error) {
         logger.error(`Error occurred during asyncUnzip: ${error}`);
+        throw error;
     }
 
     // Delete zip file
