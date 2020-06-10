@@ -19,7 +19,8 @@ build:
 	docker-compose --file services/docker-compose.yaml build
 
 start:
-	docker-compose --file services/docker-compose.yaml up --renew-anon-volumes
+	- (smee --url ${SMEE_CHANNEL_URL} --path /github_event_handler --port 3001)&
+	- docker-compose --file services/docker-compose.yaml up --renew-anon-volumes
 
 stop:
 	docker stop `docker ps -aq`
