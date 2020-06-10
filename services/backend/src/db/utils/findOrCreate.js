@@ -1,6 +1,6 @@
 const {UniqueViolationError} = require('objection');
 
-const findOrCreate = async (Model, params) => {
+const findOrCreate = async (Model, params, afterCreate = () => {}) => {
     const instance = await Model.query().findOne(params);
 
     if (instance) { // instance is found, return it
@@ -8,7 +8,10 @@ const findOrCreate = async (Model, params) => {
     }
 
     try { // instance is not found, try to create it
-        return await Model.query().insert(params);
+        const createdInstance = await Model.query().insert(params);
+        await afterCreate(createdInstance);
+
+        return createdInstance;
     } catch (error) {
         if (error instanceof UniqueViolationError) { // in case there was a race condition
             return await Model.query().findOne(params);
