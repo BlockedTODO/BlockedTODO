@@ -5,6 +5,8 @@ exports.up = async (knex) => {
 
         table.index('repository_id');
         table.index('issue_id');
+
+        table.unique(['repository_id', 'issue_id']);
     });
 };
 
