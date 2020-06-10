@@ -4,6 +4,7 @@ const parseCodebase = require('parser');
 const logger = require('utils/logger');
 const {createAppClient, downloadRepository} = require('github/utils/');
 const {Issue, Repository} = require('db/models');
+const {findOrCreate} = require('db/utils/');
 
 const onPush = async ({payload}) => {
     const defaultBranch = payload.repository.default_branch;
@@ -32,6 +33,13 @@ const onPush = async ({payload}) => {
     // Refresh repository so that deleted issues are removed
     repository = await repository.$query().withGraphFetched('issues');
     logger.info(repository);
+
+    // Add missing issues to the database
+    Promise.allSettled(Object.keys(referencedIssues).map((issueUrl) => {
+        return findOrCreate(Issue, {url: issueUrl}, async (issue) => {
+            await issue.$relatedQuery('repositories').relate(repository);
+        });
+    }));
 
     // Delete temp folder
     await fsPromises.rmdir(destination, {recursive: true});
