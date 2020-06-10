@@ -9,8 +9,10 @@ const issueMutations = {
         const repository = await Repository.findByPk(issueInput.repositoryId);
 
         return await Issue.transaction(async (_tx) => {
-            const issue = await findOrCreate(Issue, issueInput);
-            await issue.$relatedQuery('repositories').relate(repository);
+            const issue = await findOrCreate(Issue, issueInput, async (issue) => {
+                await issue.$relatedQuery('repositories').relate(repository);
+            });
+
             return issue;
         });
     }

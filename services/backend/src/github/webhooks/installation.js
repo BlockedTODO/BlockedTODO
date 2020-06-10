@@ -6,10 +6,10 @@ const onInstallationCreated = async ({payload}) => {
     const user0 = await User.query().findOne({email: 'test0@test.com'});
 
     for (const {node_id: hostId} of payload.repositories) {
-        const repository = await findOrCreate(Repository, {host: 'github', hostId: hostId});
-
-        // In the future, users will be created when they "Sign in with GitHub" on the website
-        await repository.$relatedQuery('users').relate([user0]);
+        await findOrCreate(Repository, {host: 'github', hostId: hostId}, async (repository) => {
+            // In the future, users will be created when they "Sign in with GitHub" on the website
+            await repository.$relatedQuery('users').relate([user0]);
+        });
     }
 
     // Run initial scan
@@ -33,10 +33,10 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
     const user0 = await User.query().findOne({email: 'test0@test.com'});
 
     for (const {node_id: hostId} of payload.repositories_added) {
-        const repository = await findOrCreate(Repository, {host: 'github', hostId: hostId});
-
-        // In the future, users will be created when they "Sign in with GitHub" on the website
-        await repository.$relatedQuery('users').relate([user0]);
+        await findOrCreate(Repository, {host: 'github', hostId: hostId}, async (repository) => {
+            // In the future, users will be created when they "Sign in with GitHub" on the website
+            await repository.$relatedQuery('users').relate([user0]);
+        });
     }
 
     // Run initial scan
