@@ -21,7 +21,7 @@ const deleteSeedData = async (_knex) => {
     );
 
     await Repository.query().delete().whereIn(
-        'host_id',
+        'hostId',
         ['user1/repo0', 'user1/repo1', 'user2/repo2', 'user3/repo3', 'someuser/repo4', 'someuser/repo5']
     );
 

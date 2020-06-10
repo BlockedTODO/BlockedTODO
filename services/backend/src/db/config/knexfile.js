@@ -1,3 +1,5 @@
+const {knexSnakeCaseMappers} = require('objection');
+
 module.exports = {
     development: {
         client: 'postgresql',
@@ -17,7 +19,11 @@ module.exports = {
         },
         seeds: {
             directory: '../seeds'
-        }
+        },
+        /* Set postgres column names as snake_case, but return objects with camelCase
+         * Each query written in JavaScript must be written with camelCase.
+         * The conversion to snake_case will happen automatically. */
+        ...knexSnakeCaseMappers(),
     },
     test: {
         client: 'postgresql',
@@ -37,7 +43,11 @@ module.exports = {
         },
         seeds: {
             directory: '../seeds'
-        }
+        },
+        /* Set postgres column names as snake_case, but return objects with camelCase
+         * Each query written in JavaScript must be written with camelCase.
+         * The conversion to snake_case will happen automatically. */
+        ...knexSnakeCaseMappers(),
     },
     production: {
         client: 'postgresql',
@@ -57,6 +67,10 @@ module.exports = {
         },
         seeds: {
             directory: '../seeds'
-        }
+        },
+        /* Set postgres column names as snake_case, but return objects with camelCase
+         * Each query written in JavaScript must be written with camelCase.
+         * The conversion to snake_case will happen automatically. */
+        ...knexSnakeCaseMappers(),
     }
 };

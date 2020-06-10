@@ -34,8 +34,8 @@ class Repository extends BaseModel {
                     from: 'repositories.id',
                     to: 'issues.id',
                     through: {
-                        from: 'repository_issues.repository_id',
-                        to: 'repository_issues.issue_id',
+                        from: 'repositoryIssues.repositoryId',
+                        to: 'repositoryIssues.issueId',
                     },
                 }
             },
@@ -46,8 +46,8 @@ class Repository extends BaseModel {
                     from: 'repositories.id',
                     to: 'users.id',
                     through: {
-                        from: 'user_repositories.repository_id',
-                        to: 'user_repositories.user_id',
+                        from: 'user_repositories.repositoryId',
+                        to: 'user_repositories.userId',
                     },
                 }
             }

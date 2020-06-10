@@ -31,8 +31,8 @@ class Issue extends BaseModel {
                     from: 'issues.id',
                     to: 'repositories.id',
                     through: {
-                        from: 'repository_issues.issue_id',
-                        to: 'repository_issues.repository_id',
+                        from: 'repositoryIssues.issueId',
+                        to: 'repositoryIssues.repositoryId',
                     },
                 }
             }
