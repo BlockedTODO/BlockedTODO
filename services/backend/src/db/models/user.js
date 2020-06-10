@@ -37,8 +37,8 @@ class User extends mixins(BaseModel) {
                     from: 'users.id',
                     to: 'repositories.id',
                     through: {
-                        from: 'user_repositories.user_id',
-                        to: 'user_repositories.repository_id',
+                        from: 'userRepositories.userId',
+                        to: 'userRepositories.repositoryId',
                     },
                 }
             }

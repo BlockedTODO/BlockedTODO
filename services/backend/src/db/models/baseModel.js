@@ -1,4 +1,4 @@
-const {compose, Model, snakeCaseMappers} = require('objection');
+const {compose, Model} = require('objection');
 const guid = require('objection-guid');
 
 const mixins = compose(
@@ -6,11 +6,6 @@ const mixins = compose(
 );
 
 class BaseModel extends mixins(Model) {
-    static get columnNameMappers() {
-        // Set postgres column names as snake_case, but return objects with camelCase
-        return snakeCaseMappers();
-    }
-
     $beforeInsert(...args) {
         super.$beforeInsert(...args);
         const timestamp = new Date().toISOString();
