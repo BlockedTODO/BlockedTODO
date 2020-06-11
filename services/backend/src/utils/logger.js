@@ -5,7 +5,8 @@ const environment = process.env.NODE_ENV || 'development';
 const logLevel = environment === 'test' ? 'warn' : 'info';
 
 const logFormat = format.printf((data) => {
-    return `${data.level}: ${stringifyObject(data.message, {indent: '    '})}`;
+    const message = typeof data.message === 'string' ? data.message : stringifyObject(data.message, {indent: '    '});
+    return `${data.level}: ${message}`;
 });
 
 // Configure the Winston logger. For the complete documentation see https://github.com/winstonjs/winston

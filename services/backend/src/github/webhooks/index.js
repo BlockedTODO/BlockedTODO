@@ -14,6 +14,10 @@ webhooks.on('*', ({id, name, payload}) => {
     logger.info(`${name} event received`);
 });
 
+webhooks.on('error', (error) => {
+    logger.error(error.stack);
+});
+
 webhooks.on('installation.created', onInstallationCreated);
 webhooks.on('installation.deleted', onInstallationDeleted);
 webhooks.on('installation_repositories.added', onInstallationRepositoriesAdded);
