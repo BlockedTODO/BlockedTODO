@@ -1,9 +1,10 @@
 const tempy = require('tempy');
 const {promises: fsPromises} = require('fs');
+const {URL} = require('url');
 const parseCodebase = require('parser');
-const logger = require('utils/logger');
-const {createAppClient, downloadRepository} = require('github/utils/');
-const {Issue, Repository} = require('db/models');
+const {logger} = require('utils/');
+const {createAppClient, downloadRepository, getIssue} = require('github/utils/');
+const {Issue, Repository, Task} = require('db/models');
 const {findOrCreate} = require('db/utils/');
 
 const onPush = async ({payload}) => {
@@ -40,6 +41,34 @@ const onPush = async ({payload}) => {
             await issue.$relatedQuery('repositories').relate(repository);
         });
     }));
+
+    // Refresh repository so that created issues are included
+    repository = await repository.$query().withGraphFetched('issues');
+    logger.info(repository);
+
+    for (const issue of repository.issues) {
+        const issueUrl = new URL(issue.url);
+        if (issueUrl.hostname !== 'github.com') {
+            logger.info(`Unsupported issue host: ${issueUrl.hostname} for ${issue.url}`);
+            continue;
+        }
+
+        let task = await Task.query().findOne({repositoryId: repository.id, issueId: issue.id});
+        if (task) {
+            logger.info(`task ${task.id} already exists for issue ${issue.id} on repository ${repository.id}`);
+            continue;
+        }
+
+        const {title, closed} = await getIssue(githubClient, issue);
+        if (!closed) {
+            logger.info(`issue ${issue.id} is still open`);
+            continue;
+        }
+
+        // Create task (GitHub issue)
+
+        // Create task in database
+    }
 
     // Delete temp folder
     await fsPromises.rmdir(destination, {recursive: true});
