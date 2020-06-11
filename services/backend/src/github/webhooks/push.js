@@ -36,7 +36,7 @@ const onPush = async ({payload}) => {
     logger.info(repository);
 
     // Add missing issues to the database
-    Promise.allSettled(Object.keys(referencedIssues).map((issueUrl) => {
+    await Promise.allSettled(Object.keys(referencedIssues).map((issueUrl) => {
         return findOrCreate(Issue, {url: issueUrl}, async (issue) => {
             await issue.$relatedQuery('repositories').relate(repository);
         });
@@ -46,23 +46,24 @@ const onPush = async ({payload}) => {
     repository = await repository.$query().withGraphFetched('issues');
     logger.info(repository);
 
-    for (const issue of repository.issues) {
+    // Create tasks
+    await Promise.allSettled(repository.issues.map(async (issue) => {
         const issueUrl = new URL(issue.url);
         if (issueUrl.hostname !== 'github.com') {
             logger.info(`Unsupported issue host: ${issueUrl.hostname} for ${issue.url}`);
-            continue;
+            return;
         }
 
         let task = await Task.query().findOne({repositoryId: repository.id, issueId: issue.id});
         if (task) {
             logger.info(`task ${task.id} already exists for issue ${issue.id} on repository ${repository.id}`);
-            continue;
+            return;
         }
 
-        const {title, closed} = await getIssue(githubClient, issue);
+        const {closed} = await getIssue(githubClient, issue);
         if (!closed) {
             logger.info(`issue ${issue.id} is still open`);
-            continue;
+            return;
         }
 
         // Create task (GitHub issue)
@@ -75,7 +76,7 @@ const onPush = async ({payload}) => {
             repositoryId: repository.id,
             issueId: issue.id,
         });
-    }
+    }));
 
     // Delete temp folder
     await fsPromises.rmdir(destination, {recursive: true});
