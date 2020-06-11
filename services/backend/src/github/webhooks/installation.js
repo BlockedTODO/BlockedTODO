@@ -18,7 +18,7 @@ const onInstallationCreated = async ({payload}) => {
 const onInstallationDeleted = async ({payload}) => {
     /* BlockedTODO: https://github.community/t/116562
     * installation.deleted payload does not contain a repositories array.
-    * Add installation.deleted implementation when above topic has a response */
+    * Add installation.deleted implementation when the API is updated. */
     if (!payload.repositories) {
         return;
     }
