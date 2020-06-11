@@ -2,6 +2,11 @@ const {User, Repository, Issue, Task} = require('../models/');
 require('../'); // connect db
 
 const seed = async (knex) => {
+    const environment = process.env.NODE_ENV || 'development';
+    if (environment === 'production') {
+        return;
+    }
+
     const seededUsers = await User.query().whereIn(
         'email',
         ['test0@test.com', 'test1@test.com', 'test2@test.com', 'test3@test.com']
