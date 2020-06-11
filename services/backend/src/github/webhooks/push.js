@@ -3,7 +3,7 @@ const {promises: fsPromises} = require('fs');
 const {URL} = require('url');
 const parseCodebase = require('parser');
 const {logger} = require('utils/');
-const {createAppClient, downloadRepository, getIssue} = require('github/utils/');
+const {createAppClient, downloadRepository, getIssue, createIssue} = require('github/utils/');
 const {Issue, Repository, Task} = require('db/models');
 const {findOrCreate} = require('db/utils/');
 
@@ -66,6 +66,7 @@ const onPush = async ({payload}) => {
         }
 
         // Create task (GitHub issue)
+        const githubIssue = await createIssue(githubClient, issue, repository, referencedIssues[issue.url]);
 
         // Create task in database
     }

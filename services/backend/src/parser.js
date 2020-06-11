@@ -46,7 +46,7 @@ const mergeScanResults = (results, codeFolder) => {
         for (const urlObject of urlList) {
             for (const [key, commentDetails] of Object.entries(urlObject)) {
                 const relativeCommentDetails = {
-                    file: commentDetails.filePath.replace(codeFolder, ''),
+                    file: commentDetails.filePath.replace(`${codeFolder}/`, ''),
                     comment: commentDetails.comment,
                 };
                 if (key in referencedIssues) {
