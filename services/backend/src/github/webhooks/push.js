@@ -69,6 +69,12 @@ const onPush = async ({payload}) => {
         const githubIssue = await createIssue(githubClient, issue, repository, referencedIssues[issue.url]);
 
         // Create task in database
+        task = await Task.query().insert({
+            host: 'github',
+            hostId: githubIssue.id,
+            repositoryId: repository.id,
+            issueId: issue.id,
+        });
     }
 
     // Delete temp folder
