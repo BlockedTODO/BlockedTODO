@@ -10,8 +10,7 @@ const PATHNAME_REGEX = /\/(?<owner>.+)\/(?<name>.+)\/issues\/(?<issueNumber>\d+)
 const getIssue = async (githubClient, issue) => {
     // Parse issue URL
     const issueUrl = new URL(issue.url);
-    const match = [...issueUrl.pathname.matchAll(PATHNAME_REGEX)];
-    const {owner, name, issueNumber} = match[0].groups;
+    const {owner, name, issueNumber} = issueUrl.pathname.match(PATHNAME_REGEX).groups;
 
     const getIssue = graphqlRequestBody(`
         query {

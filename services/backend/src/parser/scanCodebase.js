@@ -5,13 +5,13 @@ const {deleteUnreferencedIssues, createMissingIssues} = require('./issueHandler'
 const {createMissingTasks} = require('./taskHandler');
 
 /* Perform a complete scan of a codebase. */
-const scanCodebase = async (codeFolder, repositoryId, githubClient) => {
+const scanCodebase = async (codeFolder, repositoryHostId, githubClient) => {
     console.dir(require('parser/'));
     const referencedIssues = await parseCodebase(codeFolder);
     logger.info(referencedIssues);
 
     // Get repository and log its related issues
-    let repository = await Repository.query().findOne({hostId: repositoryId}).withGraphFetched('issues');
+    let repository = await Repository.query().findOne({hostId: repositoryHostId}).withGraphFetched('issues');
     logger.info(repository);
 
     await deleteUnreferencedIssues(repository, referencedIssues);
