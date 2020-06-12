@@ -1,11 +1,8 @@
 const tempy = require('tempy');
 const {promises: fsPromises} = require('fs');
-const {URL} = require('url');
-const parseCodebase = require('parser');
 const {logger} = require('utils/');
-const {createAppClient, downloadRepository, getIssue, createIssue} = require('github/utils/');
-const {Issue, Repository, Task} = require('db/models');
-const {findOrCreate} = require('db/utils/');
+const {createAppClient, downloadRepository} = require('github/utils/');
+const {scanCodebase} = require('parser/');
 
 const onPush = async ({payload}) => {
     const defaultBranch = payload.repository.default_branch;
@@ -22,86 +19,10 @@ const onPush = async ({payload}) => {
     const destination = tempy.directory();
     const codeFolder = await downloadRepository(githubClient, repositoryId, destination);
 
-    const referencedIssues = await parseCodebase(codeFolder);
-    logger.info(referencedIssues);
-
-    // Get repository and log its related issues
-    let repository = await Repository.query().findOne({hostId: repositoryId}).withGraphFetched('issues');
-    logger.info(repository);
-
-    await deleteUnreferencedIssues(repository, referencedIssues);
-
-    // Refresh repository so that deleted issues are removed
-    repository = await repository.$query().withGraphFetched('issues');
-    logger.info(repository);
-
-    // Add missing issues to the database
-    await Promise.allSettled(Object.keys(referencedIssues).map((issueUrl) => {
-        return findOrCreate(Issue, {url: issueUrl}, async (issue) => {
-            await issue.$relatedQuery('repositories').relate(repository);
-        });
-    }));
-
-    // Refresh repository so that created issues are included
-    repository = await repository.$query().withGraphFetched('issues');
-    logger.info(repository);
-
-    // Create tasks
-    await Promise.allSettled(repository.issues.map(async (issue) => {
-        const issueUrl = new URL(issue.url);
-        if (issueUrl.hostname !== 'github.com') {
-            logger.info(`Unsupported issue host: ${issueUrl.hostname} for ${issue.url}`);
-            return;
-        }
-
-        let task = await Task.query().findOne({repositoryId: repository.id, issueId: issue.id});
-        if (task) {
-            logger.info(`task ${task.id} already exists for issue ${issue.id} on repository ${repository.id}`);
-            return;
-        }
-
-        const {closed} = await getIssue(githubClient, issue);
-        if (!closed) {
-            logger.info(`issue ${issue.id} is still open`);
-            return;
-        }
-
-        // Create task (GitHub issue)
-        const githubIssue = await createIssue(githubClient, issue, repository, referencedIssues[issue.url]);
-
-        // Create task in database
-        task = await Task.query().insert({
-            host: 'github',
-            hostId: githubIssue.id,
-            repositoryId: repository.id,
-            issueId: issue.id,
-        });
-    }));
+    await scanCodebase(codeFolder, repositoryId, githubClient);
 
     // Delete temp folder
     await fsPromises.rmdir(destination, {recursive: true});
-};
-
-/* Unrelate issues that are no longer mentioned in the codebase from the repository.
- * Delete the issue if the issue is no longer referenced by any repositories. */
-const deleteUnreferencedIssues = async (repository, referencedIssues) => {
-    const issues = await repository.$relatedQuery('issues');
-    for (let issue of issues) {
-        if (issue.url in referencedIssues) {
-            continue;
-        }
-
-        await Issue.transaction(async (_tx) => {
-            /* By making this code atomic via a transaction, we avoid race conditions that may
-             * occur between the check for issue.repositories.length and the issue deletion. */
-            await issue.$relatedQuery('repositories').unrelate().where({repositoryId: repository.id});
-
-            issue = await issue.$query().withGraphFetched('repositories');
-            if (issue.repositories.length === 0) {
-                await issue.$query().delete();
-            }
-        });
-    }
 };
 
 module.exports = {onPush};
