@@ -7,7 +7,7 @@ const {getIssue, createIssue} = require('github/utils/');
 const createMissingTasks = async (repository, githubClient, referencedIssues) => {
     const issues = await repository.$relatedQuery('issues');
 
-    return await Promise.allSettled(issues.map(async (issue) => {
+    const handleIssue = async (issue) => {
         const issueUrl = new URL(issue.url);
         if (issueUrl.hostname !== 'github.com') {
             logger.info(`Unsupported issue host: ${issueUrl.hostname} for ${issue.url}`);
@@ -38,7 +38,9 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
         });
 
         return task;
-    }));
-}
+    };
+
+    await Promise.allSettled(issues.map((issue) => handleIssue(issue)));
+};
 
 module.exports = {createMissingTasks};

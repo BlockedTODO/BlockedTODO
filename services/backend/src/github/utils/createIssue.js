@@ -19,7 +19,7 @@ const generateIssueBody = (issue, issueReferences) => {
     }
 
     return body;
-}
+};
 
 /* Create issue on GitHub (in the context of BlockedTODO: a task) */
 const createIssue = async (githubClient, issue, repository, issueReferences) => {
@@ -31,7 +31,7 @@ const createIssue = async (githubClient, issue, repository, issueReferences) => 
             createIssue(input:{
                 repositoryId: "${repository.hostId}",
                 title: "Unblocked TODO: ${issueUrl.pathname} was closed.",
-                body: "${body.replace(/\"/g, '\\"')}"
+                body: "${body.replace(/"/g, '\\"')}"
             }) {
                 issue {
                     id

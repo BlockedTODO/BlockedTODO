@@ -1,6 +1,8 @@
-const {Repository, User} = require('db/models');
+const {Repository} = require('db/models');
 const {findOrCreate} = require('db/utils/');
-const {createAppClient, downloadAndScan} = require('github/utils/');
+const {createAppClient, downloadRepository} = require('github/utils/');
+const {scanCodebase} = require('parser/');
+const {withTempDirectory} = require('utils/');
 
 const onInstallationCreated = async ({payload}) => {
     const githubClient = await createAppClient(payload.installation.id);
@@ -39,8 +41,12 @@ const onInstallationRepositoriesRemoved = async ({payload}) => {
 
 const createAndScanRepository = async (repositoryHostId, githubClient) => {
     await findOrCreate(Repository, {host: 'github', hostId: repositoryHostId});
-    await downloadAndScan(githubClient, repositoryHostId);
-}
+
+    await withTempDirectory(async (tempDir) => {
+        const codeFolder = await downloadRepository(githubClient, repositoryHostId, tempDir);
+        await scanCodebase(codeFolder, repositoryHostId, githubClient);
+    });
+};
 
 module.exports = {
     onInstallationCreated,

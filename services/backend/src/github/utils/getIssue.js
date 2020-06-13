@@ -12,7 +12,7 @@ const getIssue = async (githubClient, issue) => {
     const issueUrl = new URL(issue.url);
     const {owner, name, issueNumber} = issueUrl.pathname.match(PATHNAME_REGEX).groups;
 
-    const getIssue = graphqlRequestBody(`
+    const issueQuery = graphqlRequestBody(`
         query {
             repository(owner: "${owner}", name: "${name}") {
                 issue(number: ${issueNumber}) {
@@ -24,7 +24,7 @@ const getIssue = async (githubClient, issue) => {
     `);
 
     // Query issue
-    const response = await githubClient.post('/graphql', getIssue);
+    const response = await githubClient.post('/graphql', issueQuery);
     return response.data.data.repository.issue;
 };
 

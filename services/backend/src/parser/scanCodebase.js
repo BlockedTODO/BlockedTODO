@@ -28,6 +28,6 @@ const scanCodebase = async (codeFolder, repositoryHostId, githubClient) => {
 
     // Create tasks
     await createMissingTasks(repository, githubClient, referencedIssues);
-}
+};
 
 module.exports = scanCodebase;
