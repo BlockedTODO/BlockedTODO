@@ -1,5 +1,6 @@
-const {logger} = require('utils/');
-const {createAppClient, downloadAndScan} = require('github/utils/');
+const {logger, withTempDirectory} = require('utils/');
+const {createAppClient, downloadRepository} = require('github/utils/');
+const {scanCodebase} = require('parser/');
 
 const onPush = async ({payload}) => {
     const defaultBranch = payload.repository.default_branch;
@@ -13,7 +14,10 @@ const onPush = async ({payload}) => {
     const githubClient = await createAppClient(payload.installation.id);
     const repositoryHostId = payload.repository.node_id;
 
-    await downloadAndScan(githubClient, repositoryHostId);
+    await withTempDirectory(async (tempDir) => {
+        const codeFolder = await downloadRepository(githubClient, repositoryHostId, tempDir);
+        await scanCodebase(codeFolder, repositoryHostId, githubClient);
+    });
 };
 
 module.exports = {onPush};

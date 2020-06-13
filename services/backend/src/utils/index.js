@@ -6,6 +6,7 @@ const asyncWriteFile = require('./asyncWriteFile');
 const COMMENT_REGEX = require('./commentRegex');
 const ISSUE_REGEX = require('./issueRegex');
 const markdownHelpers = require('./markdownHelpers');
+const withTempDirectory = require('./withTempDirectory');
 
 module.exports = {
     logger,
@@ -16,4 +17,5 @@ module.exports = {
     COMMENT_REGEX,
     ISSUE_REGEX,
     markdownHelpers,
+    withTempDirectory,
 };
