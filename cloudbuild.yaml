@@ -19,6 +19,11 @@ steps:
       args: ["push", "gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME"]
       waitFor: ["Build frontend"]
 
+    - id: "Frontend tests"
+      name: "gcr.io/cloud-builders/docker"
+      args: ["run", "gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA", "npm", "run", "test"]
+      waitFor: ["Build frontend"]
+
     - id: "Promote backend image to latest"
       name: "gcr.io/cloud-builders/gcloud"
       entrypoint: "bash"

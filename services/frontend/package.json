@@ -40,7 +40,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.js'",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "CI=true react-scripts test",
+    "test:watch": "react-scripts test"
   },
   "version": "1.0.0"
 }
