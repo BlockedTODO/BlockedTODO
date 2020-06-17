@@ -3,7 +3,6 @@ version: '3.7'
 services:
     frontend:
         image: frontend
-        stdin_open: true
         depends_on:
             - database
             - backend
@@ -22,8 +21,6 @@ services:
 
     backend:
         image: backend
-        stdin_open: true
-        tty: true
         depends_on:
             - database
         build:
