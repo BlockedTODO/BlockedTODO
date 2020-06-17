@@ -26,6 +26,13 @@ steps:
 
     - id: "Backend tests"
       name: "gcr.io/cloud-builders/docker"
+      env:
+        - TOKEN_SECRET=testsecret
+        - DATABASE_NAME=$_DATABASE_NAME
+        - DATABASE_USER=$_DATABASE_USER
+        - DATABASE_PASSWORD=$_DATABASE_PASSWORD
+        - DATABASE_HOST=$_DATABASE_HOST
+        - DATABASE_PORT=$_DATABASE_PORT
       args: ["run", "gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA", "npm", "run", "test"]
       waitFor: ["Build backend"]
 

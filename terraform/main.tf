@@ -32,6 +32,11 @@ module "cicd" {
     remote_repo_owner = var.remote_repo_owner
     backend_service_name = var.backend_service_name
     frontend_service_name = var.frontend_service_name
+    database_name = var.database_name
+    database_user = var.database_user
+    database_password = var.database_password
+    database_host = var.database_host
+    database_port = var.database_port
 }
 
 module "storage" {
