@@ -57,13 +57,17 @@ k80s-start:
 	- make build
 	- kubectl apply -f kubernetes/.
 	- minikube service backend-service --url
+	- minikube service frontend-service --url
 
 k80s-stop:
 	- kubectl delete deployments --all
 	- kubectl delete pods --all
 	- kubectl delete replica
+	- kubectl delete service frontend-service
 	- kubectl delete service backend-service
 	- kubectl delete service postgres-service
+	- kubectl delete secret frontend-secret
 	- kubectl delete secret backend-secret
 	- kubectl delete secret postgres-secret
+	- kubectl delete configmap backend-configmap
 	- kubectl delete configmap postgres-configmap
