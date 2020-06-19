@@ -13,7 +13,7 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 ENV NODE_PATH=src
 
 # Expose ports in the container
-EXPOSE 3001
+EXPOSE 3000
 
 # Create service directory
 RUN mkdir -p /frontend
