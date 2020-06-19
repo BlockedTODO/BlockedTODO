@@ -1,3 +1,6 @@
+# Kubernetes
+kubernetes/*-secret.yaml
+
 # Terraform
 .terraform
 terraform/blockedtodo-account.json

@@ -1,6 +1,7 @@
 .PHONY: show-help build start stop down nuke \
 	inspect-backend attach-backend inspect-backend-database \
-	inspect-frontend attach-frontend
+	inspect-frontend attach-frontend \
+	k80s-stop k80s-start
 
 .DEFAULT_GOAL := show-help
 
@@ -14,6 +15,8 @@ show-help:
 	@echo '  inspect-SERVICE | Runs bash inside the running service container.'
 	@echo '  attach-SERVICE | attach local standard input, output, and error streams to the running service container.'
 	@echo '  inspect-SERVICE-database | Runs psql in the dev database of the service.'
+	@echo '  k80s-start | runs minikube, rebuilds images, applies kubernetes configuration.'
+	@echo '  k80s-stop | deletes running deployments, pods, services.'
 
 build:
 	docker-compose --file services/docker-compose.yaml build
@@ -47,3 +50,20 @@ inspect-frontend:
 
 attach-frontend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_frontend_1
+
+k80s-start:
+	- eval $(minikube -p minikube docker-env)
+	- minikube start
+	- make build
+	- kubectl apply -f kubernetes/.
+	- minikube service backend-service --url
+
+k80s-stop:
+	- kubectl delete deployments --all
+	- kubectl delete pods --all
+	- kubectl delete replica
+	- kubectl delete service backend-service
+	- kubectl delete service postgres-service
+	- kubectl delete secret backend-secret
+	- kubectl delete secret postgres-secret
+	- kubectl delete configmap postgres-configmap
