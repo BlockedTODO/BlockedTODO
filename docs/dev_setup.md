@@ -24,13 +24,15 @@ The locally running frontend also cannot communicate with the backend on a brows
 
 ## Local kubernetes setup
 1. Install `kubectl` and `minikube`
-2. Follow the instructions in all the `kubernetes/*-secret-template.yaml` files
+2. Run `minikube start`, `minikube addons enable ingress`. Then run `minikube ip` take note of this ip address.
+3. Append the following line to `/etc/hosts`: `<minikube ip> blockedtodo.com backend.blockedtodo.com app.blockedtodo.com` (replace `<minikube ip>` with the output from the command)
+4. Follow the instructions in all the `kubernetes/*-secret-template.yaml` files
 
 ## Running the cluster
 In a terminal at the root of the repository, run the following commands:
 
 1. `make k80s-start`
-2. Urls will be output to the terminal for each service accessible outside the cluster
+2. Visit blockedtodo.com
 3. `kubectl get all` to see the status of the cluster
 4. `minikube dashboard` to see more detailed information in a browser
 5. `kubectl get pods` followed by `kubectl exec --stdin --tty <pod name> -- /bin/bash` to open up a terminal in a running container
@@ -38,3 +40,4 @@ In a terminal at the root of the repository, run the following commands:
 ## Stop the cluster
 
 1. `make k80s-stop`
+2. Comment out the line for blockedtodo addresses in `/etc/hosts` if you want to access the live production servers on the browser.

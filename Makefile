@@ -56,8 +56,6 @@ k80s-start:
 	- minikube start
 	- make build
 	- kubectl apply -f kubernetes/.
-	- minikube service backend-service --url
-	- minikube service frontend-service --url
 
 k80s-stop:
 	- kubectl delete deployments --all

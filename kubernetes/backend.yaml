@@ -5,7 +5,7 @@ metadata:
     labels:
         app: backend
 spec:
-    replicas: 2
+    replicas: 1
     selector:
         matchLabels:
             app: backend
@@ -73,9 +73,7 @@ metadata:
 spec:
     selector:
         app: backend
-    type: LoadBalancer # Make it publicly accessible at the nodePort (give it an external IP address)
     ports:
-      - port: 3001
+      - port: 80
         targetPort: 3001
-        nodePort: 31234 # nodePort must be between 30000 & 32767
         protocol: TCP

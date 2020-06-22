@@ -5,7 +5,7 @@ metadata:
     labels:
         app: frontend
 spec:
-    replicas: 2
+    replicas: 1
     selector:
         matchLabels:
             app: frontend
@@ -22,17 +22,11 @@ spec:
                   - containerPort: 3000
                 env:
                   - name: REACT_APP_BACKEND_PROTOCOL
-                    valueFrom:
-                        secretKeyRef:
-                            name: frontend-secret
-                            key: backend_protocol
+                    value: http
                   - name: REACT_APP_BACKEND_HOST
-                    valueFrom:
-                        configMapKeyRef:
-                            name: backend-configmap
-                            key: backend_host
+                    value: backend.blockedtodo.com
                   - name: REACT_APP_BACKEND_PORT
-                    value: '31234'
+                    value: '80'
 
 ---
 
@@ -43,9 +37,7 @@ metadata:
 spec:
     selector:
         app: frontend
-    type: LoadBalancer # Make it publicly accessible at the nodePort (give it an external IP address)
     ports:
-      - port: 3000
+      - port: 80
         targetPort: 3000
-        nodePort: 31235 # nodePort must be between 30000 & 32767
         protocol: TCP
