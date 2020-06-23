@@ -9,3 +9,11 @@ output "db_connection_name" {
 output "db_public_ip_address" {
     value = module.storage.public_ip_address
 }
+
+output "cluster_name" {
+    value = module.cluster.cluster_name
+}
+
+output "cluster_location" {
+    value = module.cluster.cluster_location
+}
