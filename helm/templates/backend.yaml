@@ -1,0 +1,61 @@
+{{$label := .Values.backend.label}}
+{{$secrets := .Values.backend.secrets}}
+{{$database_secrets := .Values.database.secrets}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{$label}}-deployment
+    labels:
+        app: {{$label}}
+    namespace: {{.Values.namespace}}
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: {{$label}}
+    template:
+        metadata:
+            labels:
+                app: {{$label}}
+        spec:
+            containers:
+              - name: backend
+                image: {{.Values.backend.image}}
+                imagePullPolicy: IfNotPresent
+                ports:
+                  - containerPort: 3001
+                env:
+                  - name: TOKEN_SECRET
+                    value: {{$secrets.token_secret}}
+                  - name: GITHUB_WEBHOOKS_SECRET
+                    value: {{$secrets.github_webhooks_secret}}
+                  - name: GITHUB_APP_ID
+                    value: {{$secrets.github_app_id}}
+                  - name: GITHUB_APP_PRIVATE_KEY
+                    value: {{$secrets.github_app_private_key}}
+                  - name: DATABASE_NAME
+                    value: {{$database_secrets.database_name}}
+                  - name: DATABASE_USER
+                    value: {{$database_secrets.database_user}}
+                  - name: DATABASE_PASSWORD
+                    value: {{$database_secrets.database_password}}
+                  - name: DATABASE_HOST
+                    value: {{.Values.database.label}}-service
+                  - name: DATABASE_PORT
+                    value: {{$database_secrets.database_port | squote}}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: {{$label}}-service
+    namespace: {{.Values.namespace}}
+spec:
+    selector:
+        app: {{$label}}
+    ports:
+      - port: 80
+        targetPort: 3001
+        protocol: TCP

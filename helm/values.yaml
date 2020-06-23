@@ -1,0 +1,26 @@
+# Default values for blockedtodo.
+# In a production environment, many of these values are overwritten.
+# ie. either with the --set key1=val1,key2=val2 option or --values custom-values.yaml option
+
+namespace: 'blockedtodo'
+
+database:
+    label: 'postgres'
+    image: 'postgres:12.2'
+    secrets:
+        database_port: '5432'
+        database_name: 'app-database'
+        database_user: 'app-database-user'
+        database_password: 'app-database-password'
+
+backend:
+    label: 'backend'
+    image: 'backend:latest'
+    secrets:
+        token_secret: 'jwtsecret'
+        github_webhooks_secret: 'overwrite'
+        github_app_id: 'overwrite'
+        github_app_private_key: 'overwrite'
+
+frontend:
+    label: 'frontend'

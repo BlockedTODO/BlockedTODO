@@ -19,7 +19,7 @@ show-help:
 	@echo '  k80s-stop | deletes running deployments, pods, services.'
 
 build:
-	docker-compose --file services/docker-compose.yaml build
+	docker-compose --file services/docker-compose.yaml build --parallel
 
 start:
 	- (smee --url ${SMEE_CHANNEL_URL} --path /github_event_handler --port 3001 > /dev/null 2>&1)&
@@ -55,17 +55,8 @@ k80s-start:
 	- eval $(minikube -p minikube docker-env)
 	- minikube start
 	- make build
-	- kubectl apply -f kubernetes/.
+	- helm install blockedtodo ./helm
 
 k80s-stop:
-	- kubectl delete deployments --all
-	- kubectl delete pods --all
-	- kubectl delete replica
-	- kubectl delete service frontend-service
-	- kubectl delete service backend-service
-	- kubectl delete service postgres-service
-	- kubectl delete secret frontend-secret
-	- kubectl delete secret backend-secret
-	- kubectl delete secret postgres-secret
-	- kubectl delete configmap backend-configmap
-	- kubectl delete configmap postgres-configmap
+	- helm uninstall blockedtodo
+	- kubectl delete namespace blockedtodo

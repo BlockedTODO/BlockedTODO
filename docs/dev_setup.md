@@ -23,7 +23,7 @@ This means that you need to rebuild an image and restart the running containers 
 The locally running frontend also cannot communicate with the backend on a browser at the moment.
 
 ## Local kubernetes setup
-1. Install `kubectl` and `minikube`
+1. Install `kubectl`, `minikube`, and `helm`
 2. Run `minikube start`, `minikube addons enable ingress`. Then run `minikube ip` take note of this ip address.
 3. Append the following line to `/etc/hosts`: `<minikube ip> blockedtodo.com backend.blockedtodo.com app.blockedtodo.com` (replace `<minikube ip>` with the output from the command)
 4. Follow the instructions in all the `kubernetes/*-secret-template.yaml` files
@@ -31,11 +31,12 @@ The locally running frontend also cannot communicate with the backend on a brows
 ## Running the cluster
 In a terminal at the root of the repository, run the following commands:
 
-1. `make k80s-start`
-2. Visit blockedtodo.com
-3. `kubectl get all` to see the status of the cluster
-4. `minikube dashboard` to see more detailed information in a browser
-5. `kubectl get pods` followed by `kubectl exec --stdin --tty <pod name> -- /bin/bash` to open up a terminal in a running container
+1. `eval $(minikube -p minikube docker-env)`
+2. `make k80s-start`
+3. Visit blockedtodo.com
+4. `kubectl get all` to see the status of the cluster
+5. `minikube dashboard` to see more detailed information in a browser
+6. `kubectl get pods -n blockedtodo` followed by `kubectl -n blockedtodo exec --stdin --tty <pod name> -- /bin/bash` to open up a terminal in a running container
 
 ## Stop the cluster
 
