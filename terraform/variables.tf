@@ -23,7 +23,7 @@ variable "gcp_region" {
 
 variable "gcp_zone" {
     description = "A zone is an isolated location within a region. Each region has 3 or more zones labeled a,b,c..."
-    default = "us-central-1-c"
+    default = "us-central1-c"
 }
 
 # REPOSITORY
@@ -34,6 +34,20 @@ variable "remote_repo_owner" {
 
 variable "remote_repo_name" {
     default = "BlockedTODO"
+}
+
+# KUBERNETES CLUSTER
+
+variable "cluster_initial_node_count" {
+    default = "2"
+}
+
+variable "cluster_machine_type" {
+    default = "n1-standard-1"
+}
+
+variable "cluster_disk_size" {
+    default = "30"
 }
 
 # FRONTEND SERVICE
