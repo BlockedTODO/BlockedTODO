@@ -1,0 +1,47 @@
+{{$label := .Values.database.label}}
+{{$secrets := .Values.database.secrets}}
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{$label}}-deployment
+    labels:
+        app: {{$label}}
+    namespace: {{.Values.namespace}}
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: {{$label}}
+    template:
+        metadata:
+            labels:
+                app: {{$label}}
+        spec:
+            containers:
+              - name: postgres
+                image: {{.Values.database.image}}
+                ports:
+                  - containerPort: 5432
+                env:
+                  - name: POSTGRES_DB
+                    value: {{$secrets.database_name}}
+                  - name: POSTGRES_USER
+                    value: {{$secrets.database_user}}
+                  - name: POSTGRES_PASSWORD
+                    value: {{$secrets.database_password}}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: {{$label}}-service
+    namespace: {{.Values.namespace}}
+spec:
+    selector:
+        app: {{$label}}
+    ports:
+      - port: {{$secrets.database_port}}
+        targetPort: 5432
+        protocol: TCP
