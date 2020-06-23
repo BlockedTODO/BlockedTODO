@@ -49,3 +49,13 @@ module "storage" {
     project_name = var.project_name
     gcp_region = var.gcp_region
 }
+
+module "cluster" {
+    source = "./modules/cluster"
+
+    gcp_zone = var.gcp_zone
+    cluster_name = "${var.project_name}-cluster"
+    initial_node_count = var.cluster_initial_node_count
+    node_machine_type = var.cluster_machine_type
+    node_disk_size = var.cluster_disk_size
+}
