@@ -41,6 +41,8 @@ module "cicd" {
     frontend_service_name = var.frontend_service_name
 
     production_secret_id = module.secrets.production_secret_id
+    cluster_name = module.cluster.cluster_name
+    cluster_location = module.cluster.cluster_location
 }
 
 module "storage" {
