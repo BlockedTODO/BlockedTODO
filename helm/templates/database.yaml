@@ -44,4 +44,3 @@ spec:
     ports:
       - port: {{$secrets.database_port}}
         targetPort: 5432
-        protocol: TCP

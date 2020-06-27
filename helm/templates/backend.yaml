@@ -53,11 +53,10 @@ metadata:
     name: {{$label}}-service
     namespace: {{.Values.namespace}}
 spec:
+    type: LoadBalancer
+    loadBalancerIP: {{.Values.backend.host}}
     selector:
         app: {{$label}}
-    type: NodePort
     ports:
       - port: {{.Values.backend.port}}
-        nodePort: {{.Values.backend.port}}
         targetPort: 3001
-        protocol: TCP

@@ -41,11 +41,10 @@ metadata:
     name: {{$label}}-service
     namespace: {{.Values.namespace}}
 spec:
+    type: LoadBalancer
+    loadBalancerIP: {{.Values.frontend.host}}
     selector:
         app: {{$label}}
-    type: NodePort
     ports:
       - port: {{.Values.frontend.port}}
-        nodePort: {{.Values.frontend.port}}
-        targetPort: 3000
-        protocol: TCP
+        targetPort: 3001
