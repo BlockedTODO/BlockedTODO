@@ -17,3 +17,7 @@ variable "backend_service_name" {
 variable "frontend_service_name" {
     type = string
 }
+
+variable "production_secret_id" {
+    type = string
+}

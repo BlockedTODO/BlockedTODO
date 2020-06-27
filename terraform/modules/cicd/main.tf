@@ -18,5 +18,6 @@ resource "google_cloudbuild_trigger" "filename-trigger" {
     substitutions = {
         _BACKEND_SERVICE_NAME = var.backend_service_name
         _FRONTEND_SERVICE_NAME = var.frontend_service_name
+        _PRODUCTION_SECRET_ID = var.production_secret_id
     }
 }
