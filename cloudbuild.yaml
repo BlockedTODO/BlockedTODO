@@ -69,15 +69,15 @@ steps:
 
     # TODO: make this step only run on pushes to master
     # TODO: deploy latest instead of short_sha
-    - id: 'Deploy backend image to GKE'
-      name: 'gcr.io/cloud-builders/gke-deploy'
-      args:
-      - run
-      - --filename=kubernetes/
-      - --image=gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA
-      - --location=$_CLUSTER_LOCATION
-      - --cluster=$_CLUSTER_NAME
-
+    # Note: this requires the helm community builder to be setup.
+    # See this guide: https://cloud.google.com/cloud-build/docs/configuring-builds/use-community-and-custom-builders
+    - id: 'Deploy images to GKE cluster'
+      name: 'gcr.io/$PROJECT_ID/helm'
+      args: ['upgrade', '--install', 'blockedtodo', './helm']
+      env:
+        - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_LOCATION'
+        - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+        - 'TILLERLESS=true'
 
 substitutions: # default values
     _BACKEND_SERVICE_NAME: ''

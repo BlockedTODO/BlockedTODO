@@ -43,7 +43,9 @@ metadata:
 spec:
     selector:
         app: {{$label}}
+    type: NodePort
     ports:
       - port: {{.Values.frontend.port}}
+        nodePort: {{.Values.frontend.port}}
         targetPort: 3000
         protocol: TCP
