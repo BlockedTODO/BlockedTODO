@@ -59,13 +59,13 @@ steps:
     - id: 'Fetch production secrets'
       name: 'gcr.io/cloud-builders/gcloud'
       entrypoint: 'bash'
-      args: ['-c', 'gcloud secrets versions access latest --secret=$_PRODUCTION_SECRET_ID > production-values.txt']
+      args: ['-c', 'gcloud secrets versions access latest --secret=$_PRODUCTION_SECRET_ID > production-values.yaml']
 
     # TODO: remove
     - id: 'Read production secrets'
       name: 'gcr.io/cloud-builders/docker'
       entrypoint: 'bash'
-      args: ['-c', 'cat production-values.txt']
+      args: ['-c', 'cat production-values.yaml']
 
     # TODO: make this step only run on pushes to master
     # TODO: deploy latest instead of short_sha
@@ -73,7 +73,7 @@ steps:
     # See this guide: https://cloud.google.com/cloud-build/docs/configuring-builds/use-community-and-custom-builders
     - id: 'Deploy images to GKE cluster'
       name: 'gcr.io/$PROJECT_ID/helm'
-      args: ['upgrade', '--install', 'blockedtodo', './helm']
+      args: ['upgrade', '--install', '--values', 'production-values.yaml', 'blockedtodo', './helm']
       env:
         - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_LOCATION'
         - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
