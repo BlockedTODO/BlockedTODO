@@ -55,7 +55,7 @@ k80s-start:
 	- eval $(minikube -p minikube docker-env)
 	- minikube start
 	- make build
-	- helm install blockedtodo ./helm
+	- helm upgrade --install blockedtodo ./helm
 
 k80s-stop:
 	- helm uninstall blockedtodo
