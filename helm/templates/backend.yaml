@@ -56,6 +56,6 @@ spec:
     selector:
         app: {{$label}}
     ports:
-      - port: 80
+      - port: {{.Values.backend.port}}
         targetPort: 3001
         protocol: TCP

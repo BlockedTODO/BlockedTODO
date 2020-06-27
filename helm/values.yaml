@@ -4,6 +4,8 @@
 
 namespace: 'blockedtodo'
 
+landing_page: 'blockedtodo.local'
+
 database:
     label: 'postgres'
     image: 'postgres:12.2'
@@ -16,6 +18,9 @@ database:
 backend:
     label: 'backend'
     image: 'backend:latest'
+    protocol: 'http'
+    host: 'backend.blockedtodo.local'
+    port: '80'
     secrets:
         token_secret: 'jwtsecret'
         github_webhooks_secret: 'overwrite'
@@ -24,3 +29,6 @@ backend:
 
 frontend:
     label: 'frontend'
+    image: 'frontend:latest'
+    host: 'app.blockedtodo.local'
+    port: '80'
