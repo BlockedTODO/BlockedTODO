@@ -24,6 +24,13 @@ module "registry" {
     gcp_project_id = var.gcp_project_id
 }
 
+module "secrets" {
+    source = "./modules/secrets"
+
+    production_secret_id = "${var.project_name}-production-values"
+    gcp_region = var.gcp_region
+}
+
 module "cicd" {
     source = "./modules/cicd"
 
