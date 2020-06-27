@@ -25,7 +25,7 @@ The locally running frontend also cannot communicate with the backend on a brows
 ## Local kubernetes setup
 1. Install `kubectl`, `minikube`, and `helm`
 2. Run `minikube start`, `minikube addons enable ingress`. Then run `minikube ip` take note of this ip address.
-3. Append the following line to `/etc/hosts`: `<minikube ip> blockedtodo.com backend.blockedtodo.com app.blockedtodo.com` (replace `<minikube ip>` with the output from the command)
+3. Append the following line to `/etc/hosts`: `<minikube ip> blockedtodo.local backend.blockedtodo.local app.blockedtodo.local` (replace `<minikube ip>` with the output from the command)
 4. Follow the instructions in all the `kubernetes/*-secret-template.yaml` files
 
 ## Running the cluster
@@ -33,10 +33,13 @@ In a terminal at the root of the repository, run the following commands:
 
 1. `eval $(minikube -p minikube docker-env)`
 2. `make k80s-start`
-3. Visit blockedtodo.com
-4. `kubectl get all` to see the status of the cluster
-5. `minikube dashboard` to see more detailed information in a browser
-6. `kubectl get pods -n blockedtodo` followed by `kubectl -n blockedtodo exec --stdin --tty <pod name> -- /bin/bash` to open up a terminal in a running container
+3. Visit [blockedtodo.local](http://blockedtodo.local)
+
+**Other useful commands**
+
+- `kubectl get all` to see the status of the cluster
+- `minikube dashboard` to see more detailed information in a browser
+- `kubectl get pods -n blockedtodo` followed by `kubectl -n blockedtodo exec --stdin --tty <pod name> -- /bin/bash` to open up a terminal in a running container
 
 ## Stop the cluster
 

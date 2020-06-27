@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: blockedtodo-ingress
+    namespace: {{.Values.namespace}}
+spec:
+    rules:
+      - host: {{.Values.backend.host}}
+        http:
+            paths:
+            - backend:
+                  serviceName: backend-service
+                  servicePort: {{.Values.backend.port}}
+
+      - host: {{.Values.frontend.host}}
+        http:
+            paths:
+            - backend:
+                  serviceName: frontend-service
+                  servicePort: {{.Values.frontend.port}}
+
+      - host: {{.Values.landing_page}}
+        http:
+            paths:
+            - backend:
+                  serviceName: frontend-service
+                  servicePort: {{.Values.frontend.port}}
