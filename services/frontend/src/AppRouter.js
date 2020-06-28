@@ -12,7 +12,7 @@ const AppRouter = () => (
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
             <PrivateRoute path='/repositories' component={Repositories} />
-            <Redirect from='/' to='/repositories' exact={true} />
+            <RootRoute />
             <Redirect from='*' to='/404' />
         </Switch>
     </Router>
@@ -21,6 +21,28 @@ const AppRouter = () => (
 const LoginRedirect = ({location}) => (
     <Redirect to={{pathname: '/login', state: {from: location}}} />
 );
+
+const RootRoute = ({location}) => {
+    /* To avoid issues with readinessProbes in GKE, the root path shouldn't redirect on regular (unauthenticated) requests
+     * so we just show the login page on requests to '/' unless the user is authenticated.
+     * Details: https://cloud.google.com/kubernetes-engine/docs/concepts/ingress#limitations */
+    const client = useApolloClient();
+    const isLoggedIn = client.cache.data.data.ROOT_QUERY?.authentication_token;
+
+    return (
+        <Route
+            path='/'
+            render={() => (
+                isLoggedIn ? (
+                    <Redirect to={{pathname: '/repositories', state: {from: location}}} />
+                ) : (
+                    <Login />
+                )
+            )}
+            exact={true}
+        />
+    );
+};
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const client = useApolloClient();
