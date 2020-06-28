@@ -9,6 +9,8 @@ resource "google_container_cluster" "primary" {
     remove_default_node_pool = true
     initial_node_count = 1
 
+    min_master_version = "1.16"
+
     monitoring_service = "monitoring.googleapis.com/kubernetes"
     logging_service = "logging.googleapis.com/kubernetes"
 }
@@ -24,6 +26,10 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     autoscaling {
         min_node_count = var.min_node_count
         max_node_count = var.max_node_count
+    }
+
+    management {
+        auto_upgrade = true
     }
 
     node_config {

@@ -68,12 +68,23 @@ steps:
       args: ['-c', 'cat production-values.yaml']
 
     # TODO: make this step only run on pushes to master
-    # TODO: deploy latest instead of short_sha
     # Note: this requires the helm community builder to be setup.
     # See this guide: https://cloud.google.com/cloud-build/docs/configuring-builds/use-community-and-custom-builders
+    # BlockedTODO: https://github.com/helm/helm/issues/5696
+    # Remove backend.image and frontend.image overrides if @schollii's suggestion is approved
     - id: 'Deploy images to GKE cluster'
       name: 'gcr.io/$PROJECT_ID/helm'
-      args: ['upgrade', '--install', '--values', 'production-values.yaml', 'blockedtodo', './helm']
+      args:
+        - 'upgrade'
+        - '--install'
+        - '--values'
+        - 'production-values.yaml'
+        - '--set'
+        - 'backend.image=gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA'
+        - '--set'
+        - 'frontend.image=gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA'
+        - 'blockedtodo'
+        - './helm'
       env:
         - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_LOCATION'
         - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'

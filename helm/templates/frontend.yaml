@@ -47,4 +47,4 @@ spec:
         app: {{$label}}
     ports:
       - port: {{.Values.frontend.port}}
-        targetPort: 3001
+        targetPort: 3000

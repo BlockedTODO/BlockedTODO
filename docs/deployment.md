@@ -13,4 +13,4 @@
 7. Add the following [cloud build service account roles](https://console.cloud.google.com/cloud-build/settings/service-account): `Kubernetes Engine Developer`, `Secret Manager Secret Accessor`.
 8. Specify production values on [secret manager](https://console.cloud.google.com/security/secret-manager). See [helm/values.yaml](../helm/values.yaml) for details.
 9. Create the helm community builder from the cloud console (see comment in [cloudbuild.yaml](../cloudbuild.yaml))
-10. Read error messages to know which APIs to enable and for other potentially missing IAM permissions.
+10. Read error messages to know which APIs to enable, quota increases, and for other potentially missing IAM permissions.
