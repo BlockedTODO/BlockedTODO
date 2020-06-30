@@ -4,6 +4,10 @@ variable "project_name" {
     default = "blockedtodo"
 }
 
+variable "domain" {
+    default = "blockedtodo.com"
+}
+
 # GCP PROJECT
 
 variable "gcp_project_id" {

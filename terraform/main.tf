@@ -52,6 +52,14 @@ module "storage" {
     gcp_region = var.gcp_region
 }
 
+module "dns" {
+    source = "./modules/dns"
+
+    dns_zone_name = var.project_name
+    domain = var.domain
+    ip_name = "${var.project_name}-ip"
+}
+
 module "cluster" {
     source = "./modules/cluster"
 
