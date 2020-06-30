@@ -54,7 +54,7 @@ metadata:
     namespace: {{.Values.namespace}}
 spec:
     type: LoadBalancer
-    loadBalancerIP: {{.Values.backend.host}}
+    loadBalancerIP: {{.Values.loadBalancerIp}}
     selector:
         app: {{$label}}
     ports:
