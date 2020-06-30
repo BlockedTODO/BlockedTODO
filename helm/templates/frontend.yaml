@@ -41,8 +41,7 @@ metadata:
     name: {{$label}}-service
     namespace: {{.Values.namespace}}
 spec:
-    type: LoadBalancer
-    loadBalancerIP: {{.Values.loadBalancerIp}}
+    type: NodePort
     selector:
         app: {{$label}}
     ports:
