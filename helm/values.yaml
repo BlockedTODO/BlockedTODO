@@ -6,6 +6,8 @@ namespace: 'blockedtodo'
 
 landing_page: 'blockedtodo.local'
 
+loadBalancerIp: 'localhost' # Value for blockedtodo-ip on https://console.cloud.google.com/networking/addresses/list
+
 database:
     label: 'postgres'
     image: 'postgres:12.2'
