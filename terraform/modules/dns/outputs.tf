@@ -1,5 +1,5 @@
 output "ip_address" {
-    value = google_compute_address.primary.address
+    value = google_compute_global_address.primary.address
 }
 
 output "dns_name_servers" {
