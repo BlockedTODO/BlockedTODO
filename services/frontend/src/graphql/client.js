@@ -2,13 +2,10 @@ import {ApolloClient} from 'apollo-client';
 import {createHttpLink} from 'apollo-link-http';
 import {setContext} from 'apollo-link-context';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-
-const protocol = process.env.REACT_APP_BACKEND_PROTOCOL;
-const host = process.env.REACT_APP_BACKEND_HOST;
-const port = process.env.REACT_APP_BACKEND_PORT;
+import {BACKEND_URL} from 'utils/environment';
 
 const httpLink = createHttpLink({
-    uri: `${protocol}://${host}:${port}/graphql`,
+    uri: `${BACKEND_URL}/graphql`,
 });
 
 const authenticationLink = setContext((_, {headers}) => {
