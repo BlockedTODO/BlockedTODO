@@ -21,7 +21,9 @@
     "apollo-boost": "^0.4.9",
     "apollo-link-context": "^1.0.20",
     "classnames": "^2.2.6",
+    "express": "^4.17.1",
     "graphql": "^15.2.0",
+    "morgan": "^1.10.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -40,6 +42,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.js'",
     "start": "react-scripts start",
+    "start:prod": "node server/",
     "test": "CI=true react-scripts test",
     "test:watch": "react-scripts test"
   },
