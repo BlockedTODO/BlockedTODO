@@ -23,6 +23,10 @@ spec:
                 image: {{.Values.database.image}}
                 ports:
                   - containerPort: 5432
+                volumeMounts:
+                  - name: {{$label}}-pod-volume
+                    mountPath: '/var/lib/postgresql/data'
+                    subPath: postgres
                 env:
                   - name: POSTGRES_DB
                     value: {{$secrets.database_name}}
@@ -30,6 +34,10 @@ spec:
                     value: {{$secrets.database_user}}
                   - name: POSTGRES_PASSWORD
                     value: {{$secrets.database_password}}
+            volumes:
+              - name: {{$label}}-pod-volume
+                persistentVolumeClaim:
+                    claimName: {{$label}}-volume-claim
 
 ---
 
@@ -44,3 +52,19 @@ spec:
     ports:
       - port: {{$secrets.database_port}}
         targetPort: 5432
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: {{$label}}-volume-claim
+    namespace: {{.Values.namespace}}
+    labels:
+        app: {{$label}}
+spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+        requests:
+            storage: 10Gi
