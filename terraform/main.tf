@@ -45,13 +45,6 @@ module "cicd" {
     cluster_location = module.cluster.cluster_location
 }
 
-module "storage" {
-    source = "./modules/storage"
-
-    project_name = var.project_name
-    gcp_region = var.gcp_region
-}
-
 module "dns" {
     source = "./modules/dns"
 
