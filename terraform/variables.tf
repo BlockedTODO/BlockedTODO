@@ -60,56 +60,8 @@ variable "frontend_service_name" {
     default = "blockedtodo-frontend"
 }
 
-variable "backend_protocol" {
-    default = "https"
-}
-
-variable "backend_host" {
-    default = "backend.blockedtodo.com"
-}
-
-variable "backend_port" {
-    default = "80"
-}
-
 # BACKEND SERVICE
 
 variable "backend_service_name" {
     default = "blockedtodo-backend"
-}
-
-variable "database_name" {
-    type = string
-}
-
-variable "database_user" {
-    type = string
-}
-
-variable "database_password" {
-    type = string
-}
-
-variable "database_host" {
-    type = string
-}
-
-variable "database_port" {
-    type = string
-}
-
-variable "token_secret" {
-    type = string
-}
-
-variable "github_webhooks_secret" {
-    type = string
-}
-
-variable "github_app_id" {
-    type = string
-}
-
-variable "github_app_private_key" {
-    type = string
 }
