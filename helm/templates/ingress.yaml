@@ -5,7 +5,6 @@ metadata:
     annotations:
         kubernetes.io/ingress.global-static-ip-name: {{.Values.static_ip_name}}
         networking.gke.io/managed-certificates: blockedtodo-certificate
-        kubernetes.io/ingress.allow-http: {{not .Values.is_production | squote}}
     namespace: {{.Values.namespace}}
 spec:
     rules:
@@ -51,6 +50,7 @@ spec:
 ---
 
 # For HTTPS, as per https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
+# BlockedTODO: https://github.com/kubernetes/ingress-gce/issues/1075 redirect http traffic to https when issue is closed.
 {{- if .Values.is_production}}
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
