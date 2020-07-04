@@ -14,7 +14,7 @@ Most of these are automatically set when running with docker-compose, but all do
 * `TOKEN_SECRET`
 * `GITHUB_WEBHOOKS_SECRET`
 * `GITHUB_APP_ID`
-* `GITHUB_APP_PRIVATE_KEY`
+* `GITHUB_APP_PRIVATE_KEY` Note: replace newlines with `\n`
 
 # Optional environment variables
 The environment variables listed below aren't required, and have sensible defaults. Here are some example values.

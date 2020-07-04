@@ -29,11 +29,11 @@ spec:
                   - name: TOKEN_SECRET
                     value: {{$secrets.token_secret}}
                   - name: GITHUB_WEBHOOKS_SECRET
-                    value: {{$secrets.github_webhooks_secret}}
+                    value: {{$secrets.github_webhooks_secret | squote}}
                   - name: GITHUB_APP_ID
-                    value: {{$secrets.github_app_id}}
+                    value: {{$secrets.github_app_id | squote}}
                   - name: GITHUB_APP_PRIVATE_KEY
-                    value: {{$secrets.github_app_private_key}}
+                    value: {{$secrets.github_app_private_key | squote}}
                   - name: DATABASE_NAME
                     value: {{$database_secrets.database_name}}
                   - name: DATABASE_USER

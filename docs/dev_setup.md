@@ -32,7 +32,7 @@ The locally running frontend also cannot communicate with the backend on a brows
 In a terminal at the root of the repository, run the following commands:
 
 1. `eval $(minikube -p minikube docker-env)`
-2. `make k80s-start`
+2. `make k8s-start`
 3. Visit [blockedtodo.local](http://blockedtodo.local)
 
 **Other useful commands**
@@ -43,5 +43,5 @@ In a terminal at the root of the repository, run the following commands:
 
 ## Stop the cluster
 
-1. `make k80s-stop`
+1. `make k8s-stop`
 2. Comment out the line for blockedtodo addresses in `/etc/hosts` if you want to access the live production servers on the browser.
