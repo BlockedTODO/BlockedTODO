@@ -11,23 +11,41 @@ spec:
       - host: {{.Values.backend.host}}
         http:
             paths:
-            - backend:
-                  serviceName: backend-service
-                  servicePort: {{.Values.backend.port}}
+              - backend:
+                    serviceName: backend-service
+                    servicePort: {{.Values.backend.port}}
+      - host: www.{{.Values.backend.host}}
+        http:
+            paths:
+              - backend:
+                    serviceName: backend-service
+                    servicePort: {{.Values.backend.port}}
 
       - host: {{.Values.frontend.host}}
         http:
             paths:
-            - backend:
-                  serviceName: frontend-service
-                  servicePort: {{.Values.frontend.port}}
+              - backend:
+                    serviceName: frontend-service
+                    servicePort: {{.Values.frontend.port}}
+      - host: www.{{.Values.frontend.host}}
+        http:
+            paths:
+              - backend:
+                    serviceName: frontend-service
+                    servicePort: {{.Values.frontend.port}}
 
       - host: {{.Values.landing_page}}
         http:
             paths:
-            - backend:
-                  serviceName: frontend-service
-                  servicePort: {{.Values.frontend.port}}
+              - backend:
+                    serviceName: frontend-service
+                    servicePort: {{.Values.frontend.port}}
+      - host: www.{{.Values.landing_page}}
+        http:
+            paths:
+              - backend:
+                    serviceName: frontend-service
+                    servicePort: {{.Values.frontend.port}}
 
 ---
 
