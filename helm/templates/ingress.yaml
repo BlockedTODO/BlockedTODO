@@ -5,6 +5,7 @@ metadata:
     annotations:
         kubernetes.io/ingress.global-static-ip-name: {{.Values.static_ip_name}}
         networking.gke.io/managed-certificates: blockedtodo-certificate
+        kubernetes.io/ingress.allow-http: {{not .Values.is_production | squote}}
     namespace: {{.Values.namespace}}
 spec:
     rules:
