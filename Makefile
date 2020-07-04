@@ -1,7 +1,7 @@
 .PHONY: show-help build start stop down nuke \
 	inspect-backend attach-backend inspect-backend-database \
 	inspect-frontend attach-frontend \
-	k80s-stop k80s-start
+	k8s-stop k8s-start
 
 .DEFAULT_GOAL := show-help
 
@@ -15,8 +15,8 @@ show-help:
 	@echo '  inspect-SERVICE | Runs bash inside the running service container.'
 	@echo '  attach-SERVICE | attach local standard input, output, and error streams to the running service container.'
 	@echo '  inspect-SERVICE-database | Runs psql in the dev database of the service.'
-	@echo '  k80s-start | runs minikube, rebuilds images, applies kubernetes configuration.'
-	@echo '  k80s-stop | deletes running deployments, pods, services.'
+	@echo '  k8s-start | runs minikube, rebuilds images, applies kubernetes configuration.'
+	@echo '  k8s-stop | deletes running deployments, pods, services.'
 
 build:
 	docker-compose --file services/docker-compose.yaml build --parallel
@@ -51,12 +51,12 @@ inspect-frontend:
 attach-frontend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_frontend_1
 
-k80s-start:
+k8s-start:
 	- eval $(minikube -p minikube docker-env)
 	- minikube start
 	- make build
-	- helm upgrade --install blockedtodo ./helm
+	- helm upgrade --set backend.secrets.github_app_private_key='${GITHUB_APP_PRIVATE_KEY}' --set backend.secrets.github_app_id='${GITHUB_APP_ID}' --set backend.secrets.github_webhooks_secret='${GITHUB_WEBHOOKS_SECRET}' --install blockedtodo ./helm
 
-k80s-stop:
+k8s-stop:
 	- helm uninstall blockedtodo
 	- kubectl delete namespace blockedtodo
