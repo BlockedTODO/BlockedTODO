@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
     name: blockedtodo-ingress
     annotations:
-        kubernetes.io/ingress.global-static-ip-name: blockedtodo-ip
+        kubernetes.io/ingress.global-static-ip-name: {{.Values.static_ip_name}}
     namespace: {{.Values.namespace}}
 spec:
     rules:
