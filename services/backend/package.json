@@ -18,7 +18,7 @@
     "knex": "^0.21.1",
     "morgan": "^1.10.0",
     "normalize-url": "^5.0.0",
-    "objection": "^2.2.0",
+    "objection": "^2.2.1",
     "objection-guid": "^3.0.2",
     "objection-password": "^2.0.0",
     "pg": "^8.2.1",
