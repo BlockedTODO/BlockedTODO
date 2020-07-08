@@ -1,5 +1,5 @@
 const {URL} = require('url');
-const {graphqlRequestBody, markdownHelpers} = require('utils/');
+const {logger, graphqlRequestBody, markdownHelpers} = require('utils/');
 
 const {inlineCode, codeBlock, lineBreak} = markdownHelpers;
 
@@ -41,6 +41,8 @@ const createIssue = async (githubClient, issue, repository, issueReferences) => 
     `);
 
     const response = await githubClient.post('/graphql', createIssue);
+    logger.info(`Response from GitHub: ${response.status}`);
+
     return response.data.data.createIssue.issue;
 };
 

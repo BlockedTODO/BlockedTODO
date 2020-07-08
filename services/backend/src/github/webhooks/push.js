@@ -1,3 +1,4 @@
+const {Repository} = require('db/models');
 const {logger, withTempDirectory} = require('utils/');
 const {createAppClient, downloadRepository} = require('github/utils/');
 const {scanCodebase} = require('parser/');
@@ -12,11 +13,18 @@ const onPush = async ({payload}) => {
     }
 
     const githubClient = await createAppClient(payload.installation.id);
+
     const repositoryHostId = payload.repository.node_id;
+    const repository = await Repository.query().findOne({hostId: repositoryHostId});
 
     await withTempDirectory(async (tempDir) => {
-        const codeFolder = await downloadRepository(githubClient, repositoryHostId, tempDir);
-        await scanCodebase(codeFolder, repositoryHostId, githubClient);
+        logger.info(`Downloading GitHub repository ${repository.id}`);
+        const codeFolder = await downloadRepository(githubClient, repository.hostId, tempDir);
+        logger.info(`Repository ${repository.id} successfully downloaded into ${codeFolder}`);
+
+        logger.info(`Beginning codebase scan on repository ${repository.id}`);
+        await scanCodebase(codeFolder, repository, githubClient);
+        logger.info(`Repository ${repository.id} scan completed`);
     });
 };
 
