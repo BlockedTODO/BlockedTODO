@@ -12,7 +12,7 @@ It periodically scans your repository for comments with the following format:
 
 When a mentioned issue is closed, BlockedTODO will automatically open a new task on your backlog letting you know the issue is unblocked.
 
-**TODO: ADD SCREENSHOT**
+![Screenshot of a task automatically created by BlockedTODO](./docs/task-screenshot.png)
 
 ## Installation
 Installing BlockedTODO on your GitHub repository is easy!
@@ -62,7 +62,7 @@ BlockedTODO is a dependency monitoring tool that provides convenience via automa
 ## Other Questions
 Visit the [FAQ](./docs/faq.md). You can also ask questions by [opening an issue](https://github.com/BlockedTODO/BlockedTODO/issues/new).
 
-For private inquiries, email cblockedtodo@gmail.com.
+For private inquiries, email blockedtodo@gmail.com
 
 ## Contribute
 Create feature requests and bug reports by [opening an issue](https://github.com/BlockedTODO/BlockedTODO/issues/new).
