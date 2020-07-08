@@ -16,3 +16,13 @@
 9. Specify production values on [secret manager](https://console.cloud.google.com/security/secret-manager). See [helm/values.yaml](../helm/values.yaml) for details.
 10. Create the helm community builder from the cloud console (see comment in [cloudbuild.yaml](../cloudbuild.yaml))
 11. Read error messages to know which APIs to enable, quota increases, and for other potentially missing IAM permissions.
+
+## Accessing the production cluster
+On Google Cloud Shell, you can inspect the cluster with these commands:
+
+```bash
+gcloud config set project blockedtodo
+gcloud config set compute/zone us-central1-c
+gcloud container clusters get-credentials blockedtodo-cluster
+kubectl get all -n blockedtodo
+```
