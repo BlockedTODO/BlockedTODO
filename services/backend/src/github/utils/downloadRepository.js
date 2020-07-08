@@ -22,8 +22,9 @@ const repositoryDownloadLink = async (githubClient, repositoryHostId) => {
         }
     `);
 
-    const urlResponse = await githubClient.post('/graphql', getArchiveUrl);
-    const downloadLink = urlResponse.data.data.node.defaultBranchRef.target.zipballUrl;
+    const response = await githubClient.post('/graphql', getArchiveUrl);
+    logger.info(`Response from GitHub: ${response.status}`);
+    const downloadLink = response.data.data.node.defaultBranchRef.target.zipballUrl;
 
     return downloadLink;
 };

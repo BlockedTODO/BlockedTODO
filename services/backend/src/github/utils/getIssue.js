@@ -1,5 +1,5 @@
 const {URL} = require('url');
-const {graphqlRequestBody} = require('utils/');
+const {logger, graphqlRequestBody} = require('utils/');
 
 const PATHNAME_REGEX = /\/(?<owner>.+)\/(?<name>.+)\/issues\/(?<issueNumber>\d+)/;
 
@@ -25,6 +25,8 @@ const getIssue = async (githubClient, issue) => {
 
     // Query issue
     const response = await githubClient.post('/graphql', issueQuery);
+    logger.info(`Response from GitHub: ${response.status}`);
+
     return response.data.data.repository.issue;
 };
 

@@ -16,7 +16,7 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
 
         const existingTask = await Task.query().findOne({repositoryId: repository.id, issueId: issue.id});
         if (existingTask) {
-            logger.info(`task ${task.id} already exists for issue ${issue.id} on repository ${repository.id}`);
+            logger.info(`task ${existingTask.id} already exists for issue ${issue.id} on repository ${repository.id}`);
             return;
         }
 
@@ -27,7 +27,9 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
         }
 
         // Create task (GitHub issue)
+        logger.info(`Creating GitHub task for issue ${issue.url} on repo ${repository.id}`);
         const githubIssue = await createIssue(githubClient, issue, repository, referencedIssues[issue.url]);
+        logger.info(`GitHub task created for issue ${issue.url} on repo ${repository.id}`);
 
         // Create task in database
         const task = await Task.query().insert({
@@ -36,6 +38,7 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
             repositoryId: repository.id,
             issueId: issue.id,
         });
+        logger.info(`Task ${task.id} created`);
 
         return task;
     };
