@@ -20,8 +20,6 @@ If you want to run the kubernetes cluster locally, follow instructions in the se
 Note: Unlike the docker-compose setup, the kubernetes local setup does not mount a volume.
 This means that you need to rebuild an image and restart the running containers for local changes to take effect.
 
-The locally running frontend also cannot communicate with the backend on a browser at the moment.
-
 ## Local kubernetes setup
 1. Install `kubectl`, `minikube`, and `helm`
 2. Run `minikube start`, `minikube addons enable ingress`. Then run `minikube ip` take note of this ip address.

@@ -6,7 +6,6 @@ const {createMissingTasks} = require('./taskHandler');
 
 /* Perform a complete scan of a codebase. */
 const scanCodebase = async (codeFolder, repositoryHostId, githubClient) => {
-    console.dir(require('parser/'));
     const referencedIssues = await parseCodebase(codeFolder);
     logger.info(referencedIssues);
 
