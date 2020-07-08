@@ -29,7 +29,7 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
         // Create task (GitHub issue)
         logger.info(`Creating GitHub task for issue ${issue.url} on repo ${repository.id}`);
         const githubIssue = await createIssue(githubClient, issue, repository, referencedIssues[issue.url]);
-        logger.info(`GitHub task created for issue ${issue.url} on repo ${repository.id}`);
+        logger.info(`GitHub task was created for issue ${issue.url} on repo ${repository.id}`);
 
         // Create task in database
         const task = await Task.query().insert({

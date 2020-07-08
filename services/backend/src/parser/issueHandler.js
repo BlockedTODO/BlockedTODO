@@ -26,11 +26,19 @@ const deleteUnreferencedIssues = async (repository, referencedIssues) => {
 /* Add missing issues to the database.
  * Takes a list of issue urls and creates them if they don't exist. */
 const createMissingIssues = async (repository, referencedIssueUrls) => {
-    return await Promise.allSettled(referencedIssueUrls.map((issueUrl) => {
-        return findOrCreate(Issue, {url: issueUrl}, async (issue) => {
+    const handleIssue = async (issueUrl) => {
+        const issue = await findOrCreate(Issue, {url: issueUrl});
+
+        // Check if issue and repository are already linked, create the relation if it does not exist.
+        const relationExists = await issue.$relatedQuery('repositories').where({repositoryId: repository.id}).resultSize() > 0;
+        if (!relationExists) {
             await issue.$relatedQuery('repositories').relate(repository);
-        });
-    }));
+        }
+
+        return issue;
+    };
+
+    return await Promise.allSettled(referencedIssueUrls.map(handleIssue));
 };
 
 module.exports = {
