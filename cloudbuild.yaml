@@ -93,12 +93,12 @@ steps:
       args:
         - '-c'
         - |
-          [[ "$BRANCH_NAME" == "master" ]] &&
-          gcloud container clusters get-credentials --zone "$_CLUSTER_LOCATION" "$_CLUSTER_NAME" &&
-          helm upgrade --install --values production-values.yaml
-          --set backend.image=gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA
-          --set frontend.image=gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA
-          --set website.image=gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:$SHORT_SHA
+          [[ "$BRANCH_NAME" == "master" ]] && \
+          gcloud container clusters get-credentials --zone "$_CLUSTER_LOCATION" "$_CLUSTER_NAME" && \
+          helm upgrade --install --values production-values.yaml \
+          --set backend.image=gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA \
+          --set frontend.image=gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA \
+          --set website.image=gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:$SHORT_SHA \
           blockedtodo ./helm || echo "skipping..."
       env:
         - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_LOCATION'

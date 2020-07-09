@@ -7,7 +7,7 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 # Expose ports in the container
-EXPOSE 3000
+EXPOSE 3001
 
 # Create service directory
 RUN mkdir -p /frontend

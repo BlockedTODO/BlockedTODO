@@ -41,8 +41,8 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/*.js'",
-    "start": "react-scripts start",
-    "start:prod": "node server/",
+    "start": "PORT=3001 react-scripts start",
+    "start:prod": "PORT=3001 node server/",
     "test": "CI=true react-scripts test",
     "test:watch": "react-scripts test"
   },
