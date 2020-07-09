@@ -24,7 +24,7 @@ spec:
                 image: {{.Values.backend.image}}
                 imagePullPolicy: IfNotPresent
                 ports:
-                  - containerPort: 3001
+                  - containerPort: 3000
                 env:
                   - name: TOKEN_SECRET
                     value: {{$secrets.token_secret}}
@@ -58,4 +58,4 @@ spec:
         app: {{$label}}
     ports:
       - port: {{.Values.backend.port}}
-        targetPort: 3001
+        targetPort: 3000
