@@ -25,6 +25,8 @@ app.use(errorHandler);
 /* This applyMiddleware call must be the last registered middleware
  * BlockedTODO: https://github.com/apollographql/apollo-server/milestone/16
  * Upgrade apollo-server and add after-request middleware (eg. 404 handlers) when version 3.0.0 is released */
-apolloServer.applyMiddleware({app});
+if (process.env.GRAPHQL_API_ENABLED === 'true') {
+    apolloServer.applyMiddleware({app});
+}
 
 module.exports = app;
