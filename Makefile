@@ -1,5 +1,5 @@
 .PHONY: show-help build start stop down nuke \
-	inspect-backend attach-backend inspect-backend-database \
+	inspect-backend attach-backend inspect-database \
 	inspect-frontend attach-frontend \
 	k8s-stop k8s-start
 
@@ -22,7 +22,7 @@ build:
 	docker-compose --file services/docker-compose.yaml build --parallel
 
 start:
-	- (smee --url ${SMEE_CHANNEL_URL} --path /github_event_handler --port 3001 > /dev/null 2>&1)&
+	- (smee --url ${SMEE_CHANNEL_URL} --path /github_event_handler --port 3000 > /dev/null 2>&1)&
 	- docker-compose --file services/docker-compose.yaml up --renew-anon-volumes
 
 stop:
@@ -42,7 +42,7 @@ inspect-backend:
 attach-backend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_backend_1
 
-inspect-backend-database:
+inspect-database:
 	docker-compose --file services/docker-compose.yaml exec database psql app-database app-database-user
 
 inspect-frontend:
