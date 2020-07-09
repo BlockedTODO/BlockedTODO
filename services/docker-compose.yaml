@@ -18,6 +18,7 @@ services:
             - GITHUB_WEBHOOKS_SECRET
             - GITHUB_APP_ID
             - GITHUB_APP_PRIVATE_KEY
+            - GRAPHQL_API_ENABLED=true
         command: sh ./scripts/docker-start-dev.sh
         ports:
             - 80:80
