@@ -3,7 +3,6 @@
 # ie. either with the --set key1=val1,key2=val2 option or --values custom-values.yaml option
 
 namespace: 'blockedtodo'
-landing_page: 'blockedtodo.local'
 static_ip_name: 'blockedtodo-ip'
 is_production: false
 
@@ -31,5 +30,12 @@ backend:
 frontend:
     label: 'frontend'
     image: 'frontend:latest'
+    protocol: 'http'
     host: 'app.blockedtodo.local'
+    port: '80'
+
+website:
+    label: 'website'
+    image: 'website:latest'
+    host: 'blockedtodo.local'
     port: '80'

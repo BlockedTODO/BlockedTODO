@@ -34,18 +34,18 @@ spec:
                     serviceName: frontend-service
                     servicePort: {{.Values.frontend.port}}
 
-      - host: {{.Values.landing_page}}
+      - host: {{.Values.website.host}}
         http:
             paths:
               - backend:
-                    serviceName: frontend-service
-                    servicePort: {{.Values.frontend.port}}
-      - host: www.{{.Values.landing_page}}
+                    serviceName: website-service
+                    servicePort: {{.Values.website.port}}
+      - host: www.{{.Values.website.host}}
         http:
             paths:
               - backend:
-                    serviceName: frontend-service
-                    servicePort: {{.Values.frontend.port}}
+                    serviceName: website-service
+                    servicePort: {{.Values.website.port}}
 
 ---
 
@@ -63,6 +63,6 @@ spec:
         - www.{{.Values.backend.host}}
         - {{.Values.frontend.host}}
         - www.{{.Values.frontend.host}}
-        - {{.Values.landing_page}}
-        - www.{{.Values.landing_page}}
+        - {{.Values.website.host}}
+        - www.{{.Values.website.host}}
 {{- end}}
