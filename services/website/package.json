@@ -1,0 +1,46 @@
+{
+  "author": "Dominic Roy-Stang",
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.4",
+    "@testing-library/user-event": "^12.0.11",
+    "classnames": "^2.2.6",
+    "express": "^4.17.1",
+    "graphql": "^15.3.0",
+    "morgan": "^1.10.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1"
+  },
+  "description": "Website for BlockedTODO",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "license": "UNLICENSED",
+  "name": "website",
+  "private": true,
+  "scripts": {
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "lint": "eslint 'src/**/*.js'",
+    "start": "PORT=3002 react-scripts start",
+    "start:prod": "PORT=3002 node server/",
+    "test": "CI=true react-scripts test",
+    "test:watch": "react-scripts test"
+  },
+  "version": "1.0.0"
+}
