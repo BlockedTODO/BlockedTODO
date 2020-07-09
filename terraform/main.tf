@@ -39,6 +39,7 @@ module "cicd" {
     remote_repo_owner = var.remote_repo_owner
     backend_service_name = var.backend_service_name
     frontend_service_name = var.frontend_service_name
+    website_service_name = var.website_service_name
 
     production_secret_id = module.secrets.production_secret_id
     cluster_name = module.cluster.cluster_name

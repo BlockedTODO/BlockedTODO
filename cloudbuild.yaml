@@ -19,6 +19,11 @@ steps:
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'test']
       waitFor: ['Run containers']
 
+    - id: 'Website tests'
+      name: 'docker/compose:1.24.1'
+      args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'test']
+      waitFor: ['Run containers']
+
     - id: 'Tag backend image'
       name: 'gcr.io/cloud-builders/docker'
       args: ['tag', 'backend:latest', 'gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA']
@@ -27,6 +32,11 @@ steps:
     - id: 'Tag frontend image'
       name: 'gcr.io/cloud-builders/docker'
       args: ['tag', 'frontend:latest', 'gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA']
+      waitFor: ['Build images']
+
+    - id: 'Tag website image'
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['tag', 'website:latest', 'gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:$SHORT_SHA']
       waitFor: ['Build images']
 
     - id: 'Push backend image to registry'
@@ -38,6 +48,11 @@ steps:
       name: 'gcr.io/cloud-builders/docker'
       args: ['push', 'gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME']
       waitFor: ['Tag frontend image']
+
+    - id: 'Push website image to registry'
+      name: 'gcr.io/cloud-builders/docker'
+      args: ['push', 'gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME']
+      waitFor: ['Tag website image']
 
     - id: 'Promote backend image to latest'
       name: 'gcr.io/cloud-builders/gcloud'
@@ -55,6 +70,14 @@ steps:
         - |
           [[ "$BRANCH_NAME" == "master" ]] && gcloud container images add-tag gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:latest || echo "skipping..."
 
+    - id: 'Promote website image to latest'
+      name: 'gcr.io/cloud-builders/gcloud'
+      entrypoint: 'bash'
+      args:
+        - '-c'
+        - |
+          [[ "$BRANCH_NAME" == "master" ]] && gcloud container images add-tag gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:$SHORT_SHA gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:latest || echo "skipping..."
+
     - id: 'Fetch production secrets'
       name: 'gcr.io/cloud-builders/gcloud'
       entrypoint: 'bash'
@@ -63,7 +86,7 @@ steps:
     # Note: this requires the helm community builder to be setup.
     # See this guide: https://cloud.google.com/cloud-build/docs/configuring-builds/use-community-and-custom-builders
     # BlockedTODO: https://github.com/helm/helm/issues/5696
-    # Remove backend.image and frontend.image overrides if @schollii's suggestion is approved
+    # Remove backend.image, frontend.image, and website.image overrides if @schollii's suggestion is approved
     - id: 'Deploy images to GKE cluster'
       name: 'gcr.io/$PROJECT_ID/helm'
       entrypoint: 'bash'
@@ -72,7 +95,11 @@ steps:
         - |
           [[ "$BRANCH_NAME" == "master" ]] &&
           gcloud container clusters get-credentials --zone "$_CLUSTER_LOCATION" "$_CLUSTER_NAME" &&
-          helm upgrade --install --values production-values.yaml --set backend.image=gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA --set frontend.image=gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA blockedtodo ./helm || echo "skipping..."
+          helm upgrade --install --values production-values.yaml
+          --set backend.image=gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA
+          --set frontend.image=gcr.io/$PROJECT_ID/$_FRONTEND_SERVICE_NAME:$SHORT_SHA
+          --set website.image=gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:$SHORT_SHA
+          blockedtodo ./helm || echo "skipping..."
       env:
         - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_LOCATION'
         - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
@@ -81,6 +108,7 @@ steps:
 substitutions: # default values
     _BACKEND_SERVICE_NAME: ''
     _FRONTEND_SERVICE_NAME: ''
+    _WEBSITE_SERVICE_NAME: ''
     _PRODUCTION_SECRET_ID: ''
     _CLUSTER_LOCATION: ''
     _CLUSTER_NAME: ''

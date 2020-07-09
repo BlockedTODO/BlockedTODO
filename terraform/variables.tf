@@ -54,14 +54,20 @@ variable "cluster_disk_size" {
     default = "30"
 }
 
+# BACKEND SERVICE
+
+variable "backend_service_name" {
+    default = "blockedtodo-backend"
+}
+
 # FRONTEND SERVICE
 
 variable "frontend_service_name" {
     default = "blockedtodo-frontend"
 }
 
-# BACKEND SERVICE
+# WEBSITE SERVICE
 
-variable "backend_service_name" {
-    default = "blockedtodo-backend"
+variable "website_service_name" {
+    default = "blockedtodo-website"
 }
