@@ -46,6 +46,24 @@ services:
             - ./backend:/backend
             - backend-node-modules:/backend/node_modules
 
+    website:
+        image: website
+        stdin_open: true
+        depends_on:
+            - frontend
+        build:
+            context: ./website
+        environment:
+            - REACT_APP_FRONTEND_PROTOCOL=http
+            - REACT_APP_FRONTEND_HOST=localhost
+            - REACT_APP_FRONTEND_PORT=3000
+        command: sh ./scripts/docker-start-dev.sh
+        ports:
+            - 3002:3002
+        volumes:
+            - ./website:/website
+            - website-node-modules:/website/node_modules
+
     database:
         image: postgres:12.2
         environment:
@@ -60,4 +78,5 @@ services:
 volumes:
     frontend-node-modules:
     backend-node-modules:
+    website-node-modules:
     database-data:
