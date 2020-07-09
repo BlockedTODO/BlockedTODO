@@ -27,7 +27,7 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
 };
 
 const onInstallationRepositoriesRemoved = async ({payload}) => {
-    for (const {node_id: hostId} of payload.repositories_added) {
+    for (const {node_id: hostId} of payload.repositories_removed) {
         await Repository.query().delete().where({host: 'github', hostId: hostId});
     }
 };
