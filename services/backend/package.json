@@ -21,7 +21,7 @@
     "objection": "^2.2.1",
     "objection-guid": "^3.0.2",
     "objection-password": "^2.0.0",
-    "pg": "^8.2.2",
+    "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "stringify-object": "^3.3.0",
     "tempy": "^0.5.0",
