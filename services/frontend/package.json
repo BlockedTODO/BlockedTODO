@@ -34,7 +34,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "license": "UNLICENSED",
+  "license": "Prosperity Public License 3.0.0",
   "name": "frontend",
   "private": true,
   "scripts": {
