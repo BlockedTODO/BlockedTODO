@@ -47,7 +47,7 @@
     "app",
     "bot"
   ],
-  "license": "UNLICENSED",
+  "license": "Prosperity Public License 3.0.0",
   "main": "src/index.js",
   "name": "backend",
   "repository": {

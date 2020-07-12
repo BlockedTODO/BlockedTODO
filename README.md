@@ -79,8 +79,15 @@ See [these instructions](./docs/deployment.md) for instructions on deploying the
 
 ## License
 
-While the code is public, it does not have an open-source license (ie. _all rights reserved_). Any contribution to this codebase will require you to transfer your relevant IP to BlockedTODO.
+This project is licensed under the Prosperity Public License 3.0.0.
 
-**So why is this codebase public?** So that companies and individuals can verify/audit that the code is up to their security and privacy standards. It also gives the community a place to open/discuss issues and feature requests.
+At a high-level, it allows the following use cases:
 
-Copyright © 2020 Dominic Roy-Stang. All rights reserved.
+- Charities and other non-commercial entities are free to use and modify the software, but not to resell it.
+- Commercial use of the software is limited to a trial period.
+
+See the [LICENSE](./LICENSE.md) file for details.
+
+If you are looking for a commercial exemption, contact blockedtodo@gmail.com with your request and a short description of your use case. We'll try our best to accommodate.
+
+**Why is this codebase public?** So that companies and individuals can verify/audit that the code is up to their security and privacy standards. It also gives the community a place to open/discuss issues and feature requests.
