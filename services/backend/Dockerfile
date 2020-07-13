@@ -6,6 +6,13 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+# Install pg_dump for database backup job. Source: https://dba.stackexchange.com/questions/193023
+RUN apt-get update && apt-get install -y lsb-release
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+RUN bash -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt-get update && apt-get install -y postgresql-client
+
 # Source run-time environment variables
 ENV NODE_PATH=src
 
