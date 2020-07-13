@@ -51,7 +51,7 @@ spec:
 
 # For HTTPS, as per https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
 # BlockedTODO: https://github.com/kubernetes/ingress-gce/issues/1075 redirect http traffic to https when issue is closed.
-{{- if .Values.is_production}}
+{{- if eq .Values.environment "production"}}
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
 metadata:
