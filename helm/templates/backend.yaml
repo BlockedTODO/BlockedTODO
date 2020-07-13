@@ -61,3 +61,39 @@ spec:
     ports:
       - port: {{.Values.backend.port}}
         targetPort: 3000
+
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+    name: database-backup-cronjob
+    namespace: {{.Values.namespace}}
+spec:
+    schedule: "0 3 * * *"
+    successfulJobsHistoryLimit: 1
+    failedJobsHistoryLimit: 2
+    jobTemplate:
+        spec:
+            template:
+                spec:
+                    restartPolicy: OnFailure
+                    containers:
+                      - name: database-backup-job
+                        image: {{.Values.backend.image}}
+                        imagePullPolicy: IfNotPresent
+                        env:
+                          - name: NODE_ENV
+                            value: {{.Values.environment}}
+                          - name: BACKUPS_BUCKET_NAME
+                            value: {{.Values.backups_bucket_name}}
+                          - name: DATABASE_NAME
+                            value: {{$database_secrets.database_name}}
+                          - name: DATABASE_USER
+                            value: {{$database_secrets.database_user}}
+                          - name: DATABASE_PASSWORD
+                            value: {{$database_secrets.database_password}}
+                          - name: DATABASE_HOST
+                            value: {{.Values.database.label}}-service
+                          - name: DATABASE_PORT
+                            value: {{$database_secrets.database_port | squote}}
