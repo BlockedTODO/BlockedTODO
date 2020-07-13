@@ -10,6 +10,10 @@ output "cluster_location" {
     value = module.cluster.cluster_location
 }
 
+output "database_backups_bucket_name" {
+    value = module.cluster.database_backups_bucket_name
+}
+
 output "ingress_ip" {
     value = module.dns.ip_address
 }

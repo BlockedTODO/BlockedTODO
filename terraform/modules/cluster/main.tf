@@ -45,3 +45,10 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
         oauth_scopes = ["compute-rw", "storage-rw", "logging-write", "monitoring", "datastore", "pubsub"]
     }
 }
+
+# Storage bucket for backups of the in-cluster database.
+resource "google_storage_bucket" "cluster_database_backups" {
+    name = "${var.project_name}-cluster-database-backups"
+    location = var.gcp_region
+    storage_class = "NEARLINE"
+}

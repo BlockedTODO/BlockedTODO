@@ -58,6 +58,8 @@ module "cluster" {
     source = "./modules/cluster"
 
     gcp_zone = var.gcp_zone
+    gcp_region = var.gcp_region
+    project_name = var.project_name
     cluster_name = "${var.project_name}-cluster"
     initial_node_count = var.cluster_initial_node_count
     node_machine_type = var.cluster_machine_type
