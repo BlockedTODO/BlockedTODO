@@ -1,4 +1,4 @@
-variable "production_secret_id" {
+variable "helm_production_values_secret_id" {
     type = string
 }
 

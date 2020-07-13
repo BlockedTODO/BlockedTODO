@@ -27,7 +27,7 @@ module "registry" {
 module "secrets" {
     source = "./modules/secrets"
 
-    production_secret_id = "${var.project_name}-production-values"
+    helm_production_values_secret_id = "helm-production-values"
     gcp_region = var.gcp_region
 }
 
@@ -41,7 +41,7 @@ module "cicd" {
     frontend_service_name = var.frontend_service_name
     website_service_name = var.website_service_name
 
-    production_secret_id = module.secrets.production_secret_id
+    helm_production_values_secret_id = module.secrets.helm_production_values_secret_id
     cluster_name = module.cluster.cluster_name
     cluster_location = module.cluster.cluster_location
 }
