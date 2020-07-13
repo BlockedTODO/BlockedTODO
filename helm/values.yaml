@@ -3,8 +3,10 @@
 # ie. either with the --set key1=val1,key2=val2 option or --values custom-values.yaml option
 
 namespace: 'blockedtodo'
-static_ip_name: 'blockedtodo-ip'
 environment: 'development'
+
+static_ip_name: 'blockedtodo-ip'
+backups_bucket_name: 'blockedtodo-cluster-database-backups'
 
 database:
     label: 'postgres'
