@@ -26,6 +26,8 @@ spec:
                 ports:
                   - containerPort: 3002
                 env:
+                  - name: NODE_ENV
+                    value: {{.Values.environment}}
                   - name: REACT_APP_FRONTEND_PROTOCOL
                     value: {{.Values.frontend.protocol}}
                   - name: REACT_APP_FRONTEND_HOST

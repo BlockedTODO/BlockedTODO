@@ -4,7 +4,7 @@
 
 namespace: 'blockedtodo'
 static_ip_name: 'blockedtodo-ip'
-is_production: false
+environment: 'development'
 
 database:
     label: 'postgres'

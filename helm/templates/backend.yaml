@@ -26,6 +26,8 @@ spec:
                 ports:
                   - containerPort: 3000
                 env:
+                  - name: NODE_ENV
+                    value: {{.Values.environment}}
                   - name: TOKEN_SECRET
                     value: {{$secrets.token_secret}}
                   - name: GITHUB_WEBHOOKS_SECRET
