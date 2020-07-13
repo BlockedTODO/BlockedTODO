@@ -18,6 +18,6 @@ output "dns_name_servers" {
     value = module.dns.dns_name_servers
 }
 
-output "production_secret_id" {
-    value = module.secrets.production_secret_id
+output "helm_production_values_secret_id" {
+    value = module.secrets.helm_production_values_secret_id
 }

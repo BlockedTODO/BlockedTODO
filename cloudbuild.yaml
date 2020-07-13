@@ -78,10 +78,10 @@ steps:
         - |
           [[ "$BRANCH_NAME" == "master" ]] && gcloud container images add-tag gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:$SHORT_SHA gcr.io/$PROJECT_ID/$_WEBSITE_SERVICE_NAME:latest || echo "skipping..."
 
-    - id: 'Fetch production secrets'
+    - id: 'Fetch helm production values secret'
       name: 'gcr.io/cloud-builders/gcloud'
       entrypoint: 'bash'
-      args: ['-c', '[[ "$BRANCH_NAME" == "master" ]] && gcloud secrets versions access latest --secret=$_PRODUCTION_SECRET_ID > production-values.yaml || echo "skipping..."']
+      args: ['-c', '[[ "$BRANCH_NAME" == "master" ]] && gcloud secrets versions access latest --secret=$_HELM_PRODUCTION_VALUES_SECRET_ID > production-values.yaml || echo "skipping..."']
 
     # Note: this requires the helm community builder to be setup.
     # See this guide: https://cloud.google.com/cloud-build/docs/configuring-builds/use-community-and-custom-builders
@@ -109,7 +109,7 @@ substitutions: # default values
     _BACKEND_SERVICE_NAME: ''
     _FRONTEND_SERVICE_NAME: ''
     _WEBSITE_SERVICE_NAME: ''
-    _PRODUCTION_SECRET_ID: ''
+    _HELM_PRODUCTION_VALUES_SECRET_ID: ''
     _CLUSTER_LOCATION: ''
     _CLUSTER_NAME: ''
 
