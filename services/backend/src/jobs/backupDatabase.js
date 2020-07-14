@@ -27,7 +27,7 @@ const dumpDatabase = async () => {
 const uploadToBucket = async (file, bucketName) => {
     if (environment !== 'production') {
         logger.info('Not in a production environment, skipping database backup upload.');
-        return
+        return;
     }
 
     const storage = new Storage();
@@ -35,7 +35,7 @@ const uploadToBucket = async (file, bucketName) => {
     await storage.bucket(bucketName).upload(file);
 
     logger.info(`file ${file} was uploaded ${bucketName} bucket`);
-}
+};
 
 const backupDatabase = async () => {
     const dumpLocation = await dumpDatabase();
@@ -46,7 +46,7 @@ const backupDatabase = async () => {
     // Delete database dump file
     await fsPromises.unlink(dumpLocation);
 
-    return 'success'
+    return 'success';
 };
 
 const onSuccess = (result) => {
@@ -57,7 +57,7 @@ const onSuccess = (result) => {
 const onError = (error) => {
     logger.error(error.message);
     process.exit(1); // Error exit code
-}
+};
 
 // Run code synchronously to ensure proper process error codes are returned.
 backupDatabase().then(onSuccess).catch(onError);
