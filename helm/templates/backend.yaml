@@ -82,6 +82,8 @@ spec:
                       - name: database-backup-job
                         image: {{.Values.backend.image}}
                         imagePullPolicy: IfNotPresent
+                        command: ["node"]
+                        args: ["src/jobs/backupDatabase.js"]
                         env:
                           - name: NODE_ENV
                             value: {{.Values.environment}}
