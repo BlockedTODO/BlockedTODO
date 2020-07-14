@@ -1,4 +1,3 @@
-const stringifyObject = require('stringify-object');
 const logger = require('utils/logger');
 const app = require('./app');
 
