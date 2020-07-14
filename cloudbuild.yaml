@@ -24,6 +24,21 @@ steps:
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'test']
       waitFor: ['Run containers']
 
+    - id: 'Backend Linting'
+      name: 'docker/compose:1.24.1'
+      args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'lint']
+      waitFor: ['Run containers']
+
+    - id: 'Frontend Linting'
+      name: 'docker/compose:1.24.1'
+      args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'lint']
+      waitFor: ['Run containers']
+
+    - id: 'Website Linting'
+      name: 'docker/compose:1.24.1'
+      args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'lint']
+      waitFor: ['Run containers']
+
     - id: 'Tag backend image'
       name: 'gcr.io/cloud-builders/docker'
       args: ['tag', 'backend:latest', 'gcr.io/$PROJECT_ID/$_BACKEND_SERVICE_NAME:$SHORT_SHA']
