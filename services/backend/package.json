@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^5.1.2",
-    "@octokit/app": "^4.2.0",
+    "@octokit/app": "^4.2.1",
     "@octokit/webhooks": "^7.6.4",
     "apollo-server-express": "^2.15.1",
     "axios": "^0.19.2",
