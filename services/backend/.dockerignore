@@ -6,9 +6,6 @@ Dockerfile
 .gitignore
 README.md
 
-# Dev tools
-repl.js
-
 # Build artifacts
 node_modules
 build

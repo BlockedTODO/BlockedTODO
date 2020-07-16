@@ -24,16 +24,12 @@ class Issue extends BaseModel {
         const Repository = require('./repository');
 
         return {
-            repositories: {
-                relation: BaseModel.ManyToManyRelation,
+            repository: {
+                relation: BaseModel.BelongsToOneRelation,
                 modelClass: Repository,
                 join: {
-                    from: 'issues.id',
+                    from: 'issues.repositoryId',
                     to: 'repositories.id',
-                    through: {
-                        from: 'repositoryIssues.issueId',
-                        to: 'repositoryIssues.repositoryId',
-                    },
                 }
             }
         };
