@@ -28,15 +28,11 @@ class Repository extends BaseModel {
 
         return {
             issues: {
-                relation: BaseModel.ManyToManyRelation,
+                relation: BaseModel.HasManyRelation,
                 modelClass: Issue,
                 join: {
                     from: 'repositories.id',
-                    to: 'issues.id',
-                    through: {
-                        from: 'repositoryIssues.repositoryId',
-                        to: 'repositoryIssues.issueId',
-                    },
+                    to: 'issues.repositoryId',
                 }
             },
             users: {
