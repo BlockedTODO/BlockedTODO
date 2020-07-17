@@ -45,12 +45,13 @@ const deleteSeedData = async (_knex) => {
 
 /* eslint-disable */
 const generateSeedData = async (knex) => {
-    // Create resources
+    // Create users
     const user0 = await User.query().insert({email: 'test0@test.com', password: 'password0'}); // user 0 is empty (no associations/repositories)
     const user1 = await User.query().insert({email: 'test1@test.com', password: 'password1'}); // user 1 has many repos and issues, each issue has one task but no data is shared with other users
-    const user2 = await User.query().insert({email: 'test2@test.com', password: 'password2'}); // users 2 and 3 share some repos, issues, and tasks
+    const user2 = await User.query().insert({email: 'test2@test.com', password: 'password2'}); // users 2 and 3 share some repos
     const user3 = await User.query().insert({email: 'test3@test.com', password: 'password3'});
 
+    // Create repositories
     const repository0 = await Repository.query().insert({host: 'github', hostId: 'user1/repo0'});
     const repository1 = await Repository.query().insert({host: 'github', hostId: 'user1/repo1'});
     const repository2 = await Repository.query().insert({host: 'github', hostId: 'user2/repo2'});
@@ -58,12 +59,31 @@ const generateSeedData = async (knex) => {
     const repository4 = await Repository.query().insert({host: 'github', hostId: 'someuser/repo4'});
     const repository5 = await Repository.query().insert({host: 'github', hostId: 'someuser/repo5'});
 
-    const issue0 = await Issue.query().insert({url: 'http://github.com/user1/repo0/issues/0'});
-    const issue1 = await Issue.query().insert({url: 'http://github.com/user1/repo0/issues/1'});
-    const issue2 = await Issue.query().insert({url: 'http://github.com/someuser/somerepo/issues/2'});
-    const issue3 = await Issue.query().insert({url: 'http://github.com/someuser/somerepo/issues/3'});
-    const issue4 = await Issue.query().insert({url: 'http://github.com/someuser/somerepo/issues/4'});
-    const issue5 = await Issue.query().insert({url: 'http://github.com/someuser/somerepo/issues/5'});
+    // Create issues
+    const issue0 = await Issue.query().insert({
+        url: 'http://github.com/user1/repo0/issues/0',
+        repositoryId: repository0.id,
+    });
+    const issue1 = await Issue.query().insert({
+        url: 'http://github.com/user1/repo0/issues/1',
+        repositoryId: repository1.id,
+    });
+    const issue2 = await Issue.query().insert({
+        url: 'http://github.com/someuser/somerepo/issues/2',
+        repositoryId: repository2.id,
+    });
+    const issue3 = await Issue.query().insert({
+        url: 'http://github.com/someuser/somerepo/issues/3',
+        repositoryId: repository3.id,
+    });
+    const issue4 = await Issue.query().insert({
+        url: 'http://github.com/someuser/somerepo/issues/4',
+        repositoryId: repository4.id,
+    });
+    const issue5 = await Issue.query().insert({
+        url: 'http://github.com/someuser/somerepo/issues/5',
+        repositoryId: repository5.id,
+    });
 
     // Create resources with belongsTo associations
     const task0 = await Task.query().insert({
@@ -115,17 +135,10 @@ const generateSeedData = async (knex) => {
         issueId: issue5.id,
     })
 
-    // Create associations
+    // Create many-to-many associations
     await user1.$relatedQuery('repositories').relate([repository0, repository1]);
     await user2.$relatedQuery('repositories').relate([repository2, repository4, repository5]);
     await user3.$relatedQuery('repositories').relate([repository3, repository4, repository5]);
-
-    await repository0.$relatedQuery('issues').relate([issue0]);
-    await repository1.$relatedQuery('issues').relate([issue1]);
-    await repository2.$relatedQuery('issues').relate([issue2, issue5]);
-    await repository3.$relatedQuery('issues').relate([issue3, issue5]);
-    await repository4.$relatedQuery('issues').relate([issue4, issue5]);
-    await repository5.$relatedQuery('issues').relate([issue5]);
 };
 /* eslint-enable */
 
