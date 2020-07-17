@@ -1,5 +1,5 @@
 const {transactionPerTest} = require('objection-transactional-tests');
-const Issue = require('./issue');
+const {Issue, Repository} = require('db/models/');
 const db = require('db/');
 
 beforeAll(() => {
@@ -10,15 +10,20 @@ afterAll(() => {
     db.destroy();
 });
 
+const validIssueData = async () => {
+    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123'});
+    return {url: 'http://example.com', repositoryId: repository.id};
+};
+
 describe('insert', () => {
     it('is given an id automatically', async () => {
-        const issue = await Issue.query().insert({url: 'http://example.com'});
+        const issue = await Issue.query().insert(await validIssueData());
         expect(issue).toHaveProperty('id');
         expect(issue.id).not.toBeNull();
     });
 
     it('sets createdAt and updatedAt automatically', async () => {
-        const issue = await Issue.query().insert({url: 'http://example.com'});
+        const issue = await Issue.query().insert(await validIssueData());
         expect(issue).toMatchObject({
             createdAt: expect.any(String),
             updatedAt: expect.any(String),
@@ -29,12 +34,12 @@ describe('insert', () => {
         const url = 'github.com/user?b=1&a=0';
         const normalizedUrl = 'http://github.com/user?a=0&b=1';
 
-        const issue = await Issue.query().insert({url: url});
+        const issue = await Issue.query().insert({...await validIssueData(), url: url});
         expect(issue.url).toEqual(normalizedUrl);
     });
 
     it('rejects an empty url', async () => {
-        const insertQuery = Issue.query().insert({url: ''});
+        const insertQuery = Issue.query().insert({...await validIssueData(), url: ''});
         await expect(insertQuery).rejects.toThrowError();
     });
 });
