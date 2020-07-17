@@ -13,7 +13,7 @@ module.exports = {
         issues: (parent, args, context, info) => parent.$relatedQuery('issues'),
     },
     Issue: {
-        repositories: (parent, args, context, info) => parent.$relatedQuery('repositories')
+        repository: (parent, args, context, info) => parent.$relatedQuery('repository')
     },
     Task: {
         repository: (parent, args, context, info) => parent.$relatedQuery('repository'),

@@ -3,14 +3,10 @@ const taskQueries = {
 };
 
 const taskMutations = {
-    createTask: async (parent, {taskInput}, {Task, Repository, Issue}, info) => {
+    createTask: async (parent, {taskInput}, {Task}, info) => {
         const {host, hostId, repositoryId, issueId} = taskInput;
-        const [repository, issue] = await Promise.all([
-            Repository.query().findById(repositoryId),
-            Issue.query().findById(issueId),
-        ]);
 
-        return await Task.query().insert({host: host, hostId: hostId, repositoryId: repository.id, issueId: issue.id});
+        return await Task.query().insert({host: host, hostId: hostId, repositoryId: repositoryId, issueId: issueId});
     }
 };
 

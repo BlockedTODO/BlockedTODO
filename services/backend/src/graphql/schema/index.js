@@ -16,7 +16,7 @@ module.exports = `
     type Issue {
         id: ID!
         url: String!
-        repositories: [Repository!]!
+        repository: Repository!
     }
 
     type Task {
