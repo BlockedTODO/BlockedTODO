@@ -34,7 +34,7 @@
   "description": "Backend for BlockedTODO",
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "jest": "^26.1.0",
     "node-mocks-http": "^1.8.1",
     "nodemon": "^2.0.4",
