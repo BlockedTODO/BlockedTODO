@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useInput, useLogin} from 'utils/hooks';
-import {useMutation} from '@apollo/react-hooks';
+import {useMutation} from '@apollo/client';
 import {signupMutation} from 'graphql/operations/';
 import SignupLayout from './SignupLayout';
 
