@@ -5,7 +5,7 @@ const {promises: fsPromises} = require('fs');
  * (a function taking the temp directory location as a parameter)
  * Then delete the temp directory */
 const withTempDirectory = async (callback) => {
-    const tempDirectory = tempy.directory();
+    const tempDirectory = tempy.directory({prefix: 'blockedtodo_'});
     await callback(tempDirectory);
     // Delete temp folder
     await fsPromises.rmdir(tempDirectory, {recursive: true});
