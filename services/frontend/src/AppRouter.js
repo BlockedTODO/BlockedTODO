@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
-import {useApolloClient} from '@apollo/react-hooks';
+import {useApolloClient} from '@apollo/client';
 import {createBrowserHistory} from 'history';
 import {Login, NotFound, Repositories, Signup} from './scenes';
 import {Header} from './components';

@@ -1,5 +1,5 @@
 import {useHistory} from 'react-router-dom';
-import {useApolloClient, useLazyQuery} from '@apollo/react-hooks';
+import {useApolloClient, useLazyQuery} from '@apollo/client';
 import {loginQuery} from 'graphql/operations/';
 
 const useLogin = ({onSuccess = () => {}, onError = () => {}}) => {
