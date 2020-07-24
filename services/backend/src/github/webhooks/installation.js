@@ -15,7 +15,7 @@ const onInstallationCreated = async ({payload}) => {
 
 const onInstallationDeleted = async ({payload}) => {
     for (const {node_id: hostId} of payload.repositories) {
-        await Repository.query().delete().where({host: 'github', hostId: hostId});
+        await Repository.query().delete().where({host: 'github', hostId});
     }
 };
 
@@ -30,12 +30,12 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
 
 const onInstallationRepositoriesRemoved = async ({payload}) => {
     for (const {node_id: hostId} of payload.repositories_removed) {
-        await Repository.query().delete().where({host: 'github', hostId: hostId});
+        await Repository.query().delete().where({host: 'github', hostId});
     }
 };
 
 const createAndScanRepository = async (hostId, installationId, githubClient) => {
-    const repository = await findOrCreate(Repository, {host: 'github', hostId: hostId, installationId: installationId});
+    const repository = await findOrCreate(Repository, {host: 'github', hostId, installationId});
 
     await withTempDirectory(async (tempDir) => {
         logger.info(`Downloading GitHub repository ${repository.id}`);
