@@ -5,10 +5,11 @@ const {scanCodebase} = require('parser/');
 const {logger, withTempDirectory} = require('utils/');
 
 const onInstallationCreated = async ({payload}) => {
-    const githubClient = await createInstallationClient(payload.installation.id);
+    const installationId = payload.installation.id.toString();
+    const githubClient = await createInstallationClient(installationId);
 
     await Promise.allSettled(payload.repositories.map(({node_id}) => {
-        createAndScanRepository(node_id, payload.installation.id, githubClient);
+        createAndScanRepository(node_id, installationId, githubClient);
     }));
 };
 
@@ -19,10 +20,11 @@ const onInstallationDeleted = async ({payload}) => {
 };
 
 const onInstallationRepositoriesAdded = async ({payload}) => {
-    const githubClient = await createInstallationClient(payload.installation.id);
+    const installationId = payload.installation.id.toString();
+    const githubClient = await createInstallationClient(installationId);
 
     await Promise.allSettled(payload.repositories_added.map(({node_id}) => {
-        createAndScanRepository(node_id, payload.installation.id, githubClient);
+        createAndScanRepository(node_id, installationId, githubClient);
     }));
 };
 

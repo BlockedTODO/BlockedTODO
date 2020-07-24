@@ -1,8 +1,8 @@
 const axios = require('axios');
-const app = require('github/app');
+const auth = require('github/appAuthentication');
 
 const createAppClient = async () => {
-    const token = await app.getSignedJsonWebToken();
+    const {token} = await auth({type: 'app'});
 
     return axios.create({
         baseURL: 'https://api.github.com',
@@ -13,10 +13,10 @@ const createAppClient = async () => {
             }
         }
     });
-}
+};
 
 const createInstallationClient = async (installationId) => {
-    const token = await app.getInstallationAccessToken({installationId});
+    const {token} = await auth({type: 'installation', installationId});
 
     return axios.create({
         baseURL: 'https://api.github.com',
