@@ -9,6 +9,7 @@ module.exports = `
         id: ID!
         host: String!
         hostId: String!
+        installationId: String!
         users: [User!]!
         issues: [Issue!]!
     }
@@ -41,6 +42,7 @@ module.exports = `
     input RepositoryInput {
         host: String!
         hostId: String!
+        installationId: String!
     }
 
     input IssueInput {

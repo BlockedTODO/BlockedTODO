@@ -12,7 +12,7 @@ afterAll(() => {
 });
 
 const validIssueData = async () => {
-    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123'});
+    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123', installationId: 'abc123'});
     return {url: 'http://example.com', repositoryId: repository.id};
 };
 
@@ -47,7 +47,7 @@ describe('findOrCreate', () => {
 
     it('can add a relation in the callback', async () => {
         const issueData = await validIssueData();
-        const repository = await Repository.query().insert({host: 'github', hostId: 'def456'});
+        const repository = await Repository.query().insert({host: 'github', hostId: 'def456', installationId: 'abc123'});
         const issue = await findOrCreate(Issue, issueData, async (issue) => {
             await issue.$relatedQuery('repository').relate(repository);
         });

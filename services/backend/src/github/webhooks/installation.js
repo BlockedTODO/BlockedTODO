@@ -8,7 +8,7 @@ const onInstallationCreated = async ({payload}) => {
     const githubClient = await createAppClient(payload.installation.id);
 
     await Promise.allSettled(payload.repositories.map(({node_id}) => {
-        createAndScanRepository(node_id, githubClient);
+        createAndScanRepository(node_id, payload.installation.id, githubClient);
     }));
 };
 
@@ -22,7 +22,7 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
     const githubClient = await createAppClient(payload.installation.id);
 
     await Promise.allSettled(payload.repositories_added.map(({node_id}) => {
-        createAndScanRepository(node_id, githubClient);
+        createAndScanRepository(node_id, payload.installation.id, githubClient);
     }));
 };
 
@@ -32,8 +32,8 @@ const onInstallationRepositoriesRemoved = async ({payload}) => {
     }
 };
 
-const createAndScanRepository = async (repositoryHostId, githubClient) => {
-    const repository = await findOrCreate(Repository, {host: 'github', hostId: repositoryHostId});
+const createAndScanRepository = async (hostId, installationId, githubClient) => {
+    const repository = await findOrCreate(Repository, {host: 'github', hostId: hostId, installationId: installationId});
 
     await withTempDirectory(async (tempDir) => {
         logger.info(`Downloading GitHub repository ${repository.id}`);

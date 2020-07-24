@@ -16,6 +16,7 @@ class Repository extends BaseModel {
             properties: {
                 host: {type: 'string', enum: REPOSITORY_HOSTS},
                 hostId: {type: 'string', minLength: 4},
+                installationId: {type: 'string', minLength: 1},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }
