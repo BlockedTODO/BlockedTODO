@@ -1,11 +1,11 @@
 const {Repository} = require('db/models');
 const {findOrCreate} = require('db/utils/');
-const {createAppClient, downloadRepository} = require('github/utils/');
+const {createInstallationClient, downloadRepository} = require('github/utils/');
 const {scanCodebase} = require('parser/');
 const {logger, withTempDirectory} = require('utils/');
 
 const onInstallationCreated = async ({payload}) => {
-    const githubClient = await createAppClient(payload.installation.id);
+    const githubClient = await createInstallationClient(payload.installation.id);
 
     await Promise.allSettled(payload.repositories.map(({node_id}) => {
         createAndScanRepository(node_id, payload.installation.id, githubClient);
@@ -19,7 +19,7 @@ const onInstallationDeleted = async ({payload}) => {
 };
 
 const onInstallationRepositoriesAdded = async ({payload}) => {
-    const githubClient = await createAppClient(payload.installation.id);
+    const githubClient = await createInstallationClient(payload.installation.id);
 
     await Promise.allSettled(payload.repositories_added.map(({node_id}) => {
         createAndScanRepository(node_id, payload.installation.id, githubClient);
