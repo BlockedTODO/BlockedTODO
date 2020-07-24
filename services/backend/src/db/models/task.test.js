@@ -11,7 +11,7 @@ afterAll(() => {
 });
 
 const validTaskData = async () => {
-    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123'});
+    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123', installationId: 'abc123'});
     const issue = await Issue.query().insert({url: 'http://example.com', repositoryId: repository.id});
 
     return {

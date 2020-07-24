@@ -11,7 +11,7 @@ afterAll(() => {
 });
 
 const validIssueData = async () => {
-    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123'});
+    const repository = await Repository.query().insert({host: 'github', hostId: 'abc123', installationId: 'abc123'});
     return {url: 'http://example.com', repositoryId: repository.id};
 };
 
