@@ -1,6 +1,6 @@
 const {Repository} = require('db/models');
 const {logger, withTempDirectory} = require('utils/');
-const {createAppClient, downloadRepository} = require('github/utils/');
+const {createInstallationClient, downloadRepository} = require('github/utils/');
 const {scanCodebase} = require('parser/');
 
 const onPush = async ({payload}) => {
@@ -12,7 +12,7 @@ const onPush = async ({payload}) => {
         return;
     }
 
-    const githubClient = await createAppClient(payload.installation.id);
+    const githubClient = await createInstallationClient(payload.installation.id);
 
     const repositoryHostId = payload.repository.node_id;
     const repository = await Repository.query().findOne({hostId: repositoryHostId});
