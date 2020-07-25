@@ -36,6 +36,10 @@ spec:
                     value: {{$secrets.github_app_id | squote}}
                   - name: GITHUB_APP_PRIVATE_KEY
                     value: {{$secrets.github_app_private_key | squote}}
+                  - name: GITHUB_CLIENT_ID
+                    value: {{$secrets.github_client_id | squote}}
+                  - name: GITHUB_CLIENT_SECRET
+                    value: {{$secrets.github_client_secret | squote}}
                   - name: DATABASE_NAME
                     value: {{$database_secrets.database_name}}
                   - name: DATABASE_USER

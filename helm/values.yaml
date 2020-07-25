@@ -28,6 +28,8 @@ backend:
         github_webhooks_secret: 'overwrite'
         github_app_id: 'overwrite'
         github_app_private_key: 'overwrite'
+        github_client_id: 'overwrite'
+        github_client_secret: 'overwrite'
 
 frontend:
     label: 'frontend'
