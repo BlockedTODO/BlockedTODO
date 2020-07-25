@@ -103,3 +103,51 @@ spec:
                             value: {{.Values.database.label}}-service
                           - name: DATABASE_PORT
                             value: {{$database_secrets.database_port | squote}}
+
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+    name: repository-scan-cronjob
+    namespace: {{.Values.namespace}}
+spec:
+    schedule: "0 3 * * *"
+    successfulJobsHistoryLimit: 1
+    failedJobsHistoryLimit: 2
+    jobTemplate:
+        spec:
+            template:
+                spec:
+                    restartPolicy: OnFailure
+                    containers:
+                      - name: repository-scan-job
+                        image: {{.Values.backend.image}}
+                        imagePullPolicy: IfNotPresent
+                        command: ["node"]
+                        args: ["src/jobs/scanRepositories.js"]
+                        env:
+                          - name: NODE_ENV
+                            value: {{.Values.environment}}
+                          - name: TOKEN_SECRET
+                            value: {{$secrets.token_secret}}
+                          - name: GITHUB_WEBHOOKS_SECRET
+                            value: {{$secrets.github_webhooks_secret | squote}}
+                          - name: GITHUB_APP_ID
+                            value: {{$secrets.github_app_id | squote}}
+                          - name: GITHUB_APP_PRIVATE_KEY
+                            value: {{$secrets.github_app_private_key | squote}}
+                          - name: GITHUB_CLIENT_ID
+                            value: {{$secrets.github_client_id | squote}}
+                          - name: GITHUB_CLIENT_SECRET
+                            value: {{$secrets.github_client_secret | squote}}
+                          - name: DATABASE_NAME
+                            value: {{$database_secrets.database_name}}
+                          - name: DATABASE_USER
+                            value: {{$database_secrets.database_user}}
+                          - name: DATABASE_PASSWORD
+                            value: {{$database_secrets.database_password}}
+                          - name: DATABASE_HOST
+                            value: {{.Values.database.label}}-service
+                          - name: DATABASE_PORT
+                            value: {{$database_secrets.database_port | squote}}
