@@ -18,6 +18,8 @@ services:
             - GITHUB_WEBHOOKS_SECRET
             - GITHUB_APP_ID
             - GITHUB_APP_PRIVATE_KEY
+            - GITHUB_CLIENT_ID
+            - GITHUB_CLIENT_SECRET
             - GRAPHQL_API_ENABLED=true
         command: sh ./scripts/docker-start-dev.sh
         ports:
@@ -57,7 +59,7 @@ services:
         environment:
             - REACT_APP_FRONTEND_PROTOCOL=http
             - REACT_APP_FRONTEND_HOST=localhost
-            - REACT_APP_FRONTEND_PORT=3000
+            - REACT_APP_FRONTEND_PORT=3001
         command: sh ./scripts/docker-start-dev.sh
         ports:
             - 3002:3002

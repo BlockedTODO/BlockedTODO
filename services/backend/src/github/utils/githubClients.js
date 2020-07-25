@@ -10,6 +10,7 @@ const createAppClient = async () => {
             common: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
+                'Accept': 'application/vnd.github.machine-man-preview+json',
             }
         }
     });
@@ -24,6 +25,7 @@ const createInstallationClient = async (installationId) => {
             common: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
+                'Accept': 'application/vnd.github.machine-man-preview+json',
             }
         }
     });

@@ -55,7 +55,13 @@ k8s-start:
 	- eval $(minikube -p minikube docker-env)
 	- minikube start
 	- make build
-	- helm upgrade --set backend.secrets.github_app_private_key='${GITHUB_APP_PRIVATE_KEY}' --set backend.secrets.github_app_id='${GITHUB_APP_ID}' --set backend.secrets.github_webhooks_secret='${GITHUB_WEBHOOKS_SECRET}' --install blockedtodo ./helm
+	- helm upgrade \
+		--set backend.secrets.github_app_private_key='${GITHUB_APP_PRIVATE_KEY}' \
+		--set backend.secrets.github_app_id='${GITHUB_APP_ID}' \
+		--set backend.secrets.github_webhooks_secret='${GITHUB_WEBHOOKS_SECRET}' \
+		--set backend.secrets.github_client_id='${GITHUB_CLIENT_ID}' \
+		--set backend.secrets.github_client_secret='${GITHUB_CLIENT_SECRET}' \
+		--install blockedtodo ./helm
 
 k8s-stop:
 	- helm uninstall blockedtodo
