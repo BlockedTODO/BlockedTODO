@@ -23,22 +23,6 @@ const validTaskData = async () => {
 };
 
 describe('insert', () => {
-    it('is given an id automatically', async () => {
-        const task = await Task.query().insert(await validTaskData());
-
-        expect(task).toHaveProperty('id');
-        expect(task.id).not.toBeNull();
-    });
-
-    it('sets createdAt and updatedAt automatically', async () => {
-        const task = await Task.query().insert(await validTaskData());
-
-        expect(task).toMatchObject({
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-        });
-    });
-
     it('rejects an empty host', async () => {
         const insertQuery = Task.query().insert({...await validTaskData(), host: ''});
 

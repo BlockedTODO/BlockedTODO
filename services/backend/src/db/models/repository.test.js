@@ -11,20 +11,6 @@ afterAll(() => {
 });
 
 describe('insert', () => {
-    it('is given an id automatically', async () => {
-        const repository = await Repository.query().insert({host: 'github', hostId: 'abc123', installationId: 'abc123'});
-        expect(repository).toHaveProperty('id');
-        expect(repository.id).not.toBeNull();
-    });
-
-    it('sets createdAt and updatedAt automatically', async () => {
-        const repository = await Repository.query().insert({host: 'github', hostId: 'abc123', installationId: 'abc123'});
-        expect(repository).toMatchObject({
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-        });
-    });
-
     it('rejects an empty host', async () => {
         const insertQuery = Repository.query().insert({host: '', hostId: 'abc123', installationId: 'abc123'});
         await expect(insertQuery).rejects.toThrowError();

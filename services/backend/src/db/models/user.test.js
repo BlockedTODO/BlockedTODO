@@ -11,20 +11,6 @@ afterAll(() => {
 });
 
 describe('insert', () => {
-    it('is given an id automatically', async () => {
-        const user = await User.query().insert({email: 'test@test.com', password: 'hunter1'});
-        expect(user).toHaveProperty('id');
-        expect(user.id).not.toBeNull();
-    });
-
-    it('sets createdAt and updatedAt automatically', async () => {
-        const user = await User.query().insert({email: 'test@test.com', password: 'hunter1'});
-        expect(user).toMatchObject({
-            createdAt: expect.any(String),
-            updatedAt: expect.any(String),
-        });
-    });
-
     it('does not store the password in plaintext', async () => {
         const password = 'hunter1';
         const user = await User.query().insert({email: 'test@test.com', password: password});
