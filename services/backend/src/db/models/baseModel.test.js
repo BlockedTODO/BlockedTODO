@@ -11,7 +11,7 @@ afterAll(() => {
 });
 
 describe('mixins', () => {
-    it('is given an id (guid) automatically', async () => {
+    it('is given an id (uuid) automatically', async () => {
         const repository = await Repository.query().insert({host: 'github', hostId: 'abc123', installationId: 'abc123'});
         expect(repository).toHaveProperty('id');
         expect(repository.id).not.toBeNull();
