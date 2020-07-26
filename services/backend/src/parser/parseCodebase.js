@@ -1,13 +1,13 @@
 const {promises: fsPromises} = require('fs');
 const globby = require('globby');
-const {logger, urlNormalizer, COMMENT_REGEX, ISSUE_REGEX} = require('utils/');
+const {logger, COMMENT_REGEX, ISSUE_REGEX} = require('utils/');
 
 /* Return array of issue urls that match ISSUE_REGEX in a single comment */
 const scanComment = (comment) => {
     const results = comment.matchAll(ISSUE_REGEX);
     const issueUrls = [];
     for (const result of results) {
-        issueUrls.push(urlNormalizer(result.groups.url));
+        issueUrls.push(result.groups.url);
     }
     return issueUrls;
 };

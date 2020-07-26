@@ -1,5 +1,4 @@
 const logger = require('./logger');
-const urlNormalizer = require('./urlNormalizer');
 const graphqlRequestBody = require('./graphqlRequestBody');
 const asyncUnzip = require('./asyncUnzip');
 const asyncWriteFile = require('./asyncWriteFile');
@@ -10,7 +9,6 @@ const withTempDirectory = require('./withTempDirectory');
 
 module.exports = {
     logger,
-    urlNormalizer,
     graphqlRequestBody,
     asyncUnzip,
     asyncWriteFile,

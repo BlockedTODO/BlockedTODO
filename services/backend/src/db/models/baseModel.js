@@ -30,15 +30,15 @@ class BaseModel extends mixins(Model) {
     }
 
     $beforeInsert(...args) {
-        super.$beforeInsert(...args);
         const timestamp = new Date().toISOString();
         this.createdAt = timestamp;
         this.updatedAt = timestamp;
+        return super.$beforeInsert(...args);
     }
 
     $beforeUpdate(...args) {
-        super.$beforeUpdate(...args);
         this.updatedAt = new Date().toISOString();
+        return super.$beforeUpdate(...args);
     }
 }
 
