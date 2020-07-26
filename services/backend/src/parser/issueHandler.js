@@ -1,5 +1,4 @@
 const {Issue} = require('db/models');
-const {findOrCreate} = require('db/utils/');
 
 /* Delete issues that are no longer mentioned in the codebase from the repository */
 const deleteUnreferencedIssues = async (repository, referencedIssues) => {
@@ -17,7 +16,7 @@ const deleteUnreferencedIssues = async (repository, referencedIssues) => {
  * Takes a list of issue urls and creates them if they don't exist. */
 const createMissingIssues = async (repository, referencedIssueUrls) => {
     const handleIssue = async (issueUrl) => {
-        const issue = await findOrCreate(Issue, {url: issueUrl, repositoryId: repository.id});
+        const issue = await Issue.query().findOrInsert({url: issueUrl, repositoryId: repository.id});
 
         return issue;
     };

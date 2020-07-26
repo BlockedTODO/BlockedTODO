@@ -1,5 +1,4 @@
 const {Repository} = require('db/models');
-const {findOrCreate} = require('db/utils/');
 const {createInstallationClient, downloadRepository} = require('github/utils/');
 const {scanCodebase} = require('parser/');
 const {logger, withTempDirectory} = require('utils/');
@@ -35,7 +34,7 @@ const onInstallationRepositoriesRemoved = async ({payload}) => {
 };
 
 const createAndScanRepository = async (hostId, installationId, githubClient) => {
-    const repository = await findOrCreate(Repository, {host: 'github', hostId, installationId});
+    const repository = await Repository.query().findOrInsert({host: 'github', hostId, installationId});
 
     await withTempDirectory(async (tempDir) => {
         logger.info(`Downloading GitHub repository ${repository.id}`);
