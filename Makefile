@@ -1,6 +1,7 @@
 .PHONY: show-help build start stop down nuke \
 	inspect-backend attach-backend inspect-database \
 	inspect-frontend attach-frontend \
+	inspect-website attach-website \
 	k8s-stop k8s-start
 
 .DEFAULT_GOAL := show-help
@@ -36,20 +37,26 @@ nuke:
 	- @echo 'Note: this may take a while'
 	- docker system prune --all --volumes
 
+inspect-database:
+	docker-compose --file services/docker-compose.yaml exec database psql app-database app-database-user
+
 inspect-backend:
 	docker-compose --file services/docker-compose.yaml exec backend /bin/bash
 
 attach-backend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_backend_1
 
-inspect-database:
-	docker-compose --file services/docker-compose.yaml exec database psql app-database app-database-user
-
 inspect-frontend:
 	docker-compose --file services/docker-compose.yaml exec frontend /bin/sh
 
 attach-frontend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_frontend_1
+
+inspect-website:
+	docker-compose --file services/docker-compose.yaml exec website /bin/sh
+
+attach-website:
+	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_website_1
 
 k8s-start:
 	- eval $(minikube -p minikube docker-env)
