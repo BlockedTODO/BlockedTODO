@@ -3,7 +3,7 @@ const graphqlRequestBody = require('./graphqlRequestBody');
 const asyncUnzip = require('./asyncUnzip');
 const asyncWriteFile = require('./asyncWriteFile');
 const COMMENT_REGEX = require('./commentRegex');
-const ISSUE_REGEX = require('./issueRegex');
+const DEFAULT_CONFIG = require('./defaultConfig');
 const markdownHelpers = require('./markdownHelpers');
 const withTempDirectory = require('./withTempDirectory');
 
@@ -13,6 +13,7 @@ module.exports = {
     asyncUnzip,
     asyncWriteFile,
     COMMENT_REGEX,
+    DEFAULT_CONFIG,
     ISSUE_REGEX,
     markdownHelpers,
     withTempDirectory,
