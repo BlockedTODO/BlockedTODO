@@ -27,7 +27,7 @@
     "tempy": "^0.6.0",
     "unzipper": "^0.10.11",
     "url-regex": "^5.0.0",
-    "uuid": "^8.2.0",
+    "uuid": "^8.3.0",
     "winston": "^3.3.3"
   },
   "description": "Backend for BlockedTODO",
