@@ -1,6 +1,7 @@
 const {promises: fsPromises} = require('fs');
 const globby = require('globby');
-const {logger, COMMENT_REGEX, issueRegex} = require('utils/');
+const {logger} = require('utils/');
+const {COMMENT_REGEX, issueRegex} = require('./regex');
 const getConfig = require('./getConfig');
 
 /* Return array of issue urls that match the issue regex in a single comment */
