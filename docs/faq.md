@@ -5,9 +5,22 @@ Frequently Asked Questions
 BlockedTODO only stores issue URLs that are mentioned in your code comments, the GitHub UUID of your repo, and the UUIDs of the tasks it creates on your repository. That's it!
 
 ## Can I use a different comment pattern?
-Supporting other issue prefixes such as `Blocked by`, `BLOCKED`, `NOTIFY` is one of the highest priority tasks in the backlog.
+Yes! By default, BlockedTODO will match the following prefixes:
+- `BlockedTODO:`
+- `NOTIFY:`
+- `Blocked by`
+- `Waiting on`
 
-The plan is to have a few common defaults and make it configurable by the user via a `.blockedtodo` file. At the moment, `BlockedTODO:` (case insensitive) is the only supported prefix.
+To override these defaults, all you need to do is add a `.blockedtodo.yaml` file at the root of your repository and append the following text:
+
+```yaml
+comment_prefixes: # Prefixes are case insensitive
+  - 'BlockedTODO:'
+  - 'My custom prefix'
+  - 'NOTIFY:'
+```
+
+More information on the `.blockedtodo.yaml` config file [here](../README.md#the-blockedtodoyaml-config-file).
 
 ## Can it support other issue sources?
 Supporting other issue sources such as google bugtracker and Jira instances is definitely something I would like to support in the future.
