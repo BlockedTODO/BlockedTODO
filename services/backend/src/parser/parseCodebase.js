@@ -1,10 +1,11 @@
 const {promises: fsPromises} = require('fs');
 const globby = require('globby');
-const {logger, COMMENT_REGEX, ISSUE_REGEX} = require('utils/');
+const {logger, COMMENT_REGEX, issueRegex} = require('utils/');
+const getConfig = require('./getConfig');
 
-/* Return array of issue urls that match ISSUE_REGEX in a single comment */
-const scanComment = (comment) => {
-    const results = comment.matchAll(ISSUE_REGEX);
+/* Return array of issue urls that match the issue regex in a single comment */
+const scanComment = (comment, config) => {
+    const results = comment.matchAll(issueRegex(config));
     const issueUrls = [];
     for (const result of results) {
         issueUrls.push(result.groups.url);
@@ -14,7 +15,7 @@ const scanComment = (comment) => {
 
 /* Scans one file for comments that match the proper regexes
  * returns an array of objects with the following structure{<url>: {filePath, comment}} */
-const scanOneFile = async (file) => {
+const scanOneFile = async (file, config) => {
     try {
         logger.info(`Gathering comments from file: ${file}`);
         const contents = await fsPromises.readFile(file, {encoding: 'utf-8'});
@@ -22,7 +23,7 @@ const scanOneFile = async (file) => {
 
         const fileIssueUrls = [];
         for (const comment of fileComments) {
-            const commentIssueUrls = scanComment(comment);
+            const commentIssueUrls = scanComment(comment, config);
             commentIssueUrls.forEach((url) => {
                 fileIssueUrls.push({[url]: {filePath: file, comment: comment}});
             });
@@ -63,11 +64,14 @@ const mergeScanResults = (results, codeFolder) => {
 
 /* Take in a path to a codebase, return a set of issue URLs */
 const parseCodebase = async (codeFolder) => {
+    const config = await getConfig(codeFolder);
+    logger.info(config);
+
     const filesToScan = await globby(`${codeFolder}/**/*`);
     logger.info(`files to scan: ${filesToScan}`);
 
     // Create promises for each file to scan
-    const scanPromises = filesToScan.map(scanOneFile);
+    const scanPromises = filesToScan.map((file) => scanOneFile(file, config));
 
     // Scan all files asynchronously, continue when all files are scanned.
     const results = await Promise.allSettled(scanPromises);
