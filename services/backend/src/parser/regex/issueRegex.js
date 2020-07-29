@@ -1,5 +1,5 @@
 const urlRegex = require('url-regex');
-const escapeRegex = require('./escapeRegex');
+const {escapeRegex} = require('utils/');
 
 /* URL regex. */
 const URL_REGEX = new RegExp('(?<url>' + urlRegex({strict: false}).source + ')').source;

@@ -1,6 +1,7 @@
 const yaml = require('js-yaml');
 const {promises: fsPromises} = require('fs');
-const {logger, DEFAULT_CONFIG, CONFIG_FILE_NAME_REGEX} = require('utils/');
+const {logger, DEFAULT_CONFIG} = require('utils/');
+const {CONFIG_FILE_NAME_REGEX} = require('./regex');
 
 const getConfig = async (codeFolder) => {
     const rootFiles = await fsPromises.readdir(codeFolder);
