@@ -14,6 +14,8 @@ When a mentioned issue is closed, BlockedTODO will automatically open a new task
 
 ![Screenshot of a task automatically created by BlockedTODO](./docs/task-screenshot.png)
 
+💡 **Pro Tip!** You can change the default comment prefix (see [here](./docs/faq.md#can-i-use-a-different-comment-pattern))
+
 ## Installation
 Installing BlockedTODO on your GitHub repository is easy!
 
@@ -63,6 +65,20 @@ BlockedTODO is a dependency monitoring tool that provides convenience via automa
 Visit the [FAQ](./docs/faq.md). You can also ask questions by [opening an issue](https://github.com/BlockedTODO/BlockedTODO/issues/new).
 
 For private inquiries, email blockedtodo@gmail.com
+
+## The `blockedtodo.yaml` config file
+You can add a `blockedtodo.yaml` or `.blockedtodo.yaml` file at the root of the repository to **customize BlockedTODO**.
+
+The file name is case insensitive and the file extension is optional. _If specified, the file extension must be either `.yml` or `.yaml`._
+
+If no file is specified, it will default to the following configuration:
+```yaml
+comment_prefixes: # Comment prefixes are case insensitive
+  - 'BlockedTODO:'
+  - 'NOTIFY:'
+  - 'Blocked by'
+  - 'Waiting on'
+```
 
 ## Contribute
 Create feature requests and bug reports by [opening an issue](https://github.com/BlockedTODO/BlockedTODO/issues/new).
