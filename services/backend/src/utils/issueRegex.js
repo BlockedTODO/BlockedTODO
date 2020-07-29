@@ -1,8 +1,5 @@
 const urlRegex = require('url-regex');
-
-/* Prefix that comes before the issue url
- * eg. `BlockedTODO: `, `Blocked by ` or `NOTIFY: `*/
-const BLOCKEDTODO_PREFIX = /(?<prefix>BlockedTODO:\s*)/.source;
+const escapeRegex = require('./escapeRegex');
 
 /* URL regex. */
 const URL_REGEX = new RegExp('(?<url>' + urlRegex({strict: false}).source + ')').source;
@@ -12,13 +9,24 @@ const URL_REGEX = new RegExp('(?<url>' + urlRegex({strict: false}).source + ')')
  * i = case insensitive match */
 const GLOBAL_PATTERN_FLAGS = 'gmi';
 
-/* Combine the above partial regexes into one */
-const ISSUE_REGEX = new RegExp(
-    [
-        BLOCKEDTODO_PREFIX,
-        URL_REGEX,
-    ].join(''),
-    GLOBAL_PATTERN_FLAGS
-);
+const issueRegex = (config) => {
+    /* Get prefixes from configuration and escape regex characters to avoid ReDoS attacks.
+     * The prefix comes before the issue url eg. BlockedTODO:, Blocked by, NOTIFY: */
+    const prefixes = config.comment_prefixes.map(escapeRegex);
 
-module.exports = ISSUE_REGEX;
+    // Create a prefix regex from the list of prefixes in the provided config
+    const PREFIX_REGEX = new RegExp('((?<prefix>' + prefixes.join('|') + ')\\s*)').source;
+
+    // Combine the partial regexes into one
+    const ISSUE_REGEX = new RegExp(
+        [
+            PREFIX_REGEX,
+            URL_REGEX,
+        ].join(''),
+        GLOBAL_PATTERN_FLAGS
+    );
+
+    return ISSUE_REGEX;
+};
+
+module.exports = issueRegex;
