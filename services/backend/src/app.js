@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const apolloServer = require('graphql/apolloServer');
 const {isAuthenticated, errorHandler} = require('middleware/');
@@ -10,7 +9,7 @@ const app = express();
 app.set('host', process.env.DOMAIN_NAME || 'localhost');
 app.set('port', process.env.PORT || '3000');
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
 app.use(isAuthenticated);
 app.use(githubWebhooks.middleware);
