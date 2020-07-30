@@ -1,4 +1,4 @@
-const {Issue} = require('db/models');
+const {Issue} = require('db/');
 
 /* Delete issues that are no longer mentioned in the codebase from the repository */
 const deleteUnreferencedIssues = async (repository, referencedIssues) => {

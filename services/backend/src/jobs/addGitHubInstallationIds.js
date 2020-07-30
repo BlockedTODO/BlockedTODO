@@ -1,5 +1,4 @@
-require('db/'); // Initiate database connection
-const {Repository} = require('db/models/');
+const {Repository} = require('db/');
 const {logger} = require('utils/');
 const {createAppClient, createInstallationClient} = require('github/utils');
 

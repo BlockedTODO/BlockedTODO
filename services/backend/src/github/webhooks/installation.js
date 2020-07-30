@@ -1,4 +1,4 @@
-const {Repository} = require('db/models');
+const {Repository} = require('db/');
 const scanGitHubRepository = require('github/scanGitHubRepository');
 
 const onInstallationCreated = async ({payload}) => {

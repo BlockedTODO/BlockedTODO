@@ -1,8 +1,7 @@
 const {ApolloServer, gql} = require('apollo-server-express');
 const typeDefs = require('graphql/schema');
 const resolvers = require('graphql/resolvers');
-const db = require('db/');
-const models = require('db/models/');
+const {db, ...models} = require('db/');
 
 const playground = {
     settings: {'editor.cursorShape': 'line'}
@@ -10,7 +9,7 @@ const playground = {
 
 const context = ({req}) => {
     return {
-        db: db,
+        db,
         ...models,
         request: req,
     };

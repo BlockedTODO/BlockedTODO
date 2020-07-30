@@ -2,8 +2,7 @@ const isAuthenticated = require('./isAuthenticated');
 const httpMocks = require('node-mocks-http');
 const jwt = require('jsonwebtoken');
 const {transactionPerTest} = require('objection-transactional-tests');
-const {User} = require('db/models/');
-const db = require('db/');
+const {db, User} = require('db/');
 
 const generateValidRequest = (user) => {
     const token = jwt.sign({userId: user.id, email: user.email}, process.env.TOKEN_SECRET, {expiresIn: '1h'});
