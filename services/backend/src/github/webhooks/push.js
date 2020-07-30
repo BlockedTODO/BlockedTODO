@@ -1,4 +1,4 @@
-const {Repository} = require('db/models');
+const {Repository} = require('db/');
 const {logger} = require('utils/');
 const scanGitHubRepository = require('github/scanGitHubRepository');
 

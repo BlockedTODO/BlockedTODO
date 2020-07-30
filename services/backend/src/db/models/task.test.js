@@ -1,6 +1,5 @@
 const {transactionPerTest} = require('objection-transactional-tests');
-const {Issue, Repository, Task} = require('db/models/');
-const db = require('db/');
+const {db, Issue, Repository, Task} = require('db/');
 
 beforeAll(() => {
     transactionPerTest();

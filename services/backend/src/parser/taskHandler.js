@@ -1,4 +1,4 @@
-const {Task} = require('db/models');
+const {Task} = require('db/');
 const {URL} = require('url');
 const {logger} = require('utils/');
 const {getIssue, createIssue} = require('github/utils/');
