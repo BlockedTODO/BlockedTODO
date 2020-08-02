@@ -6,6 +6,7 @@ const DEFAULT_CONFIG = require('./defaultConfig');
 const escapeRegex = require('./escapeRegex');
 const markdownHelpers = require('./markdownHelpers');
 const withTempDirectory = require('./withTempDirectory');
+const errors = require('./errors');
 
 module.exports = {
     logger,
@@ -16,4 +17,5 @@ module.exports = {
     escapeRegex,
     markdownHelpers,
     withTempDirectory,
+    errors,
 };
