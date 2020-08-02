@@ -1,12 +1,12 @@
 const {transactionPerTest} = require('objection-transactional-tests');
-const {db, Issue, Repository} = require('db/');
+const {knex, Issue, Repository} = require('db/');
 
 beforeAll(() => {
     transactionPerTest();
 });
 
 afterAll(() => {
-    db.destroy();
+    knex.destroy();
 });
 
 const validIssueData = async () => {

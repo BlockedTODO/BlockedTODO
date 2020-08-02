@@ -7,13 +7,13 @@ const logger = require('../utils/logger');
 const models = require('./models');
 
 const environment = process.env.NODE_ENV || 'development';
-const db = Knex(knexConfig[environment]);
-db.on('query', (data) => logger.info(`${data.sql} -- Bindings: ${data.bindings}`));
+const knex = Knex(knexConfig[environment]);
+knex.on('query', (data) => logger.info(`${data.sql} -- Bindings: ${data.bindings}`));
 
 // Bind all Models to a knex instance.
-Model.knex(db);
+Model.knex(knex);
 
 module.exports = {
-    db,
+    knex,
     ...models,
 };
