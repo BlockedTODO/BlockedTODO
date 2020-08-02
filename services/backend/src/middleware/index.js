@@ -1,7 +1,11 @@
-const isAuthenticated = require('./isAuthenticated');
 const errorHandler = require('./errorHandler');
+const requireAuth = require('./requireAuth');
+const passport = require('./passport');
+const sessions = require('./sessions');
 
 module.exports = {
-    isAuthenticated,
     errorHandler,
+    requireAuth,
+    passport,
+    sessions,
 };

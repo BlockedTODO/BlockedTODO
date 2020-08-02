@@ -1,23 +1,35 @@
 const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const apolloServer = require('graphql/apolloServer');
-const {isAuthenticated, errorHandler} = require('middleware/');
+const {errorHandler, passport, sessions} = require('middleware/');
 const githubWebhooks = require('github/webhooks');
+const {authRouter} = require('routes/');
 
 const app = express();
 
 app.set('host', process.env.DOMAIN_NAME || 'localhost');
 app.set('port', process.env.PORT || '3000');
 
+app.use(cors({origin: /.*/, credentials: true}));
+app.options('*', cors());
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
-app.use(isAuthenticated);
+
+app.use(cookieParser());
+app.use(sessions());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(githubWebhooks.middleware);
 
-// eslint-disable-next-line no-unused-vars
 app.get('/', (req, res, next) => {
     res.send('BlockedTODO Backend Server');
 });
+
+app.use('/auth', authRouter);
 
 app.use(errorHandler);
 
