@@ -1,12 +1,12 @@
 const {transactionPerTest} = require('objection-transactional-tests');
-const {db, Repository} = require('db/');
+const {knex, Repository} = require('db/');
 
 beforeAll(() => {
     transactionPerTest();
 });
 
 afterAll(() => {
-    db.destroy();
+    knex.destroy();
 });
 
 describe('mixins', () => {

@@ -1,12 +1,12 @@
 const {transactionPerTest} = require('objection-transactional-tests');
-const {db, User} = require('db/');
+const {knex, User} = require('db/');
 
 beforeAll(() => {
     transactionPerTest();
 });
 
 afterAll(() => {
-    db.destroy();
+    knex.destroy();
 });
 
 describe('insert', () => {
