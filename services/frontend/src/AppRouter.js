@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
-import {useApolloClient} from '@apollo/client';
 import {createBrowserHistory} from 'history';
 import {Login, NotFound, Repositories, Signup} from './scenes';
 import {Header} from './components';
+import {loggedInContext} from 'Store';
 
 const AppRouter = () => (
     <Router history={createBrowserHistory({forceRefresh: false})}>
@@ -26,8 +26,7 @@ const RootRoute = ({location}) => {
     /* To avoid issues with readinessProbes in GKE, the root path shouldn't redirect on regular (unauthenticated) requests
      * so we just show the login page on requests to '/' unless the user is authenticated.
      * Details: https://cloud.google.com/kubernetes-engine/docs/concepts/ingress#limitations */
-    const client = useApolloClient();
-    const isLoggedIn = client.cache.data.data.ROOT_QUERY?.authentication_token;
+    const [isLoggedIn] = useContext(loggedInContext);
 
     return (
         <Route
@@ -45,8 +44,7 @@ const RootRoute = ({location}) => {
 };
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    const client = useApolloClient();
-    const isLoggedIn = client.cache.data.data.ROOT_QUERY?.authentication_token;
+    const [isLoggedIn] = useContext(loggedInContext);
 
     return (
         <Route
