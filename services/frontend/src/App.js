@@ -1,14 +1,13 @@
 import React from 'react';
-import {ApolloProvider} from '@apollo/client';
+import Store from './Store';
 import AppRouter from './AppRouter';
-import client from './graphql/client';
 import './App.scss';
 
 const App = () => (
     <div id='app'>
-        <ApolloProvider client={client}>
+        <Store>
             <AppRouter />
-        </ApolloProvider>
+        </Store>
     </div>
 );
 

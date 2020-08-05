@@ -1,26 +1,31 @@
-import React, {useState} from 'react';
-import {useInput, useLogin} from 'utils/hooks';
+import React, {useContext} from 'react';
+import {useHistory} from 'react-router-dom';
+import {useInput, useRestClient} from 'hooks/';
+import {loggedInContext} from 'Store';
+import restClient from 'utils/restClient';
 import LoginLayout from './LoginLayout';
 
 const Login = () => {
     const emailInput = useInput();
     const passwordInput = useInput();
-    const [error, setError] = useState('');
+    const history = useHistory();
+    const setIsLoggedIn = useContext(loggedInContext)[1];
 
-    const [getUser, {loading}] = useLogin({
-        onError: (e) => setError(e.message)
+    const loginRequest = () => restClient.post('/auth/login', {email: emailInput.value, password: passwordInput.value});
+    const {run, error, isLoading} = useRestClient({
+        deferFn: loginRequest,
+        onResolve: () => {
+            setIsLoggedIn(true);
+            history.push('/');
+        }
     });
-
-    const onSubmit = () => {
-        getUser({variables: {email: emailInput.value, password: passwordInput.value}});
-    };
 
     return (
         <LoginLayout
-            isLoading={loading}
+            isLoading={isLoading}
             emailInput={emailInput}
             passwordInput={passwordInput}
-            onSubmit={onSubmit}
+            onSubmit={run}
             errorMessage={error}
         />
     );
