@@ -12,8 +12,7 @@ const app = express();
 app.set('host', process.env.DOMAIN_NAME || 'localhost');
 app.set('port', process.env.PORT || '3000');
 
-app.use(cors({origin: /.*/, credentials: true}));
-app.options('*', cors());
+app.use(cors({origin: true, credentials: true}));
 app.use(express.json());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
 
