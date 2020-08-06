@@ -16,4 +16,10 @@ authRouter.post('/logout', requireAuth, (req, res) => {
     res.status(200).json({message: 'success'});
 });
 
+authRouter.get('/github', passport.authenticate('github'));
+
+authRouter.get('/github/callback', passport.authenticate('github'), (req, res) => {
+    res.redirect(req.headers.referer);
+});
+
 module.exports = authRouter;

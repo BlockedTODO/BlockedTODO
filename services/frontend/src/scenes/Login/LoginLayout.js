@@ -1,5 +1,5 @@
 import React from 'react';
-import {Logo, LoadingButton, TextField, FormError} from 'components/';
+import {Logo, LoadingButton, GithubLoginButton, TextField, FormError} from 'components/';
 import './Login.scss';
 
 const LoginLayout = (props) => (
@@ -15,6 +15,10 @@ const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading, errorMessage
         <FormError message={errorMessage} />
 
         <div className='form-container card-section'>
+            <GithubLoginButton />
+
+            <div>---- OR ----</div>
+
             <TextField className='form-input' label='Email' type='email' {...emailInput} />
             <TextField className='form-input' label='Password' type='password' {...passwordInput} />
 
@@ -30,6 +34,10 @@ const CardTitle = () => (
     <div className='card-title'>
         <h1 className='card-section'>Login</h1>
     </div>
+);
+
+const Separator = () => (
+    <div className='separator' />
 );
 
 export default LoginLayout;
