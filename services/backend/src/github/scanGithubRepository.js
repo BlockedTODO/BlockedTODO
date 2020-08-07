@@ -2,7 +2,7 @@ const {logger, withTempDirectory} = require('utils/');
 const {createInstallationClient, downloadRepository} = require('github/utils/');
 const {scanCodebase} = require('parser/');
 
-const scanGitHubRepository = async (repository) => {
+const scanGithubRepository = async (repository) => {
     const githubClient = await createInstallationClient(repository.installationId);
 
     await withTempDirectory(async (tempDir) => {
@@ -16,4 +16,4 @@ const scanGitHubRepository = async (repository) => {
     });
 };
 
-module.exports = scanGitHubRepository;
+module.exports = scanGithubRepository;

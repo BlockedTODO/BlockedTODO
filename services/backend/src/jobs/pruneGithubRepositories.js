@@ -3,12 +3,15 @@ const {logger} = require('utils/');
 const {createAppClient, createInstallationClient} = require('github/utils');
 
 /*
- * This job queries the GitHub API and adds missing installation ids to repositories in the database.
+ * This job queries the GitHub API and deletes repositories where BlockedTODO isn't installed from the database.
+ * This could happen if the backend server went down while BlockedTODO was being uninstalled, for instance.
  *
  * First, it fetches all installations of the GitHub app.
  * For each installation, it gets from GitHub the repositories on which the app is installed.
- * For each repository it gets from GitHub, we check if the db entry for that repository contains an installation id.
- * If there is no installation id in the database for that repository, update it to include the installation id.
+ * We create a set of valid repository hostIds. Any repo with a hostId that is not in the set gets deleted.
+ *
+ * Note: this does not lock the database, so there is theoretically a race condition
+ * if a repository is added between checking the list of repositories and querying all repositories from the database.
  *
  * Unfortunately, this cannot be done with the GitHub GraphQL API at the moment:
  * https://github.community/t/get-installation-id-with-graphql/13881
@@ -17,8 +20,9 @@ const {createAppClient, createInstallationClient} = require('github/utils');
  * https://docs.github.com/en/rest/reference/apps#list-repositories-accessible-to-the-app-installation
  *
  */
-const addGitHubInstallationIds = async () => {
+const addGithubInstallationIds = async () => {
     const appClient = await createAppClient();
+    const validHostIds = new Set();
 
     // Get all installations
     const installationsResponse = await appClient.get('/app/installations');
@@ -28,31 +32,21 @@ const addGitHubInstallationIds = async () => {
         const installationClient = await createInstallationClient(installation.id);
         const repositoriesResponse = await installationClient.get('/installation/repositories');
 
-        // For each repository, add installation id if it is missing in the database
+        // For each repository, add its hostId to the set
         for (const {node_id: hostId} of repositoriesResponse.data.repositories) {
-            const repository = await Repository.query().findOne({hostId});
-
-            if (!repository) {
-                logger.error(`Repository with hostId ${hostId} is missing in the database`);
-                continue;
-            }
-
-            if (repository.installationId !== null) {
-                continue;
-            }
-
-            await repository.$query().patch({installationId: installation.id.toString()});
-            logger.info(`Updated repository ${repository.id}`);
+            validHostIds.add(hostId);
         }
     }
 
-    // Verify that the job worked
-    const failedUpdates = await Repository.query().whereNull('installationId');
-    if (failedUpdates.length !== 0) {
-        logger.error('updating installation id failed for the following repositories:');
-        logger.error(failedUpdates);
+    // Remove repositories with a hostId that is not in the set
+    const repositories = await Repository.query().where({host: 'github'});
+    for (const repository of repositories) {
+        if (validHostIds.has(repository.hostId)) {
+            continue;
+        }
 
-        throw new Error('Some repositories are still missing an installation id');
+        logger.info(`Deleting repository ${repository.id} with hostId ${repository.hostId}`);
+        await repository.$query().delete();
     }
 
     return 'success';
@@ -69,4 +63,4 @@ const onError = (error) => {
 };
 
 // Run code synchronously to ensure proper process error codes are returned.
-addGitHubInstallationIds().then(onSuccess).catch(onError);
+addGithubInstallationIds().then(onSuccess).catch(onError);

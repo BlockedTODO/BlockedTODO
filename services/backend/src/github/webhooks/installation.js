@@ -1,12 +1,12 @@
 const {Repository} = require('db/');
-const scanGitHubRepository = require('github/scanGitHubRepository');
+const scanGithubRepository = require('github/scanGithubRepository');
 
 const onInstallationCreated = async ({payload}) => {
     const installationId = payload.installation.id.toString();
 
     await Promise.allSettled(payload.repositories.map(async ({node_id: hostId}) => {
         const repository = await Repository.query().findOrInsert({host: 'github', hostId, installationId});
-        await scanGitHubRepository(repository);
+        await scanGithubRepository(repository);
     }));
 };
 
@@ -21,7 +21,7 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
 
     await Promise.allSettled(payload.repositories_added.map(async ({node_id: hostId}) => {
         const repository = await Repository.query().findOrInsert({host: 'github', hostId, installationId});
-        await scanGitHubRepository(repository);
+        await scanGithubRepository(repository);
     }));
 };
 

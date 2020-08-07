@@ -1,12 +1,12 @@
 const {Repository} = require('db/');
 const {logger} = require('utils/');
-const scanGitHubRepository = require('github/scanGitHubRepository');
+const scanGithubRepository = require('github/scanGithubRepository');
 
 const scanRepositories = async () => {
     const repositories = await Repository.query();
 
     for (const repository of repositories) {
-        await scanGitHubRepository(repository);
+        await scanGithubRepository(repository);
     }
 
     return 'success';
