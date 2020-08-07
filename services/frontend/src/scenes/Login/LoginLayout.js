@@ -1,6 +1,6 @@
 import React from 'react';
 import {Logo, LoadingButton, GithubLoginButton, TextField, Separator, Card} from 'components/';
-import {IS_PRODUCTION} from 'utils/environment/';
+import {IS_PRODUCTION} from 'utils/environment';
 import './Login.scss';
 
 const LoginLayout = (props) => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Logo, LoadingButton, TextField, FormError, Card} from 'components/';
+import {Logo, LoadingButton, TextField, Card} from 'components/';
 import './Signup.scss';
 
 const SignupLayout = (props) => (

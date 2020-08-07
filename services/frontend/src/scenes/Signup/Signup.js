@@ -19,7 +19,7 @@ const Signup = () => {
         deferFn: loginRequest,
         onResolve: () => {
             setIsLoggedIn(true);
-            history.push('/');
+            history.push('/repositories');
         },
         onReject: (error) => setError(error)
     });
