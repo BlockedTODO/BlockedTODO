@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {ToDoIcon} from 'assets/icons/';
 import './Logo.scss';
 
-const Logo = ({className, route = '/'}) => (
+const Logo = ({className, route = '/repositories'}) => (
     <Link className={classNames('logo-container', className)} to={route}>
         <ToDoIcon className='logo-icon' />
         <h3> {/* eslint-disable-next-line react/jsx-no-comment-textnodes */}

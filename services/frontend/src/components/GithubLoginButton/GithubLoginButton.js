@@ -4,7 +4,7 @@ import {BACKEND_URL} from 'utils/environment';
 import {GithubIcon} from 'assets/icons/';
 import './GithubLoginButton.scss';
 
-const GithubLoginButton = ({className, label='Log in with GitHub'}) => (
+const GithubLoginButton = ({className, label = 'Log in with GitHub'}) => (
     /* We use an href instead of something like a LoadingButton with an onClick handler
      * because GitHub's backend does not support CORS.
      *
