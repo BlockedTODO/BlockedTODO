@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
-import {ToDoIcon} from 'assets/icons';
+import {ToDoIcon} from 'assets/icons/';
 import './Logo.scss';
 
 const Logo = ({className, route = '/'}) => (
