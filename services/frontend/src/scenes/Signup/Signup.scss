@@ -20,49 +20,49 @@ $background-color: $color-background-light;
 
         @include hover-darken-background($background-color);
     }
-}
 
-.signup-card {
-    display: flex;
-    background-color: $color-background-white;
-    border-radius: $default-border-radius;
-    flex-direction: column;
-    width: 30rem;
-
-    @include dropshadow-card();
-
-    .card-section {
-        padding: 2rem;
-        width: 100%;
-        height: 100%;
-    }
-
-    .form-input {
-        width: 100%;
-        margin-bottom: 2rem;
-    }
-
-    .buttons-container {
+    .signup-card {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 1rem;
+        background-color: $color-background-white;
+        border-radius: $default-border-radius;
+        flex-direction: column;
+        width: 30rem;
 
-        .signup-button {
-            width: 48%;
-            text-transform: capitalize;
+        @include dropshadow-card();
+
+        .card-section {
+            padding: 2rem;
+            width: 100%;
+            height: 100%;
         }
 
-        .login-button {
-            background-color: $color-light;
-            width: 48%;
-            text-transform: capitalize;
+        .form-input {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
 
-            @include border-button($color-text-primary, $color-light);
+        .buttons-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 1rem;
+
+            .signup-button {
+                width: 48%;
+                text-transform: capitalize;
+            }
+
+            .login-button {
+                background-color: $color-light;
+                width: 48%;
+                text-transform: capitalize;
+
+                @include border-button($color-text-primary, $color-light);
+            }
         }
     }
-}
 
-.card-title {
-    border-bottom: 2px solid $color-neutral-9;
+    .card-title {
+        border-bottom: 2px solid $color-neutral-9;
+    }
 }

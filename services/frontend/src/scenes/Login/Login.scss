@@ -20,49 +20,80 @@ $background-color: $color-background-light;
 
         @include hover-darken-background($background-color);
     }
-}
 
-.login-card {
-    display: flex;
-    background-color: $color-background-white;
-    border-radius: $default-border-radius;
-    flex-direction: column;
-    width: 30rem;
-
-    @include dropshadow-card();
-
-    .card-section {
-        padding: 2rem;
-        width: 100%;
-        height: 100%;
-    }
-
-    .form-input {
-        width: 100%;
-        margin-bottom: 2rem;
-    }
-
-    .buttons-container {
+    .login-card {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 1rem;
+        background-color: $color-background-white;
+        border-radius: $default-border-radius;
+        flex-direction: column;
+        width: 30rem;
 
-        .login-button {
-            width: 48%;
-            text-transform: capitalize;
+        @include dropshadow-card();
+
+        .card-section {
+            padding: 2rem;
+            width: 100%;
+            height: 100%;
         }
 
-        .signup-button {
-            background-color: $color-light;
-            width: 48%;
-            text-transform: capitalize;
+        .social-buttons-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+            margin-bottom: 3rem;
+            align-items: center;
 
-            @include border-button($color-text-primary, $color-light);
+            .github-button {
+                height: 3rem;
+            }
+        }
+
+        .or-separator {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+
+            .or {
+                color: $color-text-secondary;
+                font-weight: 500;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        .email-password-container {
+            margin-top: 3rem;
+
+            .form-input {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 1rem;
+
+            .login-button {
+                width: 48%;
+                text-transform: capitalize;
+            }
+
+            .signup-button {
+                background-color: $color-light;
+                width: 48%;
+                text-transform: capitalize;
+
+                @include border-button($color-text-primary, $color-light);
+            }
         }
     }
 }
 
-.card-title {
+.separator {
     border-bottom: 2px solid $color-neutral-9;
+    width: 100%;
 }
