@@ -25,5 +25,5 @@ if (window.BACKEND_PORT !== '80' && window.BACKEND_PORT !== '443') {
 
 export {
     BACKEND_URL,
-    IS_PRODUCTION
+    IS_PRODUCTION,
 };

@@ -6,3 +6,5 @@ export {default as LoadingButton} from './LoadingButton';
 export {default as GithubLoginButton} from './GithubLoginButton';
 export {default as TextField} from './TextField';
 export {default as FormError} from './FormError';
+export {default as Card} from './Card';
+export {default as Separator} from './Separator';
