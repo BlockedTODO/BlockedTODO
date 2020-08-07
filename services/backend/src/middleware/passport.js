@@ -1,6 +1,6 @@
 const passport = require('passport');
 const {Strategy: LocalStrategy} = require('passport-local');
-const {Strategy: GitHubStrategy} = require('passport-github');
+const {Strategy: GithubStrategy} = require('passport-github');
 const cryptoRandomString = require('crypto-random-string');
 const {AuthenticationError} = require('utils/errors');
 const {User} = require('db/');
@@ -45,12 +45,12 @@ const localStrategy = new LocalStrategy(localConfig, localVerify);
 passport.use(localStrategy);
 
 // GitHub IdP Strategy
-const gitHubConfig = {
+const githubConfig = {
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: '/auth/github/callback',
 };
-const gitHubVerify = async (accessToken, refreshToken, profile, done) => {
+const githubVerify = async (accessToken, refreshToken, profile, done) => {
     const {email, node_id: hostId} = profile._json;
 
     try {
@@ -69,7 +69,7 @@ const gitHubVerify = async (accessToken, refreshToken, profile, done) => {
         return done(error);
     }
 };
-const gitHubStrategy = new GitHubStrategy(gitHubConfig, gitHubVerify);
-passport.use(gitHubStrategy);
+const githubStrategy = new GithubStrategy(githubConfig, githubVerify);
+passport.use(githubStrategy);
 
 module.exports = passport;

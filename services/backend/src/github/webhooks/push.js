@@ -1,6 +1,6 @@
 const {Repository} = require('db/');
 const {logger} = require('utils/');
-const scanGitHubRepository = require('github/scanGitHubRepository');
+const scanGithubRepository = require('github/scanGithubRepository');
 
 const onPush = async ({payload}) => {
     const defaultBranch = payload.repository.default_branch;
@@ -13,7 +13,7 @@ const onPush = async ({payload}) => {
 
     const repository = await Repository.query().findOne({hostId: payload.repository.node_id});
 
-    await scanGitHubRepository(repository);
+    await scanGithubRepository(repository);
 };
 
 module.exports = {onPush};
