@@ -24,8 +24,11 @@ const localConfig = {
     passwordField: 'password',
 };
 const localVerify = async (email, password, done) => {
-    console.log('IN LOCALVERIFY');
     try {
+        if (!email) {
+            throw new AuthenticationError('Email is required');
+        }
+
         const user = await User.query().findOne({email});
 
         if (!user) {
