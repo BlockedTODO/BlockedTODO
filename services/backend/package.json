@@ -20,7 +20,7 @@
     "graphql": "^15.3.0",
     "js-yaml": "^3.14.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.21.2",
+    "knex": "^0.21.3",
     "morgan": "^1.10.0",
     "objection": "^2.2.2",
     "objection-guid": "^3.0.2",
