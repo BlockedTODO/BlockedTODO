@@ -26,7 +26,7 @@ const deleteSeedData = async (_knex) => {
     );
 
     await Repository.query().delete().whereIn(
-        'hostId',
+        'nodeId',
         ['user1/repo0', 'user1/repo1', 'user2/repo2', 'user3/repo3', 'someuser/repo4', 'someuser/repo5']
     );
 
@@ -52,12 +52,12 @@ const generateSeedData = async (knex) => {
     const user3 = await User.query().insert({email: 'test3@test.com', password: 'password3'});
 
     // Create repositories
-    const repository0 = await Repository.query().insert({host: 'github', hostId: 'user1/repo0', installationId: '1'});
-    const repository1 = await Repository.query().insert({host: 'github', hostId: 'user1/repo1', installationId: '1'});
-    const repository2 = await Repository.query().insert({host: 'github', hostId: 'user2/repo2', installationId: '2'});
-    const repository3 = await Repository.query().insert({host: 'github', hostId: 'user3/repo3', installationId: '3'});
-    const repository4 = await Repository.query().insert({host: 'github', hostId: 'someuser/repo4', installationId: '4'});
-    const repository5 = await Repository.query().insert({host: 'github', hostId: 'someuser/repo5', installationId: '5'});
+    const repository0 = await Repository.query().insert({nodeId: 'user1/repo0', installationId: '1'});
+    const repository1 = await Repository.query().insert({nodeId: 'user1/repo1', installationId: '1'});
+    const repository2 = await Repository.query().insert({nodeId: 'user2/repo2', installationId: '2'});
+    const repository3 = await Repository.query().insert({nodeId: 'user3/repo3', installationId: '3'});
+    const repository4 = await Repository.query().insert({nodeId: 'someuser/repo4', installationId: '4'});
+    const repository5 = await Repository.query().insert({nodeId: 'someuser/repo5', installationId: '5'});
 
     // Create issues
     const issue0 = await Issue.query().insert({
@@ -87,50 +87,42 @@ const generateSeedData = async (knex) => {
 
     // Create resources with belongsTo associations
     const task0 = await Task.query().insert({
-        host: 'github',
-        hostId: 'user1/repo0/issues/100',
+        nodeId: 'user1/repo0/issues/100',
         repositoryId: repository0.id,
         issueId: issue0.id
     });
     const task1 = await Task.query().insert({
-        host: 'github',
-        hostId: 'user1/repo1/issues/111',
+        nodeId: 'user1/repo1/issues/111',
         repositoryId: repository1.id,
         issueId: issue1.id,
     });
     const task2 = await Task.query().insert({
-        host: 'github',
-        hostId: 'user2/repo2/issues/222',
+        nodeId: 'user2/repo2/issues/222',
         repositoryId: repository2.id,
         issueId: issue2.id,
     });
     const task3 = await Task.query().insert({
-        host: 'github',
-        hostId: 'user3/repo3/issues/333',
+        nodeId: 'user3/repo3/issues/333',
         repositoryId: repository3.id,
         issueId: issue3.id,
     });
     const task4 = await Task.query().insert({
-        host: 'github',
-        hostId: 'user2/repo2/issues/224',
+        nodeId: 'user2/repo2/issues/224',
         repositoryId: repository2.id,
         issueId: issue4.id,
     });
     const task5 = await Task.query().insert({
-        host: 'github',
-        hostId: 'someuser/repo4/issues/044',
+        nodeId: 'someuser/repo4/issues/044',
         repositoryId: repository4.id,
         issueId: issue4.id,
     });
     const task6 = await Task.query().insert({
-        host: 'github',
-        hostId: 'someuser/repo5/055',
+        nodeId: 'someuser/repo5/055',
         repositoryId: repository5.id,
         issueId: issue5.id,
     });
     const task7 = await Task.query().insert({
-        host: 'github',
-        hostId: 'someuser/repo4/045',
+        nodeId: 'someuser/repo4/045',
         repositoryId: repository4.id,
         issueId: issue5.id,
     })

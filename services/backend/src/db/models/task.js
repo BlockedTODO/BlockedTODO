@@ -1,7 +1,5 @@
 const BaseModel = require('./baseModel');
 
-const TASK_HOSTS = ['github'];
-
 class Task extends BaseModel {
     static get tableName() {
         return 'tasks';
@@ -11,11 +9,10 @@ class Task extends BaseModel {
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['host', 'hostId'],
+            required: ['nodeId'],
 
             properties: {
-                host: {type: 'string', enum: TASK_HOSTS},
-                hostId: {type: 'string', minLength: 4},
+                nodeId: {type: 'string', minLength: 4},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }

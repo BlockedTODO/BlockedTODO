@@ -8,7 +8,7 @@ const {createAppClient, createInstallationClient} = require('github/utils');
  *
  * First, it fetches all installations of the GitHub app.
  * For each installation, it gets from GitHub the repositories on which the app is installed.
- * We create a set of valid repository hostIds. Any repo with a hostId that is not in the set gets deleted.
+ * We create a set of valid repository nodeIds. Any repo with a nodeId that is not in the set gets deleted.
  *
  * Note: this does not lock the database, so there is theoretically a race condition
  * if a repository is added between checking the list of repositories and querying all repositories from the database.
@@ -22,7 +22,7 @@ const {createAppClient, createInstallationClient} = require('github/utils');
  */
 const addGithubInstallationIds = async () => {
     const appClient = await createAppClient();
-    const validHostIds = new Set();
+    const validNodeIds = new Set();
 
     // Get all installations
     const installationsResponse = await appClient.get('/app/installations');
@@ -32,20 +32,20 @@ const addGithubInstallationIds = async () => {
         const installationClient = await createInstallationClient(installation.id);
         const repositoriesResponse = await installationClient.get('/installation/repositories');
 
-        // For each repository, add its hostId to the set
-        for (const {node_id: hostId} of repositoriesResponse.data.repositories) {
-            validHostIds.add(hostId);
+        // For each repository, add its nodeId to the set
+        for (const {node_id: nodeId} of repositoriesResponse.data.repositories) {
+            validNodeIds.add(nodeId);
         }
     }
 
-    // Remove repositories with a hostId that is not in the set
-    const repositories = await Repository.query().where({host: 'github'});
+    // Remove repositories with a nodeId that is not in the set
+    const repositories = await Repository.query();
     for (const repository of repositories) {
-        if (validHostIds.has(repository.hostId)) {
+        if (validNodeIds.has(repository.nodeId)) {
             continue;
         }
 
-        logger.info(`Deleting repository ${repository.id} with hostId ${repository.hostId}`);
+        logger.info(`Deleting repository ${repository.id} with nodeId ${repository.nodeId}`);
         await repository.$query().delete();
     }
 

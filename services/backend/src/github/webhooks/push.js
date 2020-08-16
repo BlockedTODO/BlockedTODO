@@ -11,7 +11,7 @@ const onPush = async ({payload}) => {
         return;
     }
 
-    const repository = await Repository.query().findOne({hostId: payload.repository.node_id});
+    const repository = await Repository.query().findOne({nodeId: payload.repository.node_id});
 
     await scanGithubRepository(repository);
 };
