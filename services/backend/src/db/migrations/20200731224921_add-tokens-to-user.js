@@ -5,6 +5,9 @@ exports.up = async (knex) => {
         // Add access token and refresh token columns
         table.string('access_token');
         table.string('refresh_token');
+        // Add token iv columns (for encrypted attributes)
+        table.string('access_token_iv');
+        table.string('refresh_token_iv');
     });
 
     // Make email nullable (to account for GitHub users with private email)
@@ -20,6 +23,9 @@ exports.down = async (knex) => {
         // Remove access token and refresh token columns
         table.dropColumn('access_token');
         table.dropColumn('refresh_token');
+        // Remove token iv columns
+        table.dropColumn('access_token_iv');
+        table.dropColumn('refresh_token_iv');
     });
 
     // Add notNullable constraint on the email column
