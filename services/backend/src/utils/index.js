@@ -7,6 +7,7 @@ const escapeRegex = require('./escapeRegex');
 const markdownHelpers = require('./markdownHelpers');
 const withTempDirectory = require('./withTempDirectory');
 const errors = require('./errors');
+const {encrypt, decrypt} = require('./cryptography');
 
 module.exports = {
     logger,
@@ -18,4 +19,6 @@ module.exports = {
     markdownHelpers,
     withTempDirectory,
     errors,
+    encrypt,
+    decrypt,
 };
