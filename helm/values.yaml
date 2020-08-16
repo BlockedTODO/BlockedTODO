@@ -24,7 +24,7 @@ backend:
     host: 'backend.blockedtodo.local'
     port: '80'
     secrets:
-        token_secret: 'jwtsecret'
+        encryption_secret: 'overwrite'
         github_webhooks_secret: 'overwrite'
         github_app_id: 'overwrite'
         github_app_private_key: 'overwrite'

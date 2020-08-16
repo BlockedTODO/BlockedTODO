@@ -10,7 +10,7 @@ const sessions = () => {
 
     return session({
         name: 'session_id',
-        secret: process.env.TOKEN_SECRET,
+        secret: process.env.ENCRYPTION_SECRET,
         resave: false, // Don't resave the session if it was not changed
         saveUninitialized: false,
         rolling: true, // Automatically extends the session age on each request.

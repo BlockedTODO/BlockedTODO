@@ -14,7 +14,7 @@ services:
             - DATABASE_NAME=app-database
             - DATABASE_USER=app-database-user
             - DATABASE_PASSWORD=app-database-password
-            - TOKEN_SECRET=jwtsecret
+            - ENCRYPTION_SECRET=secret
             - GITHUB_WEBHOOKS_SECRET
             - GITHUB_APP_ID
             - GITHUB_APP_PRIVATE_KEY
