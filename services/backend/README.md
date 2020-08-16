@@ -11,7 +11,7 @@ Most of these are automatically set when running with docker-compose, but all do
 * `DATABASE_PASSWORD`
 * `DATABASE_HOST`
 * `DATABASE_PORT`
-* `TOKEN_SECRET`
+* `ENCRYPTION_SECRET`
 * `GITHUB_WEBHOOKS_SECRET`
 * `GITHUB_APP_ID`
 * `GITHUB_APP_PRIVATE_KEY` Note: replace newlines with `\n`
