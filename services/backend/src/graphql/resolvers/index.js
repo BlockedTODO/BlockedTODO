@@ -2,7 +2,6 @@ const {userQueries, userMutations} = require('./users');
 const {repositoryQueries, repositoryMutations} = require('./repositories');
 const {issueQueries, issueMutations} = require('./issues');
 const {taskQueries, taskMutations} = require('./tasks');
-const {authenticationQueries} = require('./authentication');
 
 module.exports = {
     User: {
@@ -24,7 +23,6 @@ module.exports = {
         ...repositoryQueries,
         ...issueQueries,
         ...taskQueries,
-        ...authenticationQueries,
     },
     RootMutation: {
         ...userMutations,
