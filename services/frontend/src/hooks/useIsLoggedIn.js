@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from 'react';
-import axios from 'axios';
+import restClient from 'utils/restClient';
 
 /* State hook for isLoggedIn global state.
  * Since we use http-only cookies for sessions, we can't directly
@@ -20,7 +20,7 @@ const useIsLoggedIn = () => {
     useEffect(() => { // Verify authentication on every re-render (page refresh)
         const checkAuthStatus = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/auth/status', {withCredentials: true});
+                const response = await restClient.get('/auth/status');
                 setIsLoggedInWrapper(response.data.isLoggedIn);
             } catch (error) {
                 return;
