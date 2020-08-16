@@ -29,7 +29,7 @@ const createIssue = async (githubClient, issue, repository, issueReferences) => 
     const createIssue = graphqlRequestBody(`
         mutation {
             createIssue(input:{
-                repositoryId: "${repository.hostId}",
+                repositoryId: "${repository.nodeId}",
                 title: "Unblocked TODO: ${issueUrl.pathname} was closed.",
                 body: "${body.replace(/"/g, '\\"')}"
             }) {

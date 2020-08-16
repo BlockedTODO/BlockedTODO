@@ -54,17 +54,17 @@ const githubConfig = {
     callbackURL: '/auth/github/callback',
 };
 const githubVerify = async (accessToken, refreshToken, profile, done) => {
-    const {email, node_id: hostId} = profile._json;
+    const {email, node_id: nodeId} = profile._json;
 
     try {
-        let user = await User.query().findOne({hostId});
+        let user = await User.query().findOne({nodeId});
 
         if (user) { // User exists. Update tokens.
             user.$query().patch({accessToken, refreshToken});
         } else { // User does not exist. Create one.
             // Generate a random password. Users can use the (unimplemented) password reset flow to change the password.
             const randomPassword = cryptoRandomString({length: 64});
-            user = await User.query().insert({password: randomPassword, email, hostId, accessToken, refreshToken});
+            user = await User.query().insert({password: randomPassword, email, nodeId, accessToken, refreshToken});
         }
 
         return done(null, user);

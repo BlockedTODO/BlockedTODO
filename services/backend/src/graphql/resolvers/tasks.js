@@ -4,9 +4,9 @@ const taskQueries = {
 
 const taskMutations = {
     createTask: async (parent, {taskInput}, {Task}, info) => {
-        const {host, hostId, repositoryId, issueId} = taskInput;
+        const {nodeId, repositoryId, issueId} = taskInput;
 
-        return await Task.query().insert({host, hostId, repositoryId, issueId});
+        return await Task.query().insert({nodeId, repositoryId, issueId});
     }
 };
 

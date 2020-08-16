@@ -21,7 +21,7 @@ class User extends mixins(BaseModel) {
             properties: {
                 email: {type: ['string', null], format: 'email'},
                 password: {type: 'string', minLength: 4, maxLength: 512},
-                hostId: {type: ['string', null]},
+                nodeId: {type: ['string', null]},
                 accessToken: {type: ['string', null]},
                 accessTokenIv: {type: ['string', null]},
                 refreshToken: {type: ['string', null]},

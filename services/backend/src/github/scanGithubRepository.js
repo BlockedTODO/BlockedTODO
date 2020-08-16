@@ -7,7 +7,7 @@ const scanGithubRepository = async (repository) => {
 
     await withTempDirectory(async (tempDir) => {
         logger.info(`Downloading GitHub repository ${repository.id}`);
-        const codeFolder = await downloadRepository(githubClient, repository.hostId, tempDir);
+        const codeFolder = await downloadRepository(githubClient, repository.nodeId, tempDir);
         logger.info(`Repository ${repository.id} successfully downloaded into ${codeFolder}`);
 
         logger.info(`Beginning codebase scan on repository ${repository.id}`);

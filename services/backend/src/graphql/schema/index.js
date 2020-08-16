@@ -7,8 +7,7 @@ module.exports = `
 
     type Repository {
         id: ID!
-        host: String!
-        hostId: String!
+        nodeId: String!
         installationId: String!
         users: [User!]!
         issues: [Issue!]!
@@ -22,8 +21,7 @@ module.exports = `
 
     type Task {
         id: ID!
-        host: String!
-        hostId: String!
+        nodeId: String!
         repository: Repository!
         issue: Issue!
     }
@@ -34,8 +32,7 @@ module.exports = `
     }
 
     input RepositoryInput {
-        host: String!
-        hostId: String!
+        nodeId: String!
         installationId: String!
     }
 
@@ -45,8 +42,7 @@ module.exports = `
     }
 
     input TaskInput {
-        host: String!
-        hostId: String!
+        nodeId: String!
         repositoryId: ID!
         issueId: ID!
     }

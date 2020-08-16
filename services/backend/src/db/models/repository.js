@@ -1,7 +1,5 @@
 const BaseModel = require('./baseModel');
 
-const REPOSITORY_HOSTS = ['github'];
-
 class Repository extends BaseModel {
     static get tableName() {
         return 'repositories';
@@ -11,11 +9,10 @@ class Repository extends BaseModel {
     static get jsonSchema() {
         return {
             type: 'object',
-            required: ['host', 'hostId'],
+            required: ['nodeId'],
 
             properties: {
-                host: {type: 'string', enum: REPOSITORY_HOSTS},
-                hostId: {type: 'string', minLength: 4},
+                nodeId: {type: 'string', minLength: 4},
                 installationId: {type: 'string', minLength: 1},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}

@@ -29,11 +29,11 @@ const addGithubInstallationIds = async () => {
         const repositoriesResponse = await installationClient.get('/installation/repositories');
 
         // For each repository, add installation id if it is missing in the database
-        for (const {node_id: hostId} of repositoriesResponse.data.repositories) {
-            const repository = await Repository.query().findOne({hostId});
+        for (const {node_id: nodeId} of repositoriesResponse.data.repositories) {
+            const repository = await Repository.query().findOne({nodeId});
 
             if (!repository) {
-                logger.error(`Repository with hostId ${hostId} is missing in the database`);
+                logger.error(`Repository with nodeId ${nodeId} is missing in the database`);
                 continue;
             }
 

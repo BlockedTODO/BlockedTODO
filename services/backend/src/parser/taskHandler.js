@@ -33,8 +33,7 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
 
         // Create task in database
         const task = await Task.query().insert({
-            host: 'github',
-            hostId: githubIssue.id,
+            nodeId: githubIssue.id,
             repositoryId: repository.id,
             issueId: issue.id,
         });
