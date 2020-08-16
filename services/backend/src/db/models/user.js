@@ -1,6 +1,7 @@
 const {compose} = require('objection');
 const password = require('objection-password');
 const BaseModel = require('./baseModel');
+const {encrypt, decrypt} = require('../../utils/');
 
 const mixins = compose(
     password({rounds: 13}),
@@ -22,7 +23,9 @@ class User extends mixins(BaseModel) {
                 password: {type: 'string', minLength: 4, maxLength: 512},
                 hostId: {type: ['string', null]},
                 accessToken: {type: ['string', null]},
+                accessTokenIv: {type: ['string', null]},
                 refreshToken: {type: ['string', null]},
+                refreshTokenIv: {type: ['string', null]},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'},
             }
@@ -46,6 +49,34 @@ class User extends mixins(BaseModel) {
                 }
             }
         };
+    }
+
+    $beforeInsert(...args) {
+        if (this.accessToken) {
+            [this.accessToken, this.accessTokenIv] = encrypt(this.accessToken);
+        }
+        if (this.refreshToken) {
+            [this.refreshToken, this.refreshTokenIv] = encrypt(this.refreshToken);
+        }
+
+        return super.$beforeInsert(...args);
+    }
+
+    $beforeUpdate(opt, ...args) {
+        if (this.accessToken && opt.old.accessToken !== this.accessToken) {
+            [this.accessToken, this.accessTokenIv] = encrypt(this.accessToken);
+        }
+        if (this.refreshToken && opt.old.refreshToken !== this.refreshToken) {
+            [this.refreshToken, this.refreshTokenIv] = encrypt(this.refreshToken);
+        }
+
+        return super.$beforeUpdate(opt, ...args);
+    }
+
+    decryptTokens() {
+        const accessToken = this.accessToken ? decrypt(this.accessToken, this.accessTokenIv) : null;
+        const refreshToken = this.refreshToken ? decrypt(this.refreshToken, this.refreshTokenIv) : null;
+        return {accessToken, refreshToken};
     }
 }
 
