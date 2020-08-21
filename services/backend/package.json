@@ -8,7 +8,7 @@
     "@octokit/auth-app": "^2.4.14",
     "@octokit/webhooks": "^7.11.0",
     "apollo-server-express": "^2.16.1",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "connect-session-knex": "^1.7.3",
     "cookie-parser": "^1.4.5",
