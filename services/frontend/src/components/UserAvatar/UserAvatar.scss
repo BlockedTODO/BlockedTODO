@@ -6,27 +6,32 @@ $background-color: $color-background-white;
 
 .user-avatar-container {
     align-items: center;
-    background-color: $background-color;
-    border-radius: $default-border-radius;
     display: flex;
-    flex-direction: row;
-    padding: 0.2rem;
+    position: relative; /* Needed for the Dropdown to position itself */
+    min-width: 14rem;
 
-    &:hover {
-        cursor: pointer;
-    }
+    .user-avatar-button {
+        display: flex;
+        align-items: center;
+        padding: 0.2rem;
+        background-color: $background-color;
+        border-radius: $default-border-radius;
 
-    @include hover-darken-background($background-color);
+        @include hover-darken-background($background-color);
 
-    .user-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        fill: $color-text-primary;
-    }
+        &:hover {
+            cursor: pointer;
+        }
 
-    .user-name {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        font-weight: bold;
+        .user-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            fill: $color-text-primary;
+        }
+
+        .user-name {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
     }
 }
