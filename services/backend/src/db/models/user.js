@@ -51,7 +51,7 @@ class User extends mixins(BaseModel) {
         };
     }
 
-    $beforeInsert(...args) {
+    async $beforeInsert(...args) {
         if (this.accessToken) {
             [this.accessToken, this.accessTokenIv] = encrypt(this.accessToken);
         }
@@ -59,10 +59,10 @@ class User extends mixins(BaseModel) {
             [this.refreshToken, this.refreshTokenIv] = encrypt(this.refreshToken);
         }
 
-        return super.$beforeInsert(...args);
+        return await super.$beforeInsert(...args);
     }
 
-    $beforeUpdate(opt, ...args) {
+    async $beforeUpdate(opt, ...args) {
         if (this.accessToken && opt.old.accessToken !== this.accessToken) {
             [this.accessToken, this.accessTokenIv] = encrypt(this.accessToken);
         }
@@ -70,7 +70,7 @@ class User extends mixins(BaseModel) {
             [this.refreshToken, this.refreshTokenIv] = encrypt(this.refreshToken);
         }
 
-        return super.$beforeUpdate(opt, ...args);
+        return await super.$beforeUpdate(opt, ...args);
     }
 
     decryptTokens() {
