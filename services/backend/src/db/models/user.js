@@ -1,5 +1,5 @@
 const {compose} = require('objection');
-const password = require('objection-password');
+const password = require('./plugins/objectionPassword');
 const BaseModel = require('./baseModel');
 const {encrypt, decrypt} = require('../../utils/');
 
