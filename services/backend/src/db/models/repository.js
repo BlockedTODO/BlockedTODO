@@ -13,7 +13,7 @@ class Repository extends BaseModel {
 
             properties: {
                 nodeId: {type: 'string', minLength: 4},
-                installationId: {type: 'string', minLength: 1},
+                installationId: {type: 'integer', minimum: 0},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
             }

@@ -52,12 +52,12 @@ const generateSeedData = async (knex) => {
     const user3 = await User.query().insert({email: 'test3@test.com', password: 'password3'});
 
     // Create repositories
-    const repository0 = await Repository.query().insert({nodeId: 'user1/repo0', installationId: '1'});
-    const repository1 = await Repository.query().insert({nodeId: 'user1/repo1', installationId: '1'});
-    const repository2 = await Repository.query().insert({nodeId: 'user2/repo2', installationId: '2'});
-    const repository3 = await Repository.query().insert({nodeId: 'user3/repo3', installationId: '3'});
-    const repository4 = await Repository.query().insert({nodeId: 'someuser/repo4', installationId: '4'});
-    const repository5 = await Repository.query().insert({nodeId: 'someuser/repo5', installationId: '5'});
+    const repository0 = await Repository.query().insert({nodeId: 'user1/repo0', installationId: 1});
+    const repository1 = await Repository.query().insert({nodeId: 'user1/repo1', installationId: 1});
+    const repository2 = await Repository.query().insert({nodeId: 'user2/repo2', installationId: 2});
+    const repository3 = await Repository.query().insert({nodeId: 'user3/repo3', installationId: 3});
+    const repository4 = await Repository.query().insert({nodeId: 'someuser/repo4', installationId: 4});
+    const repository5 = await Repository.query().insert({nodeId: 'someuser/repo5', installationId: 5});
 
     // Create issues
     const issue0 = await Issue.query().insert({
