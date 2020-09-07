@@ -30,15 +30,15 @@ class BaseModel extends mixins(Model) {
     }
 
     async $beforeInsert(...args) {
+        await super.$beforeInsert(...args);
         const timestamp = new Date().toISOString();
         this.createdAt = timestamp;
         this.updatedAt = timestamp;
-        return await super.$beforeInsert(...args);
     }
 
     async $beforeUpdate(...args) {
+        await super.$beforeUpdate(...args);
         this.updatedAt = new Date().toISOString();
-        return await super.$beforeUpdate(...args);
     }
 }
 
