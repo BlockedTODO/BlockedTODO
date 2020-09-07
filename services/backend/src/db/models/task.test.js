@@ -10,7 +10,7 @@ afterAll(() => {
 });
 
 const validTaskData = async () => {
-    const repository = await Repository.query().insert({nodeId: 'abc123', installationId: 'abc123'});
+    const repository = await Repository.query().insert({nodeId: 'abc123', installationId: 123});
     const issue = await Issue.query().insert({url: 'http://example.com', repositoryId: repository.id});
 
     return {

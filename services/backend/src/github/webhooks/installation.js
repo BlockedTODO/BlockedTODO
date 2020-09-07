@@ -2,7 +2,7 @@ const {Repository} = require('db/');
 const scanGithubRepository = require('github/scanGithubRepository');
 
 const onInstallationCreated = async ({payload}) => {
-    const installationId = payload.installation.id.toString();
+    const installationId = payload.installation.id;
 
     await Promise.allSettled(payload.repositories.map(async ({node_id: nodeId}) => {
         const repository = await Repository.query().findOrInsert({nodeId, installationId});
@@ -17,7 +17,7 @@ const onInstallationDeleted = async ({payload}) => {
 };
 
 const onInstallationRepositoriesAdded = async ({payload}) => {
-    const installationId = payload.installation.id.toString();
+    const installationId = payload.installation.id;
 
     await Promise.allSettled(payload.repositories_added.map(async ({node_id: nodeId}) => {
         const repository = await Repository.query().findOrInsert({nodeId, installationId});
