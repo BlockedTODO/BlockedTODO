@@ -1,4 +1,4 @@
-const urlRegex = require('url-regex');
+const urlRegex = require('url-regex-safe');
 const {escapeRegex} = require('utils/');
 
 /* URL regex. */
