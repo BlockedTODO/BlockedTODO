@@ -1,11 +1,12 @@
-const {logger, withTempDirectory} = require('utils/');
+const tempy = require('tempy');
+const {logger} = require('utils/');
 const {createInstallationClient, downloadRepository} = require('github/utils/');
 const {scanCodebase} = require('parser/');
 
 const scanGithubRepository = async (repository) => {
     const githubClient = await createInstallationClient(repository.installationId);
 
-    await withTempDirectory(async (tempDir) => {
+    await tempy.directory.task(async (tempDir) => {
         logger.info(`Downloading GitHub repository ${repository.id}`);
         const codeFolder = await downloadRepository(githubClient, repository.nodeId, tempDir);
         logger.info(`Repository ${repository.id} successfully downloaded into ${codeFolder}`);
