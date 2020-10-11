@@ -5,10 +5,10 @@ const {asyncUnzip, asyncWriteFile, logger, graphqlRequestBody} = require('utils/
 const fsPromises = fs.promises;
 
 // Get a temporary repository download URL
-const repositoryDownloadLink = async (githubClient, repositoryHostId) => {
+const repositoryDownloadLink = async (githubClient, repositoryNodeId) => {
     const getArchiveUrl = graphqlRequestBody(`
         query {
-            node(id: "${repositoryHostId}") {
+            node(id: "${repositoryNodeId}") {
                 ... on Repository {
                     defaultBranchRef {
                         target {
@@ -30,10 +30,10 @@ const repositoryDownloadLink = async (githubClient, repositoryHostId) => {
 };
 
 // Download repository, return the folder containing the downloaded & extracted repository
-const downloadRepository = async (githubClient, repositoryHostId, destination) => {
+const downloadRepository = async (githubClient, repositoryNodeId, destination) => {
     // Download zip file
     const zipLocation = `${destination}/repository.zip`;
-    const downloadLink = await repositoryDownloadLink(githubClient, repositoryHostId);
+    const downloadLink = await repositoryDownloadLink(githubClient, repositoryNodeId);
     const fileResponse = await githubClient.get(downloadLink, {responseType: 'stream'});
     try {
         await asyncWriteFile(fileResponse.data, zipLocation);
