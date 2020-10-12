@@ -60,7 +60,7 @@ const githubVerify = async (accessToken, refreshToken, profile, done) => {
         let user = await User.query().findOne({nodeId});
 
         if (user) { // User exists. Update tokens.
-            user.$query().patch({accessToken, refreshToken});
+            await user.$query().patch({accessToken, refreshToken});
         } else { // User does not exist. Create one.
             // Generate a random password. Users can use the (unimplemented) password reset flow to change the password.
             const randomPassword = cryptoRandomString({length: 64});
