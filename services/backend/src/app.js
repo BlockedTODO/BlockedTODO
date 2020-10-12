@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const apolloServer = require('graphql/apolloServer');
 const {errorHandler, passport, sessions} = require('middleware/');
 const githubWebhooks = require('github/webhooks');
-const {authRouter} = require('routes/');
+const {authRouter, githubRouter} = require('routes/');
 
 const app = express();
 
@@ -29,6 +29,7 @@ app.get('/', (req, res, next) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/github', githubRouter);
 
 app.use(errorHandler);
 
