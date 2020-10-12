@@ -31,7 +31,21 @@ const createInstallationClient = async (installationId) => {
     });
 };
 
+const createOauthClient = async (token) => {
+    return axios.create({
+        baseURL: 'https://api.github.com',
+        headers: {
+            common: {
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.machine-man-preview+json',
+            }
+        }
+    });
+};
+
 module.exports = {
     createAppClient,
     createInstallationClient,
+    createOauthClient,
 };
