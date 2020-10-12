@@ -1,12 +1,15 @@
-const {createInstallationClient, createAppClient} = require('./githubClients');
+const {createAppClient, createInstallationClient, createOauthClient} = require('./githubClients');
 const downloadRepository = require('./downloadRepository');
 const getIssue = require('./getIssue');
 const createIssue = require('./createIssue');
+const getAvatarUrl = require('./getAvatarUrl');
 
 module.exports = {
-    createInstallationClient,
     createAppClient,
+    createInstallationClient,
+    createOauthClient,
     downloadRepository,
     getIssue,
     createIssue,
+    getAvatarUrl,
 };
