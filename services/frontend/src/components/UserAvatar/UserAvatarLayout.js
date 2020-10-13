@@ -3,13 +3,19 @@ import {AccountCircleIcon} from 'assets/icons/';
 import {UserDropdown} from 'components/';
 import './UserAvatar.scss';
 
-const UserAvatarLayout = ({closeableContainerProps, isDropdownOpen, onTriggerClick}) => (
+const UserAvatarLayout = ({avatarUrl, closeableContainerProps, isDropdownOpen, onTriggerClick}) => (
     <div
         className='user-avatar-container'
         {...closeableContainerProps}
     >
         <div className='user-avatar-button' onClick={onTriggerClick}>
-            <AccountCircleIcon className='user-icon' />
+            {
+                avatarUrl ? (
+                    <img className='user-icon' src={avatarUrl}></img>
+                ) : (
+                    <AccountCircleIcon className='user-icon' />
+                )
+            }
             <span className='user-name'>User Name</span>
         </div>
 
