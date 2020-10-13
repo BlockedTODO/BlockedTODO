@@ -31,7 +31,7 @@
     "pg": "^8.4.1",
     "pg-hstore": "^2.3.3",
     "stringify-object": "^3.3.0",
-    "tempy": "^0.7.1",
+    "tempy": "^1.0.0",
     "unzipper": "^0.10.11",
     "url-regex-safe": "^1.0.2",
     "uuid": "^8.3.1",
