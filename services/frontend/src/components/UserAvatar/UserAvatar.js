@@ -1,8 +1,8 @@
 import React from 'react';
-import UserAvatarLayout from './UserAvatarLayout';
 import {useOutsideCloseable} from 'hooks/';
+import UserAvatarLayout from './UserAvatarLayout';
 
-const UserAvatar = () => {
+const UserAvatar = ({avatarUrl}) => {
     const {
         closeableContainerProps, isVisible: isDropdownOpen, setIsVisible: setIsDropdownOpen
     } = useOutsideCloseable();
@@ -11,6 +11,7 @@ const UserAvatar = () => {
 
     return (
         <UserAvatarLayout
+            avatarUrl={avatarUrl}
             closeableContainerProps={closeableContainerProps}
             onTriggerClick={onTriggerClick}
             isDropdownOpen={isDropdownOpen}

@@ -10,7 +10,7 @@ $background-color: $color-background-white;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    padding: 0.2rem;
+    padding: 0.2rem 0.5rem;
 
     @include hover-darken-background($background-color);
 
@@ -23,7 +23,7 @@ $background-color: $color-background-white;
     .logo-text {
         line-height: 0;
         padding-left: 1rem;
-        padding-right: 1rem;
+        padding-right: 0.5rem;
         vertical-align: text-bottom;
         white-space: nowrap;
     }
