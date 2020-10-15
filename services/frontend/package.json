@@ -27,7 +27,7 @@
     "graphql": "^15.3.0",
     "morgan": "^1.10.0",
     "node-sass": "^4.14.1",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-async": "^10.0.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
