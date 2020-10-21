@@ -9,12 +9,12 @@ const webhooks = new Webhooks({
     path: '/github_event_handler',
 });
 
-webhooks.on('*', ({id, name, payload}) => {
+webhooks.onAny(({id, name, payload}) => {
     logger.info(`${name} event received`);
 });
 
-webhooks.on('error', (error) => {
-    logger.error(error.stack);
+webhooks.onError((error) => {
+    logger.error(error);
 });
 
 webhooks.on('installation.created', onInstallationCreated);
