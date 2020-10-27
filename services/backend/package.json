@@ -18,7 +18,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "globby": "^11.0.1",
-    "graphql": "^15.3.0",
+    "graphql": "^15.4.0",
     "js-yaml": "^3.14.0",
     "knex": "^0.21.7",
     "morgan": "^1.10.0",
