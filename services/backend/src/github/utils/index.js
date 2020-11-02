@@ -2,6 +2,7 @@ const {createAppClient, createInstallationClient, createOauthClient} = require('
 const downloadRepository = require('./downloadRepository');
 const getIssue = require('./getIssue');
 const createIssue = require('./createIssue');
+const getInstallationRepositories = require('./getInstallationRepositories');
 const getAvatarUrl = require('./getAvatarUrl');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
     downloadRepository,
     getIssue,
     createIssue,
+    getInstallationRepositories,
     getAvatarUrl,
 };

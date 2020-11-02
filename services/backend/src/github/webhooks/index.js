@@ -1,7 +1,11 @@
 const logger = require('utils/logger');
 const {Webhooks} = require('@octokit/webhooks');
-const {onInstallationCreated, onInstallationDeleted,
-    onInstallationRepositoriesAdded, onInstallationRepositoriesRemoved} = require('./installation');
+const {
+    onInstallationCreated,
+    onInstallationDeleted,
+    onInstallationRepositoriesAdded,
+    onInstallationRepositoriesRemoved,
+} = require('./installation');
 const {onPush} = require('./push');
 
 const webhooks = new Webhooks({
@@ -14,7 +18,7 @@ webhooks.onAny(({id, name, payload}) => {
 });
 
 webhooks.onError((error) => {
-    logger.error(error);
+    logger.error(error.stack);
 });
 
 webhooks.on('installation.created', onInstallationCreated);
