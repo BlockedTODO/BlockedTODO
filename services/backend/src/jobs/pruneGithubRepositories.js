@@ -1,6 +1,6 @@
 const {Repository} = require('db/');
 const {logger} = require('utils/');
-const {createAppClient, createInstallationClient} = require('github/utils');
+const {createAppClient, createInstallationClient, getInstallationRepositories} = require('github/utils');
 
 /*
  * This job queries the GitHub API and deletes repositories where BlockedTODO isn't installed from the database.
@@ -30,10 +30,10 @@ const addGithubInstallationIds = async () => {
     // For each installation, get all repositories
     for (const installation of installationsResponse.data) {
         const installationClient = await createInstallationClient(installation.id);
-        const repositoriesResponse = await installationClient.get('/installation/repositories');
+        const repositories = await getInstallationRepositories(installationClient);
 
-        // For each repository, add its nodeId to the set
-        for (const {node_id: nodeId} of repositoriesResponse.data.repositories) {
+        // For each repository received from GitHub, add its nodeId to the set
+        for (const {node_id: nodeId} of repositories) {
             validNodeIds.add(nodeId);
         }
     }
