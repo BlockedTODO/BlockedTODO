@@ -1,4 +1,4 @@
-FROM node:12.16.3-alpine
+FROM node:14.15.0-alpine
 
 # Install dockerize
 ENV DOCKERIZE_VERSION v0.6.1
@@ -15,7 +15,7 @@ WORKDIR /frontend
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install --no-progress
+RUN npm ci
 
 # Copy source code, create production build
 COPY . .

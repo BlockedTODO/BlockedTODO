@@ -1,4 +1,4 @@
-FROM node:12.16.3-stretch
+FROM node:14.15.0-stretch
 
 # Install dockerize
 ENV DOCKERIZE_VERSION v0.6.1
@@ -26,7 +26,7 @@ WORKDIR /backend
 
 # Install dependencies
 COPY package*.json ./
-RUN npm install --no-progress
+RUN npm ci
 
 # Copy source code
 COPY . .
