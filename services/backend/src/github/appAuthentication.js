@@ -7,7 +7,7 @@ const CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 const CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
 const auth = createAppAuth({
-    id: APP_ID,
+    appId: APP_ID,
     privateKey: PRIVATE_KEY,
     clientId: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
