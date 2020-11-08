@@ -1,4 +1,3 @@
-import React from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import {Landing, Policy, NotFound} from './scenes';

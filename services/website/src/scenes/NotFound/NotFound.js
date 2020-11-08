@@ -1,4 +1,3 @@
-import React from 'react';
 import NotFoundLayout from './NotFoundLayout';
 
 const NotFound = () => (
