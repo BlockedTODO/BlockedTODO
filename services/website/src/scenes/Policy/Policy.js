@@ -1,4 +1,3 @@
-import React from 'react';
 import './Policy.scss';
 
 const Policy = () => (
