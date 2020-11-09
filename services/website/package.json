@@ -36,7 +36,7 @@
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "lint": "eslint 'src/**/*.js'",
+    "lint": "eslint 'src/**/*.js' --max-warnings=0",
     "start": "PORT=3002 react-scripts start",
     "start:prod": "PORT=3002 node server/",
     "test": "CI=true react-scripts test",

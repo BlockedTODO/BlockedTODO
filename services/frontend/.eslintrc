@@ -26,27 +26,27 @@
     "rules": {
         "strict": 0,
         "indent": [
-            "error",
+            "warn",
             4,
             {"SwitchCase": 1}
         ],
         "linebreak-style": [
-            "error",
+            "warn",
             "unix"
         ],
         "quotes": [
-            "error",
+            "warn",
             "single"
         ],
         "semi": [
-            "error",
+            "warn",
             "always"
         ],
         "no-trailing-spaces": [
-            "error"
+            "warn"
         ],
         "no-unused-vars": [
-            "error",
+            "warn",
             {
                 "varsIgnorePattern": "^_",
                 "argsIgnorePattern": "^_",
@@ -54,83 +54,83 @@
             }
         ],
         "max-len": [
-            "error",
+            "warn",
             {"code": 128}
         ],
         "no-console": [
             "off"
         ],
         "no-multiple-empty-lines": [
-            "error",
+            "warn",
             {"max": 1}
         ],
 		"prefer-const": [
-			"error",
+			"warn",
 			{"destructuring": "all"}
 		],
 		"no-var": [
-            "error"
+            "warn"
         ],
         "object-curly-spacing": [
-            "error",
+            "warn",
             "never"
         ],
         "array-bracket-spacing": [
-            "error",
+            "warn",
             "never"
         ],
         "arrow-parens": [
-            "error"
+            "warn"
         ],
         "arrow-spacing": [
-            "error"
+            "warn"
         ],
         "space-infix-ops": [
-            "error"
+            "warn"
         ],
         "no-multi-spaces": [
-            "error",
+            "warn",
             {
                 "ignoreEOLComments": true
             }
         ],
         "keyword-spacing": [
-            "error"
+            "warn"
         ],
         "space-unary-ops": [
-            "error"
+            "warn"
         ],
         "brace-style": [
-            "error",
+            "warn",
             "1tbs",
             {
                 "allowSingleLine": true
             }
         ],
-        "react/jsx-boolean-value": ["error", "always"],
-        "react/jsx-closing-bracket-location": "error",
-        "react/jsx-curly-spacing": ["error", "never"],
-        "react/jsx-equals-spacing": ["error", "never"],
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-indent-props": ["error", 4],
-        "react/jsx-key": "error",
-        "react/jsx-max-props-per-line": ["error", {"maximum": 4}],
-        "react/jsx-no-duplicate-props": ["error", {"ignoreCase": true}],
-        "react/jsx-no-target-blank": "error",
-        "react/jsx-no-undef": "error",
-        "react/jsx-pascal-case": "error",
-        "react/jsx-tag-spacing": ["error", {"beforeSelfClosing": "always"}],
-        "react/jsx-uses-vars": "error",
-        "react/jsx-uses-react": "error",
-        "react/no-danger": "error",
-        "react/no-deprecated": "error",
-        "react/no-direct-mutation-state": "error",
-        "react/no-children-prop": "error",
-        "react/no-is-mounted": "error",
-        "react/no-unescaped-entities": "error",
-        "react/prefer-es6-class": ["error", "always"],
-        "react/prefer-stateless-function": "error",
-        "react/require-render-return": "error",
-        "react/self-closing-comp": ["error", {"component": true, "html": false}]
+        "react/jsx-boolean-value": ["warn", "always"],
+        "react/jsx-closing-bracket-location": "warn",
+        "react/jsx-curly-spacing": ["warn", "never"],
+        "react/jsx-equals-spacing": ["warn", "never"],
+        "react/jsx-indent": ["warn", 4],
+        "react/jsx-indent-props": ["warn", 4],
+        "react/jsx-key": "warn",
+        "react/jsx-max-props-per-line": ["warn", {"maximum": 4}],
+        "react/jsx-no-duplicate-props": ["warn", {"ignoreCase": true}],
+        "react/jsx-no-target-blank": "warn",
+        "react/jsx-no-undef": "warn",
+        "react/jsx-pascal-case": "warn",
+        "react/jsx-tag-spacing": ["warn", {"beforeSelfClosing": "always"}],
+        "react/jsx-uses-vars": "warn",
+        "react/jsx-uses-react": "warn",
+        "react/no-danger": "warn",
+        "react/no-deprecated": "warn",
+        "react/no-direct-mutation-state": "warn",
+        "react/no-children-prop": "warn",
+        "react/no-is-mounted": "warn",
+        "react/no-unescaped-entities": "warn",
+        "react/prefer-es6-class": ["warn", "always"],
+        "react/prefer-stateless-function": "warn",
+        "react/require-render-return": "warn",
+        "react/self-closing-comp": ["warn", {"component": true, "html": false}]
     }
 }
