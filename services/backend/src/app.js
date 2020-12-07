@@ -13,7 +13,7 @@ app.set('host', process.env.DOMAIN_NAME || 'localhost');
 app.set('port', process.env.PORT || '3000');
 
 app.use(cors({origin: true, credentials: true}));
-app.use(express.json());
+app.use(express.json({limit: '10mb'}));
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
 
 app.use(cookieParser());
