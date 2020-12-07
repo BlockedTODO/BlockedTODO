@@ -6,7 +6,7 @@
   "dependencies": {
     "@google-cloud/storage": "^5.6.0",
     "@octokit/auth-app": "^2.10.4",
-    "@octokit/webhooks": "^7.16.0",
+    "@octokit/webhooks": "^7.18.1",
     "apollo-server-express": "^2.19.0",
     "axios": "^0.21.0",
     "bcrypt": "^5.0.0",
