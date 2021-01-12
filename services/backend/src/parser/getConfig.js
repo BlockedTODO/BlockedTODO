@@ -24,7 +24,7 @@ const getConfig = async (codeFolder) => {
 const loadConfig = async (filePath) => {
     try {
         const fileContents = await fsPromises.readFile(filePath, {encoding: 'utf-8'});
-        const config = yaml.safeLoad(fileContents);
+        const config = yaml.load(fileContents);
 
         /* Return shallow merge of the object and the default config
          * If we ever add nested objects, we will have to merge each of them
