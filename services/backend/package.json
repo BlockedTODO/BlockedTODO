@@ -20,7 +20,7 @@
     "globby": "^11.0.2",
     "graphql": "^15.4.0",
     "js-yaml": "^4.0.0",
-    "knex": "^0.21.15",
+    "knex": "^0.21.16",
     "morgan": "^1.10.0",
     "objection": "^2.2.7",
     "objection-guid": "^3.0.2",
