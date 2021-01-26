@@ -10,7 +10,7 @@ backups_bucket_name: 'blockedtodo-cluster-database-backups'
 
 database:
     label: 'postgres'
-    image: 'postgres:12.2'
+    image: 'postgres:13.1'
     secrets:
         database_port: '5432'
         database_name: 'app-database'
