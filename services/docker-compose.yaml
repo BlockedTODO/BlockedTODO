@@ -68,7 +68,7 @@ services:
             - website-node-modules:/website/node_modules
 
     database:
-        image: postgres:12.2
+        image: postgres:13.1
         environment:
             POSTGRES_DB: app-database
             POSTGRES_USER: app-database-user
