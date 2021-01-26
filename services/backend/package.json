@@ -22,7 +22,7 @@
     "js-yaml": "^4.0.0",
     "knex": "^0.21.16",
     "morgan": "^1.10.0",
-    "objection": "^2.2.7",
+    "objection": "^2.2.11",
     "objection-guid": "^3.0.2",
     "objection-password": "^3.0.0",
     "passport": "^0.4.1",
