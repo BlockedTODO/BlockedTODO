@@ -18,7 +18,7 @@
     "@testing-library/user-event": "^12.6.2",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
-    "graphql": "^15.4.0",
+    "graphql": "^15.5.0",
     "morgan": "^1.10.0",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
