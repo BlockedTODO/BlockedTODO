@@ -10,14 +10,14 @@ updates:
 - package-ecosystem: npm
   directory: "/services/frontend"
   schedule:
-    interval: daily
+    interval: weekly
   open-pull-requests-limit: 16
   assignees:
   - DominicRoyStang
 - package-ecosystem: npm
   directory: "/services/website"
   schedule:
-    interval: daily
+    interval: weekly
   open-pull-requests-limit: 16
   assignees:
   - DominicRoyStang
