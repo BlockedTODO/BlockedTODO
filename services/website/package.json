@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.5",
+    "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^13.1.2",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
