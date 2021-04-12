@@ -3,7 +3,9 @@ import './Repositories.scss';
 
 const RepositoriesLayout = () => (
     <div className='repositories'>
-        <h1>Repositories Scene</h1>
+        <div className='repositories-content'>
+            <h1>Repositories</h1>
+        </div>
     </div>
 );
 

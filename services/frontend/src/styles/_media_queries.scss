@@ -1,0 +1,8 @@
+@import 'styles/_dimens.scss';
+
+/* Query for when the content is just at the width of the default max width. */
+@mixin media-query-default-max-content-width {
+    @media (max-width: #{$default-max-content-width}) {
+        @content
+    }
+}

@@ -1,10 +1,12 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Route, Router, Redirect, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import {Landing, Login, NotFound, Repositories, Signup} from './scenes';
 import {Header} from './components';
-import {loggedInContext} from 'Store';
+import {loggedInContext, userContext} from 'Store';
 import {IS_PRODUCTION} from 'utils/environment';
+import {useRestClient} from 'hooks/';
+import restClient from 'utils/restClient';
 
 const AppRouter = () => (
     <Router history={createBrowserHistory({forceRefresh: false})}>
@@ -25,6 +27,18 @@ const LoginRedirect = ({location}) => (
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const [isLoggedIn] = useContext(loggedInContext);
+    const [user, setUser] = useContext(userContext);
+
+    const {run: getUser} = useRestClient({
+        deferFn: () => restClient.get('/github/avatar'),
+        onResolve: ({data}) => setUser(data),
+    });
+
+    //useEffect(() => {
+    //    if (isLoggedIn && !user) {
+    //        getUser();
+    //    }
+    //}, [getUser, isLoggedIn, user]);
 
     return (
         <Route

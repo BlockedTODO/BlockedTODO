@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ApolloProvider} from '@apollo/client';
 import {useGraphqlClient, useIsLoggedIn} from 'hooks/';
 
 export const loggedInContext = React.createContext();
-
 const LoggedInProvider = ({children}) => (
     <loggedInContext.Provider value={useIsLoggedIn()}>
         {children}
@@ -16,10 +15,19 @@ const GraphqlProvider = ({children}) => (
     </ApolloProvider>
 );
 
+export const userContext = React.createContext();
+const UserProvider = ({children}) => (
+    <userContext.Provider value={useState(null)}>
+        {children}
+    </userContext.Provider>
+);
+
 const Store = ({children}) => (
     <LoggedInProvider>
         <GraphqlProvider>
-            {children}
+            <UserProvider>
+                {children}
+            </UserProvider>
         </GraphqlProvider>
     </LoggedInProvider>
 );
