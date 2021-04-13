@@ -49,5 +49,6 @@
     "test": "CI=true react-scripts test",
     "test:watch": "react-scripts test"
   },
+  "type": "module",
   "version": "1.0.0"
 }

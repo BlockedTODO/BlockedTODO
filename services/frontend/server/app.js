@@ -13,15 +13,17 @@
  * In short, there are three relevant files: server/app.js, public/index.html, and src/utils/environment.js
  *
  */
-const express = require('express');
-const fs = require('fs');
-const morgan = require('morgan');
-const path = require('path');
+import express from 'express';
+import fs from 'fs';
+import morgan from 'morgan';
+import path from 'path';
+import {fileURLToPath} from 'url';
 
+const parentFolder = path.dirname(fileURLToPath(import.meta.url))
 const app = express();
 
 const renderApp = (req, res) => {
-    const filePath = path.resolve(__dirname, '..', 'build', 'index.html');
+    const filePath = path.resolve(parentFolder, '..', 'build', 'index.html');
 
     fs.readFile(filePath, 'utf8', (error, htmlData) => {
         if (error) {
@@ -39,7 +41,7 @@ const renderApp = (req, res) => {
 
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 app.get('/', renderApp);
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
+app.use(express.static(path.resolve(parentFolder, '..', 'build')));
 app.get('*', renderApp);
 
-module.exports = app;
+export default app;
