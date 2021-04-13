@@ -1,6 +1,5 @@
-'use strict';
+import app from './app.js';
 
-const app = require('./app');
 const PORT = parseInt(process.env.PORT) || 3002;
 
 app.listen(PORT, () => {
