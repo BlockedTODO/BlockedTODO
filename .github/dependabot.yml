@@ -8,7 +8,7 @@ updates:
   assignees: ["DominicRoyStang"]
   ignore:
   - dependency-name: "@testing-library/*"
-    update-types: ["version-update:semver-minor"]
+    update-types: ["version-update:semver-minor", "version-update:semver-patch"]
 - package-ecosystem: "npm"
   directory: "/services/frontend"
   schedule:
@@ -17,7 +17,7 @@ updates:
   assignees: ["DominicRoyStang"]
   ignore:
   - dependency-name: "@testing-library/*"
-    update-types: ["version-update:semver-minor"]
+    update-types: ["version-update:semver-minor", "version-update:semver-patch"]
   - dependency-name: "@apollo/*"
     update-types: ["version-update:semver-patch"]
 - package-ecosystem: "npm"
@@ -28,6 +28,6 @@ updates:
   assignees: ["DominicRoyStang"]
   ignore:
   - dependency-name: "@testing-library/*"
-    update-types: ["version-update:semver-minor"]
+    update-types: ["version-update:semver-minor", "version-update:semver-patch"]
   - dependency-name: "@apollo/*"
     update-types: ["version-update:semver-patch"]
