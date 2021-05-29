@@ -92,4 +92,16 @@ describe('URL regex', () => {
         expect(results[0].groups.url).toEqual(issueUrl);
         expect(results[1].groups.url).toEqual(issueUrl);
     });
+
+    it('matches only the first issue url and includes the comma when several issues are separated by commas', () => {
+        // Separating issue urls with commas is not supported. This unit test only exists to highlight current behavior.
+        // In the future, we may want to support this method of listing several blockedtodo issues.
+        // For now, see the previous unit test for a strategy that works.
+        const issueUrl = 'https://github.com/BlockedTODO/BlockedTODO/issues/57';
+        const code = `/* BlockedTODO: ${issueUrl}, ${issueUrl} */`;
+        const results = Array.from(code.matchAll(issueRegex(DEFAULT_CONFIG)));
+
+        expect(results.length).toBe(1);
+        expect(results[0].groups.url).toEqual(`${issueUrl},`);
+    });
 });
