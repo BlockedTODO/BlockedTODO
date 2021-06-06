@@ -1,4 +1,4 @@
-exports.up = async (knex) => {
+export const up = async (knex) => {
     // Remove host columns & rename host_id to node_id
     await knex.schema.table('users', (table) => {
         table.renameColumn('host_id', 'node_id');
@@ -15,7 +15,7 @@ exports.up = async (knex) => {
     });
 };
 
-exports.down = async (knex) => {
+export const down = async (knex) => {
     // Add host columns & rename node_id to host_id
     await knex.schema.table('users', (table) => {
         table.renameColumn('node_id', 'host_id');

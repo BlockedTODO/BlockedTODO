@@ -1,6 +1,6 @@
-const {Repository} = require('db/');
-const {logger} = require('utils/');
-const {createAppClient, createInstallationClient} = require('github/utils');
+import {Repository} from '../db/index.js';
+import {logger} from '../utils/index.js';
+import {createAppClient, createInstallationClient} from '../github/utils/index.js';
 
 /*
  * This job queries the GitHub API and adds missing installation ids to repositories in the database.

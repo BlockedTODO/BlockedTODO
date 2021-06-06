@@ -1,6 +1,6 @@
-const session = require('express-session');
-const connectSessionKnex = require('connect-session-knex');
-const {knex} = require('db/');
+import session from 'express-session';
+import connectSessionKnex from 'connect-session-knex';
+import knex from '../db/index.js';
 
 const environment = process.env.NODE_ENV || 'development';
 
@@ -23,4 +23,4 @@ const sessions = () => {
     });
 };
 
-module.exports = sessions;
+export default sessions;

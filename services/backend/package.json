@@ -56,7 +56,8 @@
     "bot"
   ],
   "license": "Prosperity Public License 3.0.0",
-  "main": "src/index.js",
+  "type": "module",
+  "exports": "./src/index.js",
   "name": "backend",
   "repository": {
     "type": "git",
@@ -71,8 +72,8 @@
     "start": "nodemon src/",
     "start:debug": "nodemon --inspect=0.0.0.0:9229 src/",
     "start:prod": "node src/",
-    "test": "NODE_ENV=test jest",
-    "test:watch": "NODE_ENV=test jest --watchAll"
+    "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:watch": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --watchAll"
   },
   "version": "1.0.0"
 }

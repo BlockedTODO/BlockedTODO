@@ -1,6 +1,8 @@
-const {knexSnakeCaseMappers} = require('objection');
+import objection from 'objection';
 
-module.exports = {
+const {knexSnakeCaseMappers} = objection;
+
+const knexConfig = {
     development: {
         client: 'postgresql',
         connection: {
@@ -74,3 +76,5 @@ module.exports = {
         ...knexSnakeCaseMappers(),
     }
 };
+
+export default knexConfig;

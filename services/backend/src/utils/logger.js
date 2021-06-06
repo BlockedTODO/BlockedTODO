@@ -1,5 +1,7 @@
-const {createLogger, format, transports} = require('winston');
-const stringifyObject = require('stringify-object');
+import winston from 'winston';
+import stringifyObject from 'stringify-object';
+
+const {createLogger, format, transports} = winston;
 
 const environment = process.env.NODE_ENV || 'development';
 const logLevel = environment === 'test' ? 'warn' : 'info';
@@ -29,4 +31,4 @@ const logger = createLogger({
     ],
 });
 
-module.exports = logger;
+export default logger;

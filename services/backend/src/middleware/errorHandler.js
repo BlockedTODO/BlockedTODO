@@ -1,5 +1,5 @@
-const logger = require('utils/logger');
-const {AuthenticationError} = require('utils/errors');
+import logger from '../utils/logger.js';
+import {AuthenticationError} from '../utils/errors.js';
 
 const errorHandler = (err, req, res, next) => {
     logger.error(err.stack);
@@ -10,4 +10,4 @@ const errorHandler = (err, req, res, next) => {
     }
 };
 
-module.exports = errorHandler;
+export default errorHandler;

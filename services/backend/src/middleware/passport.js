@@ -1,9 +1,9 @@
-const passport = require('passport');
-const {Strategy: LocalStrategy} = require('passport-local');
-const {Strategy: GithubStrategy} = require('passport-github');
-const cryptoRandomString = require('crypto-random-string');
-const {AuthenticationError} = require('utils/errors');
-const {User} = require('db/');
+import passport from 'passport';
+import {Strategy as LocalStrategy} from 'passport-local';
+import {Strategy as GithubStrategy} from 'passport-github';
+import cryptoRandomString from 'crypto-random-string';
+import {AuthenticationError} from '../utils/errors.js';
+import {User} from '../db/index.js';
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
@@ -75,4 +75,4 @@ const githubVerify = async (accessToken, refreshToken, profile, done) => {
 const githubStrategy = new GithubStrategy(githubConfig, githubVerify);
 passport.use(githubStrategy);
 
-module.exports = passport;
+export default passport;

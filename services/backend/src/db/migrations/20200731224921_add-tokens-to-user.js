@@ -1,4 +1,4 @@
-exports.up = async (knex) => {
+export const up = async (knex) => {
     await knex.schema.table('users', (table) => {
         // Add host id column
         table.string('host_id');
@@ -16,7 +16,7 @@ exports.up = async (knex) => {
     });
 };
 
-exports.down = async (knex) => {
+export const down = async (knex) => {
     await knex.schema.table('users', (table) => {
         // Remove host id column
         table.dropColumn('host_id');

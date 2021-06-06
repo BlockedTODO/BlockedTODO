@@ -1,4 +1,4 @@
-module.exports = `
+const schema = `
     type User {
         id: ID!
         email: String!
@@ -66,3 +66,5 @@ module.exports = `
         mutation: RootMutation
     }
 `;
+
+export default schema;

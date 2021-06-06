@@ -1,5 +1,5 @@
-const {transactionPerTest} = require('objection-transactional-tests');
-const {knex, Issue, Repository, Task} = require('db/');
+import {transactionPerTest} from 'objection-transactional-tests';
+import knex, {Issue, Repository, Task} from '../index.js';
 
 beforeAll(() => {
     transactionPerTest();

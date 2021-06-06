@@ -1,5 +1,5 @@
-const issueRegex = require('./issueRegex');
-const {DEFAULT_CONFIG} = require('utils/');
+import issueRegex from './issueRegex.js';
+import {DEFAULT_CONFIG} from '../../utils/index.js';
 
 describe('Prefix regex', () => {
     it('matches a basic comment (sanity test)', () => {

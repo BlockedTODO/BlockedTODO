@@ -1,9 +1,3 @@
-const issueRegex = require('./issueRegex');
-const COMMENT_REGEX = require('./commentRegex');
-const CONFIG_FILE_NAME_REGEX = require('./configFileNameRegex');
-
-module.exports = {
-    issueRegex,
-    COMMENT_REGEX,
-    CONFIG_FILE_NAME_REGEX,
-};
+export {default as issueRegex} from './issueRegex.js';
+export {default as COMMENT_REGEX} from './commentRegex.js';
+export {default as CONFIG_FILE_NAME_REGEX} from './configFileNameRegex.js';

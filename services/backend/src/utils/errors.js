@@ -1,5 +1,1 @@
-class AuthenticationError extends Error {}
-
-module.exports = {
-    AuthenticationError,
-};
+export class AuthenticationError extends Error {}

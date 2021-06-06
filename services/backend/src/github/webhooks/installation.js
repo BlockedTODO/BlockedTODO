@@ -1,7 +1,7 @@
-const {Repository} = require('db/');
-const scanGithubRepository = require('github/scanGithubRepository');
+import {Repository} from '../../db/index.js';
+import scanGithubRepository from '../scanGithubRepository.js';
 
-const onInstallationCreated = async ({payload}) => {
+export const onInstallationCreated = async ({payload}) => {
     const installationId = payload.installation.id;
 
     await Promise.allSettled(payload.repositories.map(async ({node_id: nodeId}) => {
@@ -10,13 +10,13 @@ const onInstallationCreated = async ({payload}) => {
     }));
 };
 
-const onInstallationDeleted = async ({payload}) => {
+export const onInstallationDeleted = async ({payload}) => {
     for (const {node_id: nodeId} of payload.repositories) {
         await Repository.query().delete().where({nodeId});
     }
 };
 
-const onInstallationRepositoriesAdded = async ({payload}) => {
+export const onInstallationRepositoriesAdded = async ({payload}) => {
     const installationId = payload.installation.id;
 
     await Promise.allSettled(payload.repositories_added.map(async ({node_id: nodeId}) => {
@@ -25,15 +25,8 @@ const onInstallationRepositoriesAdded = async ({payload}) => {
     }));
 };
 
-const onInstallationRepositoriesRemoved = async ({payload}) => {
+export const onInstallationRepositoriesRemoved = async ({payload}) => {
     for (const {node_id: nodeId} of payload.repositories_removed) {
         await Repository.query().delete().where({nodeId});
     }
-};
-
-module.exports = {
-    onInstallationCreated,
-    onInstallationDeleted,
-    onInstallationRepositoriesAdded,
-    onInstallationRepositoriesRemoved,
 };

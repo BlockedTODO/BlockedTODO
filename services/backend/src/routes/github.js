@@ -1,6 +1,6 @@
-const express = require('express');
-const {requireAuth} = require('middleware/');
-const {createOauthClient, getAvatarUrl} = require('github/utils');
+import express from 'express';
+import {requireAuth} from '../middleware/index.js';
+import {createOauthClient, getAvatarUrl} from '../github/utils/index.js';
 
 const githubRouter = express.Router();
 
@@ -13,4 +13,4 @@ githubRouter.get('/avatar', requireAuth, async (req, res) => {
     res.status(200).json({avatarUrl});
 });
 
-module.exports = githubRouter;
+export default githubRouter;

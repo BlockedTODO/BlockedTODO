@@ -1,11 +1,11 @@
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const morgan = require('morgan');
-const apolloServer = require('graphql/apolloServer');
-const {errorHandler, passport, sessions} = require('middleware/');
-const githubWebhooks = require('github/webhooks');
-const {authRouter, githubRouter} = require('routes/');
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+import apolloServer from './graphql/apolloServer.js';
+import {errorHandler, passport, sessions} from './middleware/index.js';
+import githubWebhooks from './github/webhooks/index.js';
+import {authRouter, githubRouter} from './routes/index.js';
 
 const app = express();
 
@@ -40,4 +40,4 @@ if (process.env.GRAPHQL_API_ENABLED === 'true') {
     apolloServer.applyMiddleware({app});
 }
 
-module.exports = app;
+export default app;

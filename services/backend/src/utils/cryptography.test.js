@@ -1,4 +1,4 @@
-const {encrypt, decrypt} = require('./cryptography');
+import {encrypt, decrypt} from './cryptography.js';
 
 describe('encrypt', () => {
     it('encrypts a string', () => {

@@ -1,8 +1,8 @@
-const stringifyObject = require('stringify-object');
-const {logger} = require('utils/');
-const parseCodebase = require('./parseCodebase');
-const {deleteUnreferencedIssues, createMissingIssues} = require('./issueHandler');
-const {createMissingTasks} = require('./taskHandler');
+import stringifyObject from 'stringify-object';
+import {logger} from '../utils/index.js';
+import parseCodebase from './parseCodebase.js';
+import {deleteUnreferencedIssues, createMissingIssues} from './issueHandler.js';
+import {createMissingTasks} from './taskHandler.js';
 
 /* Perform a complete scan of a codebase. */
 const scanCodebase = async (codeFolder, repository, githubClient) => {
@@ -34,4 +34,4 @@ const scanCodebase = async (codeFolder, repository, githubClient) => {
     logger.info(`Missing tasks created for repo ${repository.id}`);
 };
 
-module.exports = scanCodebase;
+export default scanCodebase;

@@ -1,4 +1,4 @@
-const {logger, graphqlRequestBody} = require('utils/');
+import {logger, graphqlRequestBody} from '../../utils/index.js';
 
 // Get a url to the user's avatar
 const getAvatarUrl = async (githubClient, userNodeId) => {
@@ -18,4 +18,4 @@ const getAvatarUrl = async (githubClient, userNodeId) => {
     return response.data.data.node.avatarUrl;
 };
 
-module.exports = getAvatarUrl;
+export default getAvatarUrl;

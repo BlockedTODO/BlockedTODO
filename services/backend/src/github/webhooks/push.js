@@ -1,8 +1,8 @@
-const {Repository} = require('db/');
-const {logger} = require('utils/');
-const scanGithubRepository = require('github/scanGithubRepository');
+import {Repository} from '../../db/index.js';
+import {logger} from '../../utils/index.js';
+import scanGithubRepository from '../scanGithubRepository.js';
 
-const onPush = async ({payload}) => {
+export const onPush = async ({payload}) => {
     const defaultBranch = payload.repository.default_branch;
     const branchMatch = payload.ref.match(/refs\/heads\/(?<branchName>.*)/);
 
@@ -22,5 +22,3 @@ const onPush = async ({payload}) => {
 
     await scanGithubRepository(repository);
 };
-
-module.exports = {onPush};

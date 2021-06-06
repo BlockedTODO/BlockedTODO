@@ -1,6 +1,6 @@
-const {Repository} = require('db/');
-const {logger} = require('utils/');
-const scanGithubRepository = require('github/scanGithubRepository');
+import {Repository} from '../db/index.js';
+import {logger} from '../utils/index.js';
+import scanGithubRepository from '../github/scanGithubRepository.js';
 
 const scanRepositories = async () => {
     const repositories = await Repository.query();

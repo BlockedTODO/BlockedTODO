@@ -1,12 +1,4 @@
-const parseCodebase = require('./parseCodebase');
-const {createMissingIssues, deleteUnreferencedIssues} = require('./issueHandler');
-const {createMissingTasks} = require('./taskHandler');
-const scanCodebase = require('./scanCodebase');
-
-module.exports = {
-    parseCodebase,
-    createMissingIssues,
-    deleteUnreferencedIssues,
-    createMissingTasks,
-    scanCodebase,
-};
+export {default as parseCodebase} from './parseCodebase.js';
+export {createMissingIssues, deleteUnreferencedIssues} from './issueHandler.js';
+export {createMissingTasks} from './taskHandler.js';
+export {default as scanCodebase} from './scanCodebase.js';

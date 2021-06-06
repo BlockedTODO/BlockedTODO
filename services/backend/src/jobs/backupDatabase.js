@@ -1,9 +1,9 @@
-const util = require('util');
-const childProcess = require('child_process');
-const {promises: fsPromises} = require('fs');
-const {Storage} = require('@google-cloud/storage');
-const knexConfig = require('../db/config/knexfile');
-const {logger} = require('utils/');
+import util from 'util';
+import childProcess from 'child_process';
+import {promises as fsPromises} from 'fs';
+import {Storage} from '@google-cloud/storage';
+import knexConfig from '../db/config/knexfile';
+import {logger} from '../utils/index.js';
 
 const environment = process.env.NODE_ENV || 'development';
 const exec = util.promisify(childProcess.exec);

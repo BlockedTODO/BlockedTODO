@@ -1,5 +1,5 @@
-const urlRegex = require('url-regex-safe');
-const {escapeRegex} = require('utils/');
+import urlRegex from 'url-regex-safe';
+import {escapeRegex} from '../../utils/index.js';
 
 /* URL regex. */
 const URL_REGEX = new RegExp('(?<url>' + urlRegex({strict: false}).source + ')').source;
@@ -29,4 +29,4 @@ const issueRegex = (config) => {
     return ISSUE_REGEX;
 };
 
-module.exports = issueRegex;
+export default issueRegex;

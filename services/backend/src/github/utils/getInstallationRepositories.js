@@ -1,4 +1,4 @@
-const {logger} = require('utils/');
+import {logger} from '../../utils/index.js';
 
 /* Get list of repositories associated with an installation ID from GitHub.
  * Using this API under "list repositories accessible to the app installation":
@@ -33,4 +33,4 @@ const getInstallationRepositories = async (installationClient) => {
     return repositories;
 };
 
-module.exports = getInstallationRepositories;
+export default getInstallationRepositories;

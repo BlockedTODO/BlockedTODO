@@ -1,5 +1,5 @@
-const {URL} = require('url');
-const {logger, graphqlRequestBody, markdownHelpers} = require('utils/');
+import {URL} from 'url';
+import {logger, graphqlRequestBody, markdownHelpers} from '../../utils/index.js';
 
 const {inlineCode, codeBlock, lineBreak} = markdownHelpers;
 
@@ -46,4 +46,4 @@ const createIssue = async (githubClient, issue, repository, issueReferences) => 
     return response.data.data.createIssue.issue;
 };
 
-module.exports = createIssue;
+export default createIssue;

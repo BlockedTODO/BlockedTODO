@@ -1,13 +1,13 @@
-const {compose} = require('objection');
-const password = require('objection-password');
-const BaseModel = require('./baseModel');
-const {encrypt, decrypt} = require('../../utils/');
+import {compose} from 'objection';
+import password from 'objection-password';
+import BaseModel from './baseModel.js';
+import {encrypt, decrypt} from '../../utils/index.js';
 
 const mixins = compose(
     password({rounds: 13}),
 );
 
-class User extends mixins(BaseModel) {
+export default class User extends mixins(BaseModel) {
     static get tableName() {
         return 'users';
     }
@@ -28,25 +28,6 @@ class User extends mixins(BaseModel) {
                 refreshTokenIv: {type: ['string', null]},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'},
-            }
-        };
-    }
-
-    static get relationMappings() {
-        const Repository = require('./repository');
-
-        return {
-            repositories: {
-                relation: BaseModel.ManyToManyRelation,
-                modelClass: Repository,
-                join: {
-                    from: 'users.id',
-                    to: 'repositories.id',
-                    through: {
-                        from: 'userRepositories.userId',
-                        to: 'userRepositories.repositoryId',
-                    },
-                }
             }
         };
     }
@@ -79,5 +60,3 @@ class User extends mixins(BaseModel) {
         return {accessToken, refreshToken};
     }
 }
-
-module.exports = User;

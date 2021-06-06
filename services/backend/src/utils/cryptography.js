@@ -1,5 +1,7 @@
-const {createCipheriv, createDecipheriv, createHash} = require('crypto');
-const cryptoRandomString = require('crypto-random-string');
+import crypto from 'crypto';
+import cryptoRandomString from 'crypto-random-string';
+
+const {createCipheriv, createDecipheriv, createHash} = crypto;
 
 /* Encryption method */
 const BLOCK_CIPHER = 'aes-256-cbc';
@@ -16,7 +18,7 @@ const generateKey = (secret) => {
     return createHash('sha256').update(String(secret)).digest('base64').substr(0, KEY_BYTE_LENGTH);
 };
 
-const encrypt = (text) => {
+export const encrypt = (text) => {
     const iv = cryptoRandomString({length: IV_BYTE_LENGTH});
     const key = generateKey(process.env.ENCRYPTION_SECRET);
 
@@ -27,7 +29,7 @@ const encrypt = (text) => {
     return [encrypted, iv];
 };
 
-const decrypt = (text, iv) => {
+export const decrypt = (text, iv) => {
     const key = generateKey(process.env.ENCRYPTION_SECRET);
 
     const decipher = createDecipheriv('aes-256-cbc', key, iv);
@@ -35,9 +37,4 @@ const decrypt = (text, iv) => {
     deciphered += decipher.final('utf8');
 
     return deciphered;
-};
-
-module.exports = {
-    encrypt,
-    decrypt,
 };

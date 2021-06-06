@@ -1,7 +1,7 @@
-const {User, Repository, Issue, Task} = require('../models/');
-require('../'); // connect db
+import {User, Repository, Issue, Task} from '../models/index.js';
+import '../index.js'; // connect db
 
-const seed = async (knex) => {
+export const seed = async (knex) => {
     const environment = process.env.NODE_ENV || 'development';
     if (environment === 'production') {
         return;
@@ -133,7 +133,3 @@ const generateSeedData = async (knex) => {
     await user3.$relatedQuery('repositories').relate([repository3, repository4, repository5]);
 };
 /* eslint-enable */
-
-module.exports = {
-    seed
-};

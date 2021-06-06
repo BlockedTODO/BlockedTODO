@@ -1,7 +1,7 @@
-const {v4: uuidv4} = require('uuid');
+import {v4 as uuidv4} from 'uuid';
 
 // Convert repository-issue relation from many-to-many to one-to-many
-exports.up = async (knex) => {
+export const up = async (knex) => {
     await knex.schema.table('issues', (table) => {
         // Remove uniqueness constraint on issue urls
         table.dropUnique('url');
@@ -43,7 +43,7 @@ exports.up = async (knex) => {
     await knex.schema.dropTableIfExists('repository_issues');
 };
 
-exports.down = async (knex) => {
+export const down = async (knex) => {
     // Recreate repository_issues join table
     await knex.schema.createTable('repository_issues', (table) => {
         table.uuid('repository_id').references('id').inTable('repositories').onDelete('CASCADE').onUpdate('CASCADE').notNullable(); // eslint-disable-line

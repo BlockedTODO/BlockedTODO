@@ -94,6 +94,10 @@
             {
                 "allowSingleLine": true
             }
+        ],
+        "comma-dangle": [
+            "error",
+            "only-multiline"
         ]
     }
 }

@@ -1,11 +1,4 @@
-const errorHandler = require('./errorHandler');
-const requireAuth = require('./requireAuth');
-const passport = require('./passport');
-const sessions = require('./sessions');
-
-module.exports = {
-    errorHandler,
-    requireAuth,
-    passport,
-    sessions,
-};
+export {default as errorHandler} from './errorHandler.js';
+export {default as requireAuth} from './requireAuth.js';
+export {default as passport} from './passport.js';
+export {default as sessions} from './sessions.js';

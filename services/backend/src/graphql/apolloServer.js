@@ -1,7 +1,7 @@
-const {ApolloServer, gql} = require('apollo-server-express');
-const typeDefs = require('graphql/schema');
-const resolvers = require('graphql/resolvers');
-const db = require('db/');
+import {ApolloServer, gql} from 'apollo-server-express';
+import typeDefs from './schema/index.js';
+import resolvers from './resolvers/index.js';
+import knex, * as models from '../db/index.js';
 
 const playground = {
     settings: {'editor.cursorShape': 'line'}
@@ -9,7 +9,8 @@ const playground = {
 
 const context = ({req}) => {
     return {
-        ...db,
+        knex,
+        ...models,
         request: req,
     };
 };
@@ -21,4 +22,4 @@ const apolloServer = new ApolloServer({
     playground,
 });
 
-module.exports = apolloServer;
+export default apolloServer;

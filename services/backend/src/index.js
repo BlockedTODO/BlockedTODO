@@ -1,5 +1,5 @@
-const logger = require('utils/logger');
-const app = require('./app');
+import logger from './utils/logger.js';
+import app from './app.js';
 
 const host = app.get('host');
 const port = app.get('port');

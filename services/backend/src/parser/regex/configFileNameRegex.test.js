@@ -1,4 +1,4 @@
-const CONFIG_FILE_NAME_REGEX = require('./configFileNameRegex');
+import CONFIG_FILE_NAME_REGEX from './configFileNameRegex.js';
 
 describe('Config file name regex', () => {
     it('matches a valid file name (sanity test)', () => {
