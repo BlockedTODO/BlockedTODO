@@ -4,4 +4,4 @@ const graphqlRequestBody = (operation) => {
     return {query: operation};
 };
 
-module.exports = graphqlRequestBody;
+export default graphqlRequestBody;

@@ -1,7 +1,7 @@
-const axios = require('axios');
-const auth = require('github/appAuthentication');
+import axios from 'axios';
+import auth from '../appAuthentication.js';
 
-const createAppClient = async () => {
+export const createAppClient = async () => {
     const {token} = await auth({type: 'app'});
 
     return axios.create({
@@ -16,7 +16,7 @@ const createAppClient = async () => {
     });
 };
 
-const createInstallationClient = async (installationId) => {
+export const createInstallationClient = async (installationId) => {
     const {token} = await auth({type: 'installation', installationId});
 
     return axios.create({
@@ -31,7 +31,7 @@ const createInstallationClient = async (installationId) => {
     });
 };
 
-const createOauthClient = async (token) => {
+export const createOauthClient = async (token) => {
     return axios.create({
         baseURL: 'https://api.github.com',
         headers: {
@@ -42,10 +42,4 @@ const createOauthClient = async (token) => {
             }
         }
     });
-};
-
-module.exports = {
-    createAppClient,
-    createInstallationClient,
-    createOauthClient,
 };

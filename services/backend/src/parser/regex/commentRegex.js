@@ -39,4 +39,4 @@ const COMMENT_REGEX = new RegExp(
     GLOBAL_PATTERN_FLAGS
 );
 
-module.exports = COMMENT_REGEX;
+export default COMMENT_REGEX;

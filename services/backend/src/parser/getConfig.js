@@ -1,7 +1,7 @@
-const yaml = require('js-yaml');
-const {promises: fsPromises} = require('fs');
-const {logger, DEFAULT_CONFIG} = require('utils/');
-const {CONFIG_FILE_NAME_REGEX} = require('./regex');
+import yaml from 'js-yaml';
+import {promises as fsPromises} from 'fs';
+import {logger, DEFAULT_CONFIG} from '../utils/index.js';
+import {CONFIG_FILE_NAME_REGEX} from './regex/index.js';
 
 const getConfig = async (codeFolder) => {
     const rootFiles = await fsPromises.readdir(codeFolder);
@@ -36,4 +36,4 @@ const loadConfig = async (filePath) => {
     }
 };
 
-module.exports = getConfig;
+export default getConfig;

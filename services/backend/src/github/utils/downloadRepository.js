@@ -1,6 +1,6 @@
-const fs = require('fs');
-const globby = require('globby');
-const {asyncUnzip, asyncWriteFile, logger, graphqlRequestBody} = require('utils/');
+import fs from 'fs';
+import globby from 'globby';
+import {asyncUnzip, asyncWriteFile, logger, graphqlRequestBody} from '../../utils/index.js';
 
 const fsPromises = fs.promises;
 
@@ -59,4 +59,4 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     return codeFolder;
 };
 
-module.exports = downloadRepository;
+export default downloadRepository;

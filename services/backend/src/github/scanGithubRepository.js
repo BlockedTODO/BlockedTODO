@@ -1,7 +1,7 @@
-const tempy = require('tempy');
-const {logger} = require('utils/');
-const {createInstallationClient, downloadRepository} = require('github/utils/');
-const {scanCodebase} = require('parser/');
+import tempy from 'tempy';
+import {logger} from '../utils/index.js';
+import {createInstallationClient, downloadRepository} from './utils/index.js';
+import {scanCodebase} from '../parser/index.js';
 
 const scanGithubRepository = async (repository) => {
     const githubClient = await createInstallationClient(repository.installationId);
@@ -17,4 +17,4 @@ const scanGithubRepository = async (repository) => {
     });
 };
 
-module.exports = scanGithubRepository;
+export default scanGithubRepository;

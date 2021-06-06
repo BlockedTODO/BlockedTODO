@@ -1,8 +1,8 @@
-const {promises: fsPromises} = require('fs');
-const globby = require('globby');
-const {logger} = require('utils/');
-const {COMMENT_REGEX, issueRegex} = require('./regex');
-const getConfig = require('./getConfig');
+import {promises as fsPromises} from 'fs';
+import globby from 'globby';
+import {logger} from '../utils/index.js';
+import {COMMENT_REGEX, issueRegex} from './regex/index.js';
+import getConfig from './getConfig.js';
 
 /* Return array of issue urls that match the issue regex in a single comment */
 const scanComment = (comment, config) => {
@@ -80,4 +80,4 @@ const parseCodebase = async (codeFolder) => {
     return mergeScanResults(results, codeFolder);
 };
 
-module.exports = parseCodebase;
+export default parseCodebase;

@@ -1,4 +1,4 @@
-const COMMENT_REGEX = require('./commentRegex');
+import COMMENT_REGEX from './commentRegex.js';
 
 describe('JavaScript single-line comments', () => {
     it('matches a basic comment (sanity test)', () => {

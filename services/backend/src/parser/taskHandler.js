@@ -1,10 +1,10 @@
-const {Task} = require('db/');
-const {URL} = require('url');
-const {logger} = require('utils/');
-const {getIssue, createIssue} = require('github/utils/');
+import {Task} from '../db/index.js';
+import {URL} from 'url';
+import {logger} from '../utils/index.js';
+import {getIssue, createIssue} from '../github/utils/index.js';
 
 // Create tasks
-const createMissingTasks = async (repository, githubClient, referencedIssues) => {
+export const createMissingTasks = async (repository, githubClient, referencedIssues) => {
     const issues = await repository.$relatedQuery('issues');
 
     const handleIssue = async (issue) => {
@@ -44,5 +44,3 @@ const createMissingTasks = async (repository, githubClient, referencedIssues) =>
 
     await Promise.allSettled(issues.map((issue) => handleIssue(issue)));
 };
-
-module.exports = {createMissingTasks};

@@ -1,5 +1,5 @@
-const express = require('express');
-const {requireAuth, passport} = require('middleware/');
+import express from 'express';
+import {requireAuth, passport} from '../middleware/index.js';
 
 const authRouter = express.Router();
 
@@ -22,4 +22,4 @@ authRouter.get('/github/callback', passport.authenticate('github'), (req, res) =
     res.redirect(req.headers.referer);
 });
 
-module.exports = authRouter;
+export default authRouter;

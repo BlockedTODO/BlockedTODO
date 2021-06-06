@@ -5,7 +5,6 @@ Exposes a GraphQL API.
 # Required environment variables
 Most of these are automatically set when running with docker-compose, but all do need to be set manually on production environments
 
-* `NODE_PATH=src`
 * `DATABASE_NAME`
 * `DATABASE_USER`
 * `DATABASE_PASSWORD`

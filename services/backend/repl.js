@@ -1,8 +1,8 @@
 /* A repl server for BlockedTODO.
  * It behaves in a similar manner to rails console.
  * Run with `node --experimental-repl-await ./repl.js` */
-const repl = require('repl');
-const db = require('db/');
+import repl from 'repl';
+import knex, * as models from './src/db/index.js';
 
 // Helper methods to add in the context of the repl
 const getOwnMethods = (object) => {
@@ -44,7 +44,8 @@ const replServer = repl.start({
 
 // Import in the context of the repl server
 Object.assign(replServer.context, {
-    ...db,
+    knex,
+    ...models,
     printDepth,
     getOwnMethods,
     getAllMethods,

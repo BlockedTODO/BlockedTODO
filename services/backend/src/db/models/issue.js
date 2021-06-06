@@ -1,6 +1,6 @@
-const BaseModel = require('./baseModel');
+import BaseModel from './baseModel.js';
 
-class Issue extends BaseModel {
+export default class Issue extends BaseModel {
     static get tableName() {
         return 'issues';
     }
@@ -18,21 +18,4 @@ class Issue extends BaseModel {
             }
         };
     }
-
-    static get relationMappings() {
-        const Repository = require('./repository');
-
-        return {
-            repository: {
-                relation: BaseModel.BelongsToOneRelation,
-                modelClass: Repository,
-                join: {
-                    from: 'issues.repositoryId',
-                    to: 'repositories.id',
-                }
-            }
-        };
-    }
 }
-
-module.exports = Issue;

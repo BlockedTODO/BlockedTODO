@@ -1,12 +1,12 @@
-const logger = require('utils/logger');
-const {Webhooks} = require('@octokit/webhooks');
-const {
+import {logger} from '../../utils/index.js';
+import {Webhooks} from '@octokit/webhooks';
+import {
     onInstallationCreated,
     onInstallationDeleted,
     onInstallationRepositoriesAdded,
     onInstallationRepositoriesRemoved,
-} = require('./installation');
-const {onPush} = require('./push');
+} from './installation.js';
+import {onPush} from './push.js';
 
 const webhooks = new Webhooks({
     secret: process.env.GITHUB_WEBHOOKS_SECRET,
@@ -27,4 +27,4 @@ webhooks.on('installation_repositories.added', onInstallationRepositoriesAdded);
 webhooks.on('installation_repositories.removed', onInstallationRepositoriesRemoved);
 webhooks.on('push', onPush);
 
-module.exports = webhooks;
+export default webhooks;

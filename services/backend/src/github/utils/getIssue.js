@@ -1,5 +1,5 @@
-const {URL} = require('url');
-const {logger, graphqlRequestBody} = require('utils/');
+import {URL} from 'url';
+import {logger, graphqlRequestBody} from '../../utils/index.js';
 
 const PATHNAME_REGEX = /\/(?<owner>.+)\/(?<name>.+)\/issues\/(?<issueNumber>\d+)/;
 
@@ -30,4 +30,4 @@ const getIssue = async (githubClient, issue) => {
     return response.data.data.repository.issue;
 };
 
-module.exports = getIssue;
+export default getIssue;

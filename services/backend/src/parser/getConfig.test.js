@@ -1,7 +1,7 @@
-const getConfig = require('./getConfig');
-const tempy = require('tempy');
-const {DEFAULT_CONFIG} = require('utils/');
-const {promises: fsPromises} = require('fs');
+import getConfig from './getConfig.js';
+import tempy from 'tempy';
+import {DEFAULT_CONFIG} from '../utils/index.js';
+import {promises as fsPromises} from 'fs';
 
 const configText = `
     comment_prefixes:

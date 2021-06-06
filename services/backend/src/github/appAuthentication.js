@@ -1,5 +1,5 @@
-const {createAppAuth} = require('@octokit/auth-app');
-const {logger} = require('utils/');
+import {createAppAuth} from '@octokit/auth-app';
+import {logger} from '../utils/index.js';
 
 const APP_ID = process.env.GITHUB_APP_ID;
 const PRIVATE_KEY = process.env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, '\n');
@@ -14,4 +14,4 @@ const auth = createAppAuth({
     log: logger,
 });
 
-module.exports = auth;
+export default auth;

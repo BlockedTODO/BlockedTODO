@@ -1,7 +1,7 @@
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
 
-module.exports = {
+const jestConfig = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -21,7 +21,7 @@ module.exports = {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -129,7 +129,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -157,6 +157,9 @@ module.exports = {
   // This option allows use of a custom test runner
   // testRunner: "jasmine2",
 
+  // Default timeout of a test in milliseconds
+  testTimeout: 8000,
+
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
   // testURL: "http://localhost",
 
@@ -164,7 +167,7 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  // transform: undefined,
+  transform: {}, // For support for ECMAScript Modules, as per https://jestjs.io/docs/ecmascript-modules
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
@@ -183,3 +186,5 @@ module.exports = {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
+
+export default jestConfig;

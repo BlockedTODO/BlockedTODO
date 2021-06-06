@@ -1,9 +1,9 @@
-const {userQueries, userMutations} = require('./users');
-const {repositoryQueries, repositoryMutations} = require('./repositories');
-const {issueQueries, issueMutations} = require('./issues');
-const {taskQueries, taskMutations} = require('./tasks');
+import {userQueries, userMutations} from './users.js';
+import {repositoryQueries, repositoryMutations} from './repositories.js';
+import {issueQueries, issueMutations} from './issues.js';
+import {taskQueries, taskMutations} from './tasks.js';
 
-module.exports = {
+const resolvers = {
     User: {
         repositories: (parent, args, context, info) => parent.$relatedQuery('repositories')
     },
@@ -31,3 +31,5 @@ module.exports = {
         ...taskMutations,
     }
 };
+
+export default resolvers;

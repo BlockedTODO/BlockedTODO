@@ -1,4 +1,4 @@
-exports.up = async (knex) => {
+export const up = async (knex) => {
     await knex.schema.createTable('repository_issues', (table) => {
         table.uuid('repository_id').references('id').inTable('repositories').onDelete('CASCADE').onUpdate('CASCADE').notNullable(); // eslint-disable-line
         table.uuid('issue_id').references('id').inTable('issues').onDelete('CASCADE').onUpdate('CASCADE').notNullable();
@@ -10,6 +10,6 @@ exports.up = async (knex) => {
     });
 };
 
-exports.down = async (knex) => {
+export const down = async (knex) => {
     await knex.schema.dropTableIfExists('repository_issues');
 };

@@ -1,5 +1,7 @@
-const {compose, Model, QueryBuilder, UniqueViolationError} = require('objection');
-const guid = require('objection-guid');
+import objection from 'objection';
+import guid from 'objection-guid';
+
+const {compose, Model, QueryBuilder, UniqueViolationError} = objection;
 
 class BaseQueryBuilder extends QueryBuilder {
     async findOrInsert(params) {
@@ -24,7 +26,7 @@ const mixins = compose(
     guid(),
 );
 
-class BaseModel extends mixins(Model) {
+export default class BaseModel extends mixins(Model) {
     static get QueryBuilder() {
         return BaseQueryBuilder;
     }
@@ -41,5 +43,3 @@ class BaseModel extends mixins(Model) {
         this.updatedAt = new Date().toISOString();
     }
 }
-
-module.exports = BaseModel;

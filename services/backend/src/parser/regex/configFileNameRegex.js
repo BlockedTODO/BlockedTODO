@@ -24,4 +24,4 @@ const CONFIG_FILE_NAME_REGEX = new RegExp(
     GLOBAL_PATTERN_FLAGS
 );
 
-module.exports = CONFIG_FILE_NAME_REGEX;
+export default CONFIG_FILE_NAME_REGEX;
