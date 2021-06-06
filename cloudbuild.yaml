@@ -1,41 +1,41 @@
 steps:
     - id: 'Build images'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'build', '--parallel']
       waitFor: ['-']
 
     # Run containers in the background
     - id: 'Run containers'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'up', '--detach']
 
     - id: 'Backend tests'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'test']
       waitFor: ['Run containers']
 
     - id: 'Frontend tests'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'test']
       waitFor: ['Run containers']
 
     - id: 'Website tests'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'test']
       waitFor: ['Run containers']
 
     - id: 'Backend Linting'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'lint']
       waitFor: ['Run containers']
 
     - id: 'Frontend Linting'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'lint']
       waitFor: ['Run containers']
 
     - id: 'Website Linting'
-      name: 'docker/compose:1.24.1'
+      name: 'docker/compose:1.29.2'
       args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'lint']
       waitFor: ['Run containers']
 
