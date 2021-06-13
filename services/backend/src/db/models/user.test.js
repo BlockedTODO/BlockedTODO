@@ -1,13 +1,4 @@
-import {transactionPerTest} from 'objection-transactional-tests';
-import knex, {User} from '../index.js';
-
-beforeAll(() => {
-    transactionPerTest();
-});
-
-afterAll(() => {
-    knex.destroy();
-});
+import {User} from '../index.js';
 
 describe('insert', () => {
     it('does not store the password in plaintext', async () => {

@@ -1,13 +1,4 @@
-import {transactionPerTest} from 'objection-transactional-tests';
-import knex, {Repository} from '../index.js';
-
-beforeAll(() => {
-    transactionPerTest();
-});
-
-afterAll(() => {
-    knex.destroy();
-});
+import {Repository} from '../index.js';
 
 describe('insert', () => {
     it('rejects an empty node id', async () => {

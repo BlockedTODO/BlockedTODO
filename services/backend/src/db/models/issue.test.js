@@ -1,13 +1,4 @@
-import {transactionPerTest} from 'objection-transactional-tests';
-import knex, {Issue, Repository} from '../index.js';
-
-beforeAll(() => {
-    transactionPerTest();
-});
-
-afterAll(() => {
-    knex.destroy();
-});
+import {Issue, Repository} from '../index.js';
 
 const validIssueData = async () => {
     const repository = await Repository.query().insert({nodeId: 'abc123', installationId: 123});

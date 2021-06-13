@@ -111,7 +111,7 @@ const jestConfig = {
   // The root directory that Jest should scan for tests and modules within
   // rootDir: undefined,
 
-  // A list of paths to directories that Jest should use to search for files in
+  // A list of paths to directories that Jest should use to search for files
   // roots: [
   //   "<rootDir>"
   // ],
@@ -119,11 +119,16 @@ const jestConfig = {
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
 
-  // The paths to modules that run some code to configure or set up the testing environment before each test
+  // A list of paths to modules that run some code to configure or set up the testing environment.
+  // Each setupFile will be run once per test file.
   // setupFiles: [],
 
-  // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  // A list of paths to modules that run some code to configure or set up
+  // the testing framework before each test file in the suite is executed
+  setupFilesAfterEnv: ['./jest.setup.js'],
+
+  // The number of seconds after which a test is considered as slow and reported as such in the results.
+  slowTestThreshold: 8,
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
