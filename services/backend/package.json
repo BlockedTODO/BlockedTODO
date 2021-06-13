@@ -43,8 +43,7 @@
     "eslint": "^7.28.0",
     "jest": "^27.0.4",
     "node-mocks-http": "^1.10.1",
-    "nodemon": "^2.0.7",
-    "objection-transactional-tests": "^0.2.0"
+    "nodemon": "^2.0.7"
   },
   "homepage": "https://github.com/blockedtodo/blockedtodo#readme",
   "keywords": [
