@@ -11,9 +11,9 @@ export const onInstallationCreated = async ({payload}) => {
 };
 
 export const onInstallationDeleted = async ({payload}) => {
-    for (const {node_id: nodeId} of payload.repositories) {
+    await Promise.allSettled(payload.repositories.map(async ({node_id: nodeId}) => {
         await Repository.query().delete().where({nodeId});
-    }
+    }));
 };
 
 export const onInstallationRepositoriesAdded = async ({payload}) => {
@@ -26,7 +26,7 @@ export const onInstallationRepositoriesAdded = async ({payload}) => {
 };
 
 export const onInstallationRepositoriesRemoved = async ({payload}) => {
-    for (const {node_id: nodeId} of payload.repositories_removed) {
+    await Promise.allSettled(payload.repositories_removed.map(async ({node_id: nodeId}) => {
         await Repository.query().delete().where({nodeId});
-    }
+    }));
 };
