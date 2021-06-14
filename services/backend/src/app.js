@@ -3,8 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import apolloServer from './graphql/apolloServer.js';
-import {errorHandler, passport, sessions} from './middleware/index.js';
-import githubWebhooks from './github/webhooks/index.js';
+import {errorHandler, passport, sessions, githubWebhooks} from './middleware/index.js';
 import {authRouter, githubRouter} from './routes/index.js';
 
 const app = express();
@@ -22,7 +21,7 @@ app.use(sessions());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(githubWebhooks.middleware);
+app.use(githubWebhooks);
 
 app.get('/', (req, res, next) => {
     res.send('BlockedTODO Backend Server');

@@ -9,8 +9,7 @@ import {
 import {onPush} from './push.js';
 
 const webhooks = new Webhooks({
-    secret: process.env.GITHUB_WEBHOOKS_SECRET,
-    path: '/github_event_handler',
+    secret: process.env.GITHUB_WEBHOOKS_SECRET
 });
 
 webhooks.onAny(({id, name, payload}) => {
