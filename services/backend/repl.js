@@ -35,7 +35,7 @@ const getAllAttributes = (object) => {
 
 const printDepth = (object, depth) => {
     console.dir(object, {depth: depth});
-}
+};
 
 // Create repl server
 const replServer = repl.start({

@@ -9,13 +9,13 @@ global.beforeAll(async () => {
 });
 
 global.beforeEach(async () => {
-    global.txn = await transaction.start(knex);
+    global.txn = await transaction.start(global.knex);
     Model.knex(global.txn);
 });
 
 global.afterEach(async () => {
     await global.txn.rollback();
-    Model.knex(knex);
+    Model.knex(global.knex);
 });
 
 global.afterAll(async () => {

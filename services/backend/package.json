@@ -66,7 +66,7 @@
     "db:migrate": "knex migrate:latest --knexfile=src/db/config/knexfile.js",
     "db:rollback": "knex migrate:rollback --knexfile=src/db/config/knexfile.js",
     "db:seed": "knex seed:run --knexfile=src/db/config/knexfile.js",
-    "lint": "eslint 'src/**/*.js'",
+    "lint": "eslint './**/*.js'",
     "repl": "node --experimental-repl-await ./repl.js",
     "start": "nodemon src/",
     "start:debug": "nodemon --inspect=0.0.0.0:9229 src/",
