@@ -9,7 +9,9 @@ resource "google_container_cluster" "primary" {
     remove_default_node_pool = true
     initial_node_count = 1
 
-    min_master_version = "1.16"
+    release_channel {
+        channel = "REGULAR"
+    }
 
     monitoring_service = "monitoring.googleapis.com/kubernetes"
     logging_service = "logging.googleapis.com/kubernetes"
