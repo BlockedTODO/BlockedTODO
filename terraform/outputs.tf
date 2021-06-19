@@ -10,6 +10,10 @@ output "cluster_location" {
     value = module.cluster.cluster_location
 }
 
+output "cluster_version" {
+    value = module.cluster.cluster_version
+}
+
 output "database_backups_bucket_name" {
     value = module.cluster.database_backups_bucket_name
 }
