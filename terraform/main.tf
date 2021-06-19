@@ -1,6 +1,4 @@
 provider "google" {
-  version = "3.25.0"
-
   credentials = file("${var.project_name}-account.json")
 
   project = var.gcp_project_id
@@ -9,8 +7,6 @@ provider "google" {
 }
 
 provider "google-beta" {
-    version = "3.25.0"
-
     credentials = file("${var.project_name}-account.json")
 
     project = var.gcp_project_id
