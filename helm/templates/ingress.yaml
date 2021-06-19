@@ -3,8 +3,10 @@ kind: Ingress
 metadata:
     name: blockedtodo-ingress
     annotations:
+        kubernetes.io/ingress.class: gce
         kubernetes.io/ingress.global-static-ip-name: {{.Values.static_ip_name}}
         networking.gke.io/managed-certificates: blockedtodo-certificate
+        networking.gke.io/v1beta1.FrontendConfig: ingress-security-config
     namespace: {{.Values.namespace}}
 spec:
     rules:
@@ -50,7 +52,6 @@ spec:
 ---
 
 # For HTTPS, as per https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
-# BlockedTODO: https://github.com/kubernetes/ingress-gce/issues/1075 redirect http traffic to https when issue is closed.
 {{- if eq .Values.environment "production"}}
 apiVersion: networking.gke.io/v1beta2
 kind: ManagedCertificate
@@ -65,4 +66,19 @@ spec:
         - www.{{.Values.frontend.host}}
         - {{.Values.website.host}}
         - www.{{.Values.website.host}}
+{{- end}}
+
+---
+
+# For HTTP to HTTPS redirects, as per https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#https_redirect
+# Following this recipe: https://github.com/GoogleCloudPlatform/gke-networking-recipes/tree/master/ingress/secure-ingress
+{{- if eq .Values.environment "production"}}
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+    name: ingress-security-config
+spec:
+    sslPolicy: gke-ingress-ssl-policy
+    redirectToHttps:
+        enabled: true
 {{- end}}
