@@ -1,4 +1,4 @@
-import {User} from '../index.js';
+import User from './user.js';
 
 describe('insert', () => {
     it('does not store the password in plaintext', async () => {

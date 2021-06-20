@@ -1,4 +1,4 @@
-import {Repository} from '../index.js';
+import Repository from './repository.js';
 
 describe('insert', () => {
     it('rejects an empty node id', async () => {

@@ -1,4 +1,6 @@
 import BaseModel from './baseModel.js';
+import User from './user.js';
+import Issue from './issue.js';
 
 export default class Repository extends BaseModel {
     static get tableName() {
@@ -16,6 +18,31 @@ export default class Repository extends BaseModel {
                 installationId: {type: 'integer', minimum: 0},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'}
+            }
+        };
+    }
+
+    static get relationMappings() {
+        return {
+            issues: {
+                relation: BaseModel.HasManyRelation,
+                modelClass: Issue,
+                join: {
+                    from: 'repositories.id',
+                    to: 'issues.repositoryId',
+                }
+            },
+            users: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: User,
+                join: {
+                    from: 'repositories.id',
+                    to: 'users.id',
+                    through: {
+                        from: 'user_repositories.repositoryId',
+                        to: 'user_repositories.userId',
+                    },
+                }
             }
         };
     }
