@@ -1,4 +1,6 @@
-import {Issue, Repository, Task} from '../index.js';
+import Issue from './issue.js';
+import Repository from './repository.js';
+import Task from './task.js';
 
 const validTaskData = async () => {
     const repository = await Repository.query().insert({nodeId: 'abc123', installationId: 123});

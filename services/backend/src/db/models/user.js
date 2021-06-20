@@ -1,6 +1,7 @@
 import {compose} from 'objection';
 import password from 'objection-password';
 import BaseModel from './baseModel.js';
+import Repository from './repository.js';
 import {encrypt, decrypt} from '../../utils/index.js';
 
 const mixins = compose(
@@ -28,6 +29,23 @@ export default class User extends mixins(BaseModel) {
                 refreshTokenIv: {type: ['string', null]},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'},
+            }
+        };
+    }
+
+    static get relationMappings() {
+        return {
+            repositories: {
+                relation: BaseModel.ManyToManyRelation,
+                modelClass: Repository,
+                join: {
+                    from: 'users.id',
+                    to: 'repositories.id',
+                    through: {
+                        from: 'userRepositories.userId',
+                        to: 'userRepositories.repositoryId',
+                    },
+                }
             }
         };
     }
