@@ -46,8 +46,8 @@ services:
         ports:
             - 3001:3001
         volumes:
-            - ./frontend:/frontend
-            - frontend-node-modules:/frontend/node_modules
+            - ./frontend:/home/node/frontend
+            - frontend-node-modules:/home/node/frontend/node_modules
 
     website:
         image: website
@@ -64,8 +64,8 @@ services:
         ports:
             - 3002:3002
         volumes:
-            - ./website:/website
-            - website-node-modules:/website/node_modules
+            - ./website:/home/node/website
+            - website-node-modules:/home/node/website/node_modules
 
     database:
         image: postgres:13.1
