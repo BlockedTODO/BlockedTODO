@@ -1,4 +1,4 @@
-FROM node:14.15.0-alpine
+FROM node:16.3.0-alpine
 
 # Install dockerize
 ENV DOCKERIZE_VERSION v0.6.1
@@ -9,16 +9,20 @@ RUN wget -q https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VE
 # Expose ports in the container
 EXPOSE 3002
 
+# Use node user instead of root
+# As per https://github.com/nodejs/docker-node/issues/740#issuecomment-538644464
+USER node
+
 # Create service directory
-RUN mkdir -p /website
-WORKDIR /website
+RUN mkdir -p /home/node/website
+WORKDIR /home/node/website
 
 # Install dependencies
-COPY package*.json ./
+COPY --chown=node:node package*.json ./
 RUN npm ci
 
 # Copy source code, create production build
-COPY . .
+COPY --chown=node:node . .
 RUN npm run build
 
 # Set default command that is called when the container runs
