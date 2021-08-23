@@ -30,7 +30,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
-    "stringify-object": "^3.3.0",
+    "stringify-object": "^4.0.0",
     "tempy": "^1.0.1",
     "unzipper": "^0.10.11",
     "url-regex-safe": "^2.0.2",
