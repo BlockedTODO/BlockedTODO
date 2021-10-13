@@ -4,7 +4,7 @@
     "url": "https://github.com/blockedtodo/blockedtodo/issues"
   },
   "dependencies": {
-    "@google-cloud/storage": "^5.11.1",
+    "@google-cloud/storage": "^5.15.2",
     "@octokit/auth-app": "^3.5.3",
     "@octokit/webhooks": "^9.11.0",
     "apollo-server-express": "^2.25.2",
