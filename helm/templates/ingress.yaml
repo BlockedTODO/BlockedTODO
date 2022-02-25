@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
     name: blockedtodo-ingress
@@ -53,7 +53,7 @@ spec:
 
 # For HTTPS, as per https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs
 {{- if eq .Values.environment "production"}}
-apiVersion: networking.gke.io/v1beta2
+apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
     name: blockedtodo-certificate
@@ -71,9 +71,9 @@ spec:
 ---
 
 # For HTTP to HTTPS redirects, as per https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#https_redirect
-# Following this recipe: https://github.com/GoogleCloudPlatform/gke-networking-recipes/tree/master/ingress/secure-ingress
+# Following this recipe: https://github.com/GoogleCloudPlatform/gke-networking-recipes/tree/main/ingress/single-cluster/ingress-https
 {{- if eq .Values.environment "production"}}
-apiVersion: networking.gke.io/v1beta1
+apiVersion: networking.gke.io/v1
 kind: FrontendConfig
 metadata:
     name: https-redirect
