@@ -10,7 +10,7 @@ const LoginLayout = (props) => (
     </div>
 );
 
-const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading, errorMessage}) => (
+const LoginCard = ({emailInput, passwordInput, onLogin, onSignup, isLoading, errorMessage}) => (
     <Card className='login-card' title='Login' errorMessage={errorMessage}>
         <div className='social-buttons-container'>
             <GithubLoginButton className='github-button' />
@@ -28,8 +28,8 @@ const LoginCard = ({emailInput, passwordInput, onSubmit, isLoading, errorMessage
                 <TextField className='form-input' label='Password' type='password' {...passwordInput} />
 
                 <div className='buttons-container'>
-                    <LoadingButton className='login-button' label='login' onClick={onSubmit} isLoading={isLoading} />
-                    <button className='signup-button'>create account</button>
+                    <LoadingButton className='login-button' label='login' onClick={onLogin} isLoading={isLoading} />
+                    <button className='signup-button' onClick={onSignup}>create account</button>
                 </div>
             </React.Fragment>
         )}
