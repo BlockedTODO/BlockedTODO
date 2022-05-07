@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import apolloServer from './graphql/apolloServer.js';
 import {errorHandler, passport, sessions, githubWebhooks} from './middleware/index.js';
 import {authRouter, githubRouter} from './routes/index.js';
 
@@ -31,12 +30,5 @@ app.use('/auth', authRouter);
 app.use('/github', githubRouter);
 
 app.use(errorHandler);
-
-/* This applyMiddleware call must be the last registered middleware
- * BlockedTODO: https://github.com/apollographql/apollo-server/milestone/16
- * Upgrade apollo-server and add after-request middleware (eg. 404 handlers) when version 3.0.0 is released */
-if (process.env.GRAPHQL_API_ENABLED === 'true') {
-    apolloServer.applyMiddleware({app});
-}
 
 export default app;

@@ -9,7 +9,7 @@ const SignupLayout = (props) => (
     </div>
 );
 
-const SignupCard = ({emailInput, passwordInput, onSignup, isLoading, errorMessage}) => (
+const SignupCard = ({emailInput, passwordInput, onSignup, onLogin, isLoading, errorMessage}) => (
     <Card className='signup-card' errorMessage={errorMessage} title='Signup'>
         <div className='inputs-container'>
             <TextField className='form-input' label='Email' type='email' {...emailInput} />
@@ -18,7 +18,7 @@ const SignupCard = ({emailInput, passwordInput, onSignup, isLoading, errorMessag
 
         <div className='buttons-container'>
             <LoadingButton className='signup-button' label='create account' onClick={onSignup} isLoading={isLoading} />
-            <button className='login-button'>login</button>
+            <button className='login-button' onClick={onLogin}>login</button>
         </div>
     </Card>
 );
