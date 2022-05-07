@@ -1,85 +1,85 @@
 version: '3.7'
 
 services:
-    backend:
-        image: backend
-        stdin_open: true
-        depends_on:
-            - database
-        build:
-            context: ./backend
-        environment:
-            - DATABASE_HOST=database
-            - DATABASE_PORT=5432
-            - DATABASE_NAME=app-database
-            - DATABASE_USER=app-database-user
-            - DATABASE_PASSWORD=app-database-password
-            - ENCRYPTION_SECRET=secret
-            - GITHUB_WEBHOOKS_SECRET
-            - GITHUB_APP_ID
-            - GITHUB_APP_PRIVATE_KEY
-            - GITHUB_CLIENT_ID
-            - GITHUB_CLIENT_SECRET
-            - GRAPHQL_API_ENABLED=true
-        command: sh ./scripts/docker-start-dev.sh
-        ports:
-            - 80:80
-            - 3000:3000
-            - 9222:9229 # Debugger port
-        volumes:
-            - ./backend:/backend
-            - backend-node-modules:/backend/node_modules
+  backend:
+    image: backend
+    stdin_open: true
+    depends_on:
+      - database
+    build:
+      context: ./backend
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=app-database
+      - DATABASE_USER=app-database-user
+      - DATABASE_PASSWORD=app-database-password
+      - ENCRYPTION_SECRET=secret
+      - GITHUB_WEBHOOKS_SECRET
+      - GITHUB_APP_ID
+      - GITHUB_APP_PRIVATE_KEY
+      - GITHUB_CLIENT_ID
+      - GITHUB_CLIENT_SECRET
+      - GRAPHQL_API_ENABLED=true
+    command: sh ./scripts/docker-start-dev.sh
+    ports:
+      - 80:80
+      - 3000:3000
+      - 9222:9229 # Debugger port
+    volumes:
+      - ./backend:/backend
+      - backend-node-modules:/backend/node_modules
 
-    frontend:
-        image: frontend
-        stdin_open: true
-        depends_on:
-            - database
-            - backend
-        build:
-            context: ./frontend
-        environment:
-            - REACT_APP_BACKEND_PROTOCOL=http
-            - REACT_APP_BACKEND_HOST=localhost
-            - REACT_APP_BACKEND_PORT=3000
-        command: sh ./scripts/docker-start-dev.sh
-        ports:
-            - 3001:3001
-        volumes:
-            - ./frontend:/home/node/frontend
-            - frontend-node-modules:/home/node/frontend/node_modules
+  frontend:
+    image: frontend
+    stdin_open: true
+    depends_on:
+      - database
+      - backend
+    build:
+      context: ./frontend
+    environment:
+      - REACT_APP_BACKEND_PROTOCOL=http
+      - REACT_APP_BACKEND_HOST=localhost
+      - REACT_APP_BACKEND_PORT=3000
+    command: sh ./scripts/docker-start-dev.sh
+    ports:
+      - 3001:3001
+    volumes:
+      - ./frontend:/home/node/frontend
+      - frontend-node-modules:/home/node/frontend/node_modules
 
-    website:
-        image: website
-        stdin_open: true
-        depends_on:
-            - frontend
-        build:
-            context: ./website
-        environment:
-            - REACT_APP_FRONTEND_PROTOCOL=http
-            - REACT_APP_FRONTEND_HOST=localhost
-            - REACT_APP_FRONTEND_PORT=3001
-        command: sh ./scripts/docker-start-dev.sh
-        ports:
-            - 3002:3002
-        volumes:
-            - ./website:/home/node/website
-            - website-node-modules:/home/node/website/node_modules
+  website:
+    image: website
+    stdin_open: true
+    depends_on:
+      - frontend
+    build:
+      context: ./website
+    environment:
+      - REACT_APP_FRONTEND_PROTOCOL=http
+      - REACT_APP_FRONTEND_HOST=localhost
+      - REACT_APP_FRONTEND_PORT=3001
+    command: sh ./scripts/docker-start-dev.sh
+    ports:
+      - 3002:3002
+    volumes:
+      - ./website:/home/node/website
+      - website-node-modules:/home/node/website/node_modules
 
-    database:
-        image: postgres:13.1
-        environment:
-            POSTGRES_DB: app-database
-            POSTGRES_USER: app-database-user
-            POSTGRES_PASSWORD: app-database-password
-        ports:
-            - 5432:5432
-        volumes:
-            - database-data:/var/lib/postgresql/data
+  database:
+    image: postgres:13.1
+    environment:
+      POSTGRES_DB: app-database
+      POSTGRES_USER: app-database-user
+      POSTGRES_PASSWORD: app-database-password
+    ports:
+      - 5432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data
 
 volumes:
-    frontend-node-modules:
-    backend-node-modules:
-    website-node-modules:
-    database-data:
+  frontend-node-modules:
+  backend-node-modules:
+  website-node-modules:
+  database-data:
