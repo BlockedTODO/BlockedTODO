@@ -22,7 +22,7 @@
     "knex": "^0.21.19",
     "morgan": "^1.10.0",
     "objection": "^2.2.15",
-    "objection-guid": "^3.0.2",
+    "objection-guid": "^3.1.0",
     "objection-password": "^3.0.0",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
