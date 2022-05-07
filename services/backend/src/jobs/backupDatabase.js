@@ -2,8 +2,8 @@ import util from 'util';
 import childProcess from 'child_process';
 import {promises as fsPromises} from 'fs';
 import {Storage} from '@google-cloud/storage';
-import knexConfig from '../db/config/knexfile';
-import {logger} from '../utils/index.js';
+import knexConfig from '../db/config/knexfile.js';
+import {logger, dirpath} from '../utils/index.js';
 
 const environment = process.env.NODE_ENV || 'development';
 const exec = util.promisify(childProcess.exec);
@@ -11,7 +11,7 @@ const exec = util.promisify(childProcess.exec);
 // Run a pg_dump of the database, return the location of the database dump file
 const dumpDatabase = async () => {
     const fileName = `database-backup-${new Date().toISOString()}.sql`;
-    const dumpLocation = `${__dirname}/${fileName}`;
+    const dumpLocation = `${dirpath(import.meta)}/${fileName}`;
 
     const {database, user, password, host, port} = knexConfig[environment].connection;
 
@@ -19,6 +19,8 @@ const dumpDatabase = async () => {
         `pg_dump -d ${database} -U ${user} -h ${host} -p ${port} > ${dumpLocation}`,
         {env: {'PGPASSWORD': password}}
     );
+
+    logger.info(`Dumped db to ${dumpLocation}`);
 
     return dumpLocation;
 };
