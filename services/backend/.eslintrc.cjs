@@ -1,4 +1,4 @@
-{
+module.exports = {
     "env": {
         "browser": true,
         "es6": true,
@@ -7,16 +7,19 @@
         "commonjs": true
     },
     "extends": "eslint:recommended",
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "requireConfigFile": false,
     },
     "rules": {
         "strict": 0,
         "indent": [
             "error",
             4,
-            {"SwitchCase": 1}
+            {
+                "SwitchCase": 1
+            }
         ],
         "linebreak-style": [
             "error",
@@ -43,20 +46,26 @@
         ],
         "max-len": [
             "error",
-            {"code": 128}
+            {
+                "code": 128
+            }
         ],
         "no-console": [
             "off"
         ],
         "no-multiple-empty-lines": [
             "error",
-            {"max": 1}
+            {
+                "max": 1
+            }
         ],
-		"prefer-const": [
-			"error",
-			{"destructuring": "all"}
-		],
-		"no-var": [
+        "prefer-const": [
+            "error",
+            {
+                "destructuring": "all"
+            }
+        ],
+        "no-var": [
             "error"
         ],
         "object-curly-spacing": [
