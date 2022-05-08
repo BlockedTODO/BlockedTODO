@@ -1,7 +1,8 @@
 import objection from 'objection';
+import addFormats from 'ajv-formats';
 import guid from 'objection-guid';
 
-const {compose, Model, QueryBuilder, UniqueViolationError} = objection;
+const {compose, Model, QueryBuilder, AjvValidator, UniqueViolationError} = objection;
 
 class BaseQueryBuilder extends QueryBuilder {
     async findOrInsert(params) {
@@ -29,6 +30,22 @@ const mixins = compose(
 export default class BaseModel extends mixins(Model) {
     static get QueryBuilder() {
         return BaseQueryBuilder;
+    }
+
+    // Enable ajv formats to validate date/email fields when inserting in database
+    // More info: https://vincit.github.io/objection.js/recipes/custom-validation.html
+    static createValidator() {
+        return new AjvValidator({
+            onCreateAjv: (ajv) => addFormats(ajv),
+            options: {
+                allErrors: true,
+                validateFormats: true,
+                validateSchema: true,
+                ownProperties: true,
+                allowUnionTypes: true,
+                v5: true
+            }
+        });
     }
 
     async $beforeInsert(...args) {

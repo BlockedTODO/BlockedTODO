@@ -20,13 +20,13 @@ export default class User extends mixins(BaseModel) {
             required: ['email', 'password'],
 
             properties: {
-                email: {type: ['string', null], format: 'email'},
+                email: {type: ['string', 'null'], format: 'email'},
                 password: {type: 'string', minLength: 4, maxLength: 512},
-                nodeId: {type: ['string', null]},
-                accessToken: {type: ['string', null]},
-                accessTokenIv: {type: ['string', null]},
-                refreshToken: {type: ['string', null]},
-                refreshTokenIv: {type: ['string', null]},
+                nodeId: {type: ['string', 'null']},
+                accessToken: {type: ['string', 'null']},
+                accessTokenIv: {type: ['string', 'null']},
+                refreshToken: {type: ['string', 'null']},
+                refreshTokenIv: {type: ['string', 'null']},
                 createdAt: {type: 'string', format: 'date-time'},
                 updatedAt: {type: 'string', format: 'date-time'},
             }
