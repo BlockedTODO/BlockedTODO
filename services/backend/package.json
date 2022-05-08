@@ -33,7 +33,7 @@
     "stringify-object": "^3.3.0",
     "tempy": "^1.0.1",
     "unzipper": "^0.10.11",
-    "url-regex-safe": "^2.0.2",
+    "url-regex-safe": "^3.0.0",
     "uuid": "^8.3.2",
     "winston": "^3.7.2"
   },
