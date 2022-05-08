@@ -1,12 +1,12 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useLogin} from '../../hooks';
 import LoginLayout from './LoginLayout';
 
 const Login = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const {emailInput, passwordInput, login, isLoading, error} = useLogin();
-    const onSignup = () => history.push('/signup');
+    const onSignup = () => navigate('/signup');
 
     return (
         <LoginLayout

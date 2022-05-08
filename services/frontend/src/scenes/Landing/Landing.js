@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {Logo, Card, Separator} from 'components/';
 import {loggedInContext} from 'Store';
 import './Landing.scss';
@@ -12,16 +12,16 @@ const Landing = ({location}) => {
 
     return (
         isLoggedIn ? (
-            <Redirect to={{pathname: '/repositories', state: {from: location}}} />
+            <Navigate to='/repositories' state={{from: location}} replace={true} />
         ) : (
             <div className='landing'>
                 <Logo className='landing-logo' />
 
                 <Card className='landing-card' title='Frontend App'>
                     <div className='buttons-container'>
-                        <Link className='link-button' to={{pathname: 'https://blockedtodo.com'}} target='_blank'>
+                        <a className='link-button' href='https://blockedtodo.com' rel='noreferrer' target='_blank'>
                             visit the official website
-                        </Link>
+                        </a>
 
                         <div className='or-separator'>
                             <Separator />
