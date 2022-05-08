@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import useInput from './useInput';
 import useRestClient from './useRestClient';
 import {loggedInContext} from 'Store';
@@ -8,7 +8,7 @@ import restClient from 'utils/restClient';
 const useLogin = () => {
     const emailInput = useInput();
     const passwordInput = useInput();
-    const history = useHistory();
+    const navigate = useNavigate();
     const setIsLoggedIn = useContext(loggedInContext)[1];
 
     const loginRequest = () => restClient.post('/auth/login', {
@@ -20,7 +20,7 @@ const useLogin = () => {
         deferFn: loginRequest,
         onResolve: () => {
             setIsLoggedIn(true);
-            history.push('/repositories');
+            navigate('/repositories');
         }
     });
 
