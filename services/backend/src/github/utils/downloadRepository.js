@@ -1,5 +1,5 @@
 import fs from 'fs';
-import globby from 'globby';
+import {globby} from 'globby';
 import {asyncUnzip, asyncWriteFile, logger, graphqlRequestBody} from '../../utils/index.js';
 
 const fsPromises = fs.promises;
