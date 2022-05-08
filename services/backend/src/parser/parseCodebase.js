@@ -1,5 +1,5 @@
 import {promises as fsPromises} from 'fs';
-import globby from 'globby';
+import {globby} from 'globby';
 import {logger} from '../utils/index.js';
 import {COMMENT_REGEX, issueRegex} from './regex/index.js';
 import getConfig from './getConfig.js';
