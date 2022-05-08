@@ -1,4 +1,4 @@
-FROM node:16.3.0-alpine
+FROM node:16.15.0-alpine
 
 # Install dockerize
 ENV DOCKERIZE_VERSION v0.6.1
