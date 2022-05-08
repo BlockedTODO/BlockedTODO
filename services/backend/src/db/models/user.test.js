@@ -7,6 +7,11 @@ describe('insert', () => {
         expect(user.password).not.toEqual(password);
     });
 
+    it('does not permit email addresses that do not contain an @ symbol', async () => {
+        const insertQuery = User.query().insert({email: 'test', password: 'hunter1'});
+        await expect(insertQuery).rejects.toThrowError();
+    });
+
     it('does not permit duplicate email addresses', async () => {
         const insertQuery = User.query().insert({email: 'test@test.com', password: 'hunter1'});
         await insertQuery; // First creation is a success
