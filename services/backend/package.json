@@ -10,7 +10,7 @@
     "ajv-formats": "^2.1.1",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
-    "connect-session-knex": "^2.1.1",
+    "connect-session-knex": "^2.1.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-random-string": "^4.0.0",
