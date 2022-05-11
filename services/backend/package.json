@@ -16,7 +16,7 @@
     "crypto-random-string": "^4.0.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.2",
+    "express-session": "^1.17.3",
     "globby": "^13.1.1",
     "graphql": "^15.5.1",
     "js-yaml": "^4.1.0",
