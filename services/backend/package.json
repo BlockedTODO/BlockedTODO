@@ -25,7 +25,7 @@
     "objection": "^3.0.1",
     "objection-guid": "^3.1.0",
     "objection-password": "^3.0.0",
-    "passport": "^0.4.1",
+    "passport": "^0.5.2",
     "passport-github": "^1.1.0",
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
