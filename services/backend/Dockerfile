@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y postgresql-client-13
 
 # Expose ports in the container
 EXPOSE 3000
-EXPOSE 80
 
 # Create service directory
 RUN mkdir -p /backend
