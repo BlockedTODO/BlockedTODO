@@ -1,4 +1,4 @@
-import tempy from 'tempy';
+import {tempyDirectoryTask} from 'tempy';
 import {logger} from '../utils/index.js';
 import {createInstallationClient, downloadRepository} from './utils/index.js';
 import {scanCodebase} from '../parser/index.js';
@@ -6,7 +6,7 @@ import {scanCodebase} from '../parser/index.js';
 const scanGithubRepository = async (repository) => {
     const githubClient = await createInstallationClient(repository.installationId);
 
-    await tempy.directory.task(async (tempDir) => {
+    await tempyDirectoryTask(async (tempDir) => {
         logger.info(`Downloading GitHub repository ${repository.id}`);
         const codeFolder = await downloadRepository(githubClient, repository.nodeId, tempDir);
         logger.info(`Repository ${repository.id} successfully downloaded into ${codeFolder}`);
