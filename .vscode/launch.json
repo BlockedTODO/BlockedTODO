@@ -8,7 +8,10 @@
             "type": "node",
             "request": "attach",
             "name": "Attach debugger to container",
-            "port": 9222
+            "address": "localhost",
+            "port": 9222,
+            "remoteRoot": "/backend",
+            "localRoot": "${workspaceFolder}/services/backend",
         }
     ],
 }
