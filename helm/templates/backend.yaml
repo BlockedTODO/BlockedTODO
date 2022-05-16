@@ -1,6 +1,7 @@
 {{$label := .Values.backend.label}}
 {{$secrets := .Values.backend.secrets}}
 {{$database_secrets := .Values.database.secrets}}
+{{$frontend_secrets := .Values.frontend.secrets}}
 
 apiVersion: apps/v1
 kind: Deployment
@@ -50,6 +51,12 @@ spec:
                     value: {{.Values.database.label}}-service
                   - name: DATABASE_PORT
                     value: {{$database_secrets.database_port | squote}}
+                  - name: FRONTEND_PROTOCOL
+                    value: {{.Values.frontend.protocol}}
+                  - name: FRONTEND_HOST
+                    value: {{.Values.frontend.host}}
+                  - name: FRONTEND_PORT
+                    value: {{.Values.frontend.port | squote}}
 
 ---
 

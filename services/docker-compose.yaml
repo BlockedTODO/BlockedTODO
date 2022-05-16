@@ -14,6 +14,9 @@ services:
       - DATABASE_NAME=app-database
       - DATABASE_USER=app-database-user
       - DATABASE_PASSWORD=app-database-password
+      - FRONTEND_PROTOCOL=http
+      - FRONTEND_HOST=localhost
+      - FRONTEND_PORT=3001
       - ENCRYPTION_SECRET=secret
       - GITHUB_WEBHOOKS_SECRET
       - GITHUB_APP_ID
@@ -23,7 +26,6 @@ services:
       - GRAPHQL_API_ENABLED=true
     command: sh ./scripts/docker-start-dev.sh
     ports:
-      - 80:80
       - 3000:3000
       - 9222:9229 # Debugger port
     volumes:

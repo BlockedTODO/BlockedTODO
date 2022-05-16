@@ -35,7 +35,8 @@ authRouter.post('/logout', requireAuth, (req, res) => {
 authRouter.get('/github', passport.authenticate('github'));
 
 authRouter.get('/github/callback', passport.authenticate('github'), (req, res) => {
-    res.redirect(req.headers.referer);
+    const frontendUrl = `${process.env.FRONTEND_PROTOCOL}://${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT}`;
+    res.redirect(req.header('referer') || `${frontendUrl}/login`);
 });
 
 export default authRouter;
