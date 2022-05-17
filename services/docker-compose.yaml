@@ -26,7 +26,6 @@ services:
       - GITHUB_APP_PRIVATE_KEY
       - GITHUB_CLIENT_ID
       - GITHUB_CLIENT_SECRET
-      - GRAPHQL_API_ENABLED=true
     command: sh ./scripts/docker-start-dev.sh
     ports:
       - 3000:3000

@@ -10,15 +10,15 @@ Most of these are automatically set when running with docker compose, but all do
 * `DATABASE_PASSWORD`
 * `DATABASE_HOST`
 * `DATABASE_PORT`
+* `BACKEND_PROTOCOL`
+* `BACKEND_HOST`
+* `BACKEND_PORT`
+* `FRONTEND_PROTOCOL`
+* `FRONTEND_HOST`
+* `FRONTEND_PORT`
 * `ENCRYPTION_SECRET`
 * `GITHUB_WEBHOOKS_SECRET`
 * `GITHUB_APP_ID`
 * `GITHUB_APP_PRIVATE_KEY` Note: replace newlines with `\n`
 * `GITHUB_CLIENT_ID`
 * `GITHUB_CLIENT_SECRET`
-
-# Optional environment variables
-The environment variables listed below aren't required, and have sensible defaults. Here are some example values.
-
-* `DOMAIN_NAME=blockedtodo.com`
-* `PORT=3000`
