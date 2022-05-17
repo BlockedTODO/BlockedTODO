@@ -7,8 +7,9 @@ import {authRouter, githubRouter} from './routes/index.js';
 
 const app = express();
 
-app.set('host', process.env.DOMAIN_NAME || 'localhost');
-app.set('port', process.env.PORT || '3000');
+app.set('protocol', process.env.BACKEND_PROTOCOL || 'http');
+app.set('host', process.env.BACKEND_HOST || 'localhost');
+app.set('port', process.env.BACKEND_PORT || '3000');
 
 app.use(cors({origin: true, credentials: true}));
 app.use(express.json({limit: '10mb'}));
