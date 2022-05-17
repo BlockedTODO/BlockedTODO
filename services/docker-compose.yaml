@@ -14,6 +14,9 @@ services:
       - DATABASE_NAME=app-database
       - DATABASE_USER=app-database-user
       - DATABASE_PASSWORD=app-database-password
+      - BACKEND_PROTOCOL=http
+      - BACKEND_HOST=localhost
+      - BACKEND_PORT=3000
       - FRONTEND_PROTOCOL=http
       - FRONTEND_HOST=localhost
       - FRONTEND_PORT=3001

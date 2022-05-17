@@ -51,6 +51,12 @@ spec:
                     value: {{.Values.database.label}}-service
                   - name: DATABASE_PORT
                     value: {{$database_secrets.database_port | squote}}
+                  - name: BACKEND_PROTOCOL
+                    value: {{.Values.backend.protocol}}
+                  - name: BACKEND_HOST
+                    value: {{.Values.backend.host}}
+                  - name: BACKEND_PORT
+                    value: {{.Values.backend.port | squote}}
                   - name: FRONTEND_PROTOCOL
                     value: {{.Values.frontend.protocol}}
                   - name: FRONTEND_HOST
