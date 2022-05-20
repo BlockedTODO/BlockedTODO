@@ -1,3 +1,4 @@
+export {config, secrets} from './environment.js';
 export {default as logger} from './logger.js';
 export {default as graphqlRequestBody} from './graphqlRequestBody.js';
 export {default as asyncUnzip} from './asyncUnzip.js';
