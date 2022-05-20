@@ -3,6 +3,7 @@
  * Run with `node --experimental-repl-await ./repl.js` */
 import repl from 'repl';
 import knex, * as models from './src/db/index.js';
+import * as utils from './src/utils/index.js';
 
 // Helper methods to add in the context of the repl
 const getOwnMethods = (object) => {
@@ -44,6 +45,7 @@ const replServer = repl.start({
 
 // Import in the context of the repl server
 Object.assign(replServer.context, {
+    utils,
     knex,
     ...models,
     printDepth,
