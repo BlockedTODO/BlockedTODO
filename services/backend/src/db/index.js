@@ -7,7 +7,7 @@ export * from './models/index.js'; // Export all models
 
 const environment = process.env.NODE_ENV || 'development';
 const knex = Knex(knexConfig[environment]);
-knex.on('query', (data) => logger.info(`${data.sql} -- Bindings: ${data.bindings}`));
+knex.on('query', (data) => logger.debug(`${data.sql} -- Bindings: ${data.bindings}`));
 
 // Bind all Models to a knex instance.
 Model.knex(knex);
