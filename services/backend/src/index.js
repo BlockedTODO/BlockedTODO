@@ -1,9 +1,8 @@
-import logger from './utils/logger.js';
+import {config} from './utils/index.js';
+import {logger} from './utils/index.js';
 import app from './app.js';
 
-const protocol = app.get('protocol');
-const host = app.get('host');
-const port = app.get('port');
+const {protocol, host, port} = config.backend;
 const server = app.listen(port);
 
 process.on('unhandledRejection', (error) => {

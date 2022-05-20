@@ -7,10 +7,6 @@ import {authRouter, githubRouter} from './routes/index.js';
 
 const app = express();
 
-app.set('protocol', process.env.BACKEND_PROTOCOL || 'http');
-app.set('host', process.env.BACKEND_HOST || 'localhost');
-app.set('port', process.env.BACKEND_PORT || '3000');
-
 app.use(cors({origin: true, credentials: true}));
 app.use(express.json({limit: '10mb'}));
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
