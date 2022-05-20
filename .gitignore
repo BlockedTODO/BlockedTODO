@@ -11,3 +11,6 @@ secret.tfvars
 # VS Code Whitelist
 /.vscode/**
 !.vscode/launch.json
+
+# Local secrets
+**/*/.env
