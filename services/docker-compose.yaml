@@ -9,6 +9,8 @@ services:
     build:
       context: ./backend
     environment:
+      - DATABASE_HOST=database # Needed for docker-start script
+      - DATABASE_PORT=5432 # Needed for docker-start script
       - GITHUB_WEBHOOKS_SECRET
       - GITHUB_APP_ID
       - GITHUB_APP_PRIVATE_KEY
