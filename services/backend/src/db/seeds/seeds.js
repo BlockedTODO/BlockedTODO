@@ -1,9 +1,9 @@
 import {User, Repository, Issue, Task} from '../models/index.js';
+import {config} from '../../utils/index.js';
 import '../index.js'; // connect db
 
 export const seed = async (knex) => {
-    const environment = process.env.NODE_ENV || 'development';
-    if (environment === 'production') {
+    if (config.environment === 'production') {
         return;
     }
 

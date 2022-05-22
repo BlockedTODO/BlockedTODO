@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import cryptoRandomString from 'crypto-random-string';
+import {config} from './environment.js';
 
 const {createCipheriv, createDecipheriv, createHash} = crypto;
 
@@ -20,7 +21,7 @@ const generateKey = (secret) => {
 
 export const encrypt = (text) => {
     const iv = cryptoRandomString({length: IV_BYTE_LENGTH});
-    const key = generateKey(process.env.ENCRYPTION_SECRET);
+    const key = generateKey(config.encryptionSecret);
 
     const cipher = createCipheriv(BLOCK_CIPHER, key, iv);
     let encrypted = cipher.update(text, 'utf8', 'hex');
@@ -30,7 +31,7 @@ export const encrypt = (text) => {
 };
 
 export const decrypt = (text, iv) => {
-    const key = generateKey(process.env.ENCRYPTION_SECRET);
+    const key = generateKey(config.encryptionSecret);
 
     const decipher = createDecipheriv('aes-256-cbc', key, iv);
     let deciphered = decipher.update(text, 'hex', 'utf8');

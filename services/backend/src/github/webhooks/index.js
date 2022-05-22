@@ -1,4 +1,4 @@
-import {logger} from '../../utils/index.js';
+import {config, logger} from '../../utils/index.js';
 import {Webhooks} from '@octokit/webhooks';
 import {
     onInstallationCreated,
@@ -9,7 +9,7 @@ import {
 import {onPush} from './push.js';
 
 const webhooks = new Webhooks({
-    secret: process.env.GITHUB_WEBHOOKS_SECRET
+    secret: config.github.webhooksSecret
 });
 
 webhooks.onAny(({id, name, payload}) => {

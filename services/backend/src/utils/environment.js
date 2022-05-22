@@ -12,8 +12,8 @@ const NODE_ENV = process.env.NODE_ENV ?? 'development';
 const variables = {}; // Final formatted environment variables.
 const secrets = {}; // Subset of variables that are marked secrets.
 
-// Applies defaults and formats environment variables,
-// validates, and adds them to the validation schema and formatted/secret variables.
+// Applies defaults, formats and validates environment variables,
+// Then, adds them to formatted/secret variables objects.
 const loadEnvironmentVariable = async ({name, secret, defaults, format, validation}) => {
     const value = process.env[name];
 
@@ -141,6 +141,7 @@ await loadEnvironmentVariables([
     }
 ]);
 
+// Config created from loaded (validated and formatted) environment variables.
 const config = {
     environment: variables.NODE_ENV,
     database: {

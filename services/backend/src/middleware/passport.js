@@ -2,7 +2,7 @@ import passport from 'passport';
 import {Strategy as LocalStrategy} from 'passport-local';
 import {Strategy as GithubStrategy} from 'passport-github2';
 import cryptoRandomString from 'crypto-random-string';
-import {AuthenticationError} from '../utils/errors.js';
+import {config, AuthenticationError} from '../utils/index.js';
 import {User} from '../db/index.js';
 
 passport.serializeUser((user, done) => {
@@ -47,12 +47,11 @@ const localVerify = async (email, password, done) => {
 const localStrategy = new LocalStrategy(localConfig, localVerify);
 passport.use(localStrategy);
 
-const backendUrl = `${process.env.BACKEND_PROTOCOL}://${process.env.BACKEND_HOST}:${process.env.BACKEND_PORT}`;
 // GitHub IdP Strategy
 const githubConfig = {
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: `${backendUrl}/auth/github/callback`,
+    clientID: config.github.clientId,
+    clientSecret: config.github.clientSecret,
+    callbackURL: `${config.backend.url}/auth/github/callback`,
 };
 const githubVerify = async (accessToken, refreshToken, profile, done) => {
     const {email, node_id: nodeId} = profile._json;

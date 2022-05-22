@@ -1,10 +1,10 @@
 import winston from 'winston';
 import stringifyObject from 'stringify-object';
+import {config} from './environment.js';
 
 const {createLogger, format, transports} = winston;
 
-const environment = process.env.NODE_ENV || 'development';
-const logLevel = environment === 'test' ? 'warn' : 'info';
+const logLevel = config.environment === 'test' ? 'warn' : 'info';
 
 const logFormat = format.printf((data) => {
     const message = typeof data.message === 'string' ? data.message : stringifyObject(data.message, {indent: '    '});
