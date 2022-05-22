@@ -4,18 +4,17 @@ import {dirpath} from './pathHelpers.js';
 
 // Load up variables from .env file (if present).
 // Note that if a variable is defined both in the environment and .env file, the environment variable value takes priority.
-dotenv.config({path: `${dirpath(import.meta)}/../../.env`}); //TODO: handle REPL
+dotenv.config({path: `${dirpath(import.meta)}/../../.env`});
 
 // Define default for NODE_ENV here because other environment variable default values depend on NODE_ENV
 const NODE_ENV = process.env.NODE_ENV ?? 'development';
 
 const variables = {}; // Final formatted environment variables.
-const schema = {}; // Joi schema used to validate the final formatted variables.
 const secrets = {}; // Subset of variables that are marked secrets.
 
 // Applies defaults and formats environment variables,
-// and adds them to the validation schema and formatted/secret variables.
-const loadEnvironmentVariable = ({name, secret, defaults, format, validation}) => {
+// validates, and adds them to the validation schema and formatted/secret variables.
+const loadEnvironmentVariable = async ({name, secret, defaults, format, validation}) => {
     const value = process.env[name];
 
     // Provide sensible defaults when some options (parameters) are not provided or incomplete
@@ -29,19 +28,19 @@ const loadEnvironmentVariable = ({name, secret, defaults, format, validation}) =
         secrets[name] = variables[name];
     }
     if (validation) {
-        schema[name] = validation;
+        await validation.label(name).validateAsync(variables[name]);
     }
 
     return value;
 };
 
-const loadEnvironmentVariables = (environmentVariables) => {
-    for (const environmentVariable of environmentVariables) {
-        loadEnvironmentVariable(environmentVariable);
-    }
+const loadEnvironmentVariables = async (environmentVariables) => {
+    await Promise.all(
+        environmentVariables.map((environmentVariable) => loadEnvironmentVariable(environmentVariable))
+    );
 };
 
-loadEnvironmentVariables([
+await loadEnvironmentVariables([
     {
         name: 'NODE_ENV',
         defaults: {development: 'development', test: 'test', production: 'production'},
@@ -74,6 +73,9 @@ loadEnvironmentVariables([
         secret: true,
         defaults: {development: 'app-database-password', test: 'app-database-password', production: null},
         validation: joi.string().required(),
+    },
+    {
+        name: 'BACKUPS_BUCKET_NAME',
     },
     {
         name: 'BACKEND_PROTOCOL',
@@ -139,9 +141,6 @@ loadEnvironmentVariables([
     }
 ]);
 
-// Run environment variable validation.
-await joi.object(schema).validateAsync(variables);
-
 const config = {
     environment: variables.NODE_ENV,
     database: {
@@ -150,6 +149,7 @@ const config = {
         name: variables.DATABASE_NAME,
         user: variables.DATABASE_USER,
         password: variables.DATABASE_PASSWORD,
+        backupsBucketName: variables.BACKUPS_BUCKET_NAME,
     },
     backend: {
         protocol: variables.BACKEND_PROTOCOL,
