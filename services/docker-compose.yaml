@@ -9,18 +9,6 @@ services:
     build:
       context: ./backend
     environment:
-      - DATABASE_HOST=database
-      - DATABASE_PORT=5432
-      - DATABASE_NAME=app-database
-      - DATABASE_USER=app-database-user
-      - DATABASE_PASSWORD=app-database-password
-      - BACKEND_PROTOCOL=http
-      - BACKEND_HOST=localhost
-      - BACKEND_PORT=3000
-      - FRONTEND_PROTOCOL=http
-      - FRONTEND_HOST=localhost
-      - FRONTEND_PORT=3001
-      - ENCRYPTION_SECRET=secret
       - GITHUB_WEBHOOKS_SECRET
       - GITHUB_APP_ID
       - GITHUB_APP_PRIVATE_KEY

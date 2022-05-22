@@ -49,29 +49,29 @@ await loadEnvironmentVariables([
     },
     {
         name: 'DATABASE_HOST',
-        defaults: {development: 'database', test: 'database', production: null},
+        defaults: {development: 'database', test: 'database'},
         validation: joi.string().required(),
     },
     {
         name: 'DATABASE_PORT',
-        defaults: {development: 5432, test: 5432, production: null},
+        defaults: {development: 5432, test: 5432},
         format: (variable) => parseInt(variable),
         validation: joi.number().port().required(),
     },
     {
         name: 'DATABASE_NAME',
-        defaults: {development: 'app-database', test: 'app-database', production: null},
+        defaults: {development: 'app-database', test: 'app-database'},
         validation: joi.string().required(),
     },
     {
         name: 'DATABASE_USER',
-        defaults: {development: 'app-database-user', test: 'app-database-user', production: null},
+        defaults: {development: 'app-database-user', test: 'app-database-user'},
         validation: joi.string().required(),
     },
     {
         name: 'DATABASE_PASSWORD',
         secret: true,
-        defaults: {development: 'app-database-password', test: 'app-database-password', production: null},
+        defaults: {development: 'app-database-password', test: 'app-database-password'},
         validation: joi.string().required(),
     },
     {
@@ -84,12 +84,12 @@ await loadEnvironmentVariables([
     },
     {
         name: 'BACKEND_HOST',
-        defaults: {development: 'localhost', test: 'localhost', production: null},
+        defaults: {development: 'localhost', test: 'localhost'},
         validation: joi.string().required(),
     },
     {
         name: 'BACKEND_PORT',
-        defaults: {development: 3000, test: 3000, production: null},
+        defaults: {development: 3000, test: 3000},
         format: (variable) => parseInt(variable),
         validation: joi.number().port().required(),
     },
@@ -100,43 +100,48 @@ await loadEnvironmentVariables([
     },
     {
         name: 'FRONTEND_HOST',
-        defaults: {development: 'localhost', test: 'localhost', production: null},
+        defaults: {development: 'localhost', test: 'localhost'},
         validation: joi.string().hostname().required(),
     },
     {
         name: 'FRONTEND_PORT',
-        defaults: {development: 3001, test: 3001, production: null},
+        defaults: {development: 3001, test: 3001},
         format: (variable) => parseInt(variable),
         validation: joi.number().port().required(),
     },
     {
         name: 'ENCRYPTION_SECRET',
         secret: true,
-        defaults: {development: 'secret', test: 'secret', production: null},
+        defaults: {development: 'secret', test: 'secret'},
         validation: joi.string().required(),
     },
     {
         name: 'GITHUB_WEBHOOKS_SECRET',
         secret: true,
+        defaults: {test: 'secret'},
         validation: joi.string().required(),
     },
     {
         name: 'GITHUB_APP_ID',
+        defaults: {test: 'github-app-id'},
         validation: joi.string().required(),
     },
     {
         name: 'GITHUB_APP_PRIVATE_KEY',
         secret: true,
+        defaults: {test: 'github-app-private-key'},
         format: (variable) => variable.replaceAll('\\n', '\n'),
         validation: joi.string().required(),
     },
     {
         name: 'GITHUB_CLIENT_ID',
+        defaults: {test: 'github-client-id'},
         validation: joi.string().required(),
     },
     {
         name: 'GITHUB_CLIENT_SECRET',
         secret: true,
+        defaults: {test: 'github-client-secret'},
         validation: joi.string().required(),
     }
 ]);
