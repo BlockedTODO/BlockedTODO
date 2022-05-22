@@ -6,7 +6,7 @@ export {default as asyncWriteFile} from './asyncWriteFile.js';
 export {default as DEFAULT_CONFIG} from './defaultConfig.js';
 export {default as escapeRegex} from './escapeRegex.js';
 export * as markdownHelpers from './markdownHelpers.js';
-export * as errors from './errors.js';
+export {AuthenticationError} from './errors.js';
 export {encrypt, decrypt} from './cryptography.js';
 export {base64Encode, base64Decode} from './base64.js';
 export {filepath, dirpath, filename, dirname, resolvePath} from './pathHelpers.js';

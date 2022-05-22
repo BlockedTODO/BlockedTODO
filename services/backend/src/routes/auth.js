@@ -1,6 +1,7 @@
 import express from 'express';
 import {User} from '../db/index.js';
 import {requireAuth, passport} from '../middleware/index.js';
+import {config} from '../utils/index.js';
 
 const authRouter = express.Router();
 
@@ -35,8 +36,7 @@ authRouter.post('/logout', requireAuth, (req, res) => {
 authRouter.get('/github', passport.authenticate('github'));
 
 authRouter.get('/github/callback', passport.authenticate('github'), (req, res) => {
-    const frontendUrl = `${process.env.FRONTEND_PROTOCOL}://${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT}`;
-    res.redirect(req.header('referer') || frontendUrl);
+    res.redirect(req.header('referer') || config.frontend.url);
 });
 
 export default authRouter;

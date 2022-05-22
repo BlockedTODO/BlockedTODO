@@ -1,8 +1,7 @@
 import session from 'express-session';
 import connectSessionKnex from 'connect-session-knex';
 import knex from '../db/index.js';
-
-const environment = process.env.NODE_ENV || 'development';
+import {config} from '../utils/index.js';
 
 const sessions = () => {
     const KnexSessionStore = connectSessionKnex(session);
@@ -10,14 +9,15 @@ const sessions = () => {
 
     return session({
         name: 'session_id',
-        secret: process.env.ENCRYPTION_SECRET,
+        secret: config.encryptionSecret,
         resave: false, // Don't resave the session if it was not changed
         saveUninitialized: false,
         rolling: true, // Automatically extends the session age on each request.
         cookie: {
             httpOnly: true,
             maxAge: 20 * 60 * 1000, // 20 minutes
-            secure: environment === 'production', // Only allow https connections in production
+            //TODO: I think this next line is causing issues in production
+            secure: config.environment === 'production', // Only allow https connections in production
         },
         store,
     });

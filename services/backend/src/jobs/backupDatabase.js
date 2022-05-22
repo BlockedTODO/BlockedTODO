@@ -2,10 +2,8 @@ import util from 'util';
 import childProcess from 'child_process';
 import {promises as fsPromises} from 'fs';
 import {Storage} from '@google-cloud/storage';
-import knexConfig from '../db/config/knexfile.js';
-import {logger, dirpath} from '../utils/index.js';
+import {config, logger, dirpath} from '../utils/index.js';
 
-const environment = process.env.NODE_ENV || 'development';
 const exec = util.promisify(childProcess.exec);
 
 // Run a pg_dump of the database, return the location of the database dump file
@@ -13,7 +11,7 @@ const dumpDatabase = async () => {
     const fileName = `database-backup-${new Date().toISOString()}.sql`;
     const dumpLocation = `${dirpath(import.meta)}/${fileName}`;
 
-    const {database, user, password, host, port} = knexConfig[environment].connection;
+    const {name: database, user, password, host, port} = config.database;
 
     await exec(
         `pg_dump -d ${database} -U ${user} -h ${host} -p ${port} > ${dumpLocation}`,
@@ -27,7 +25,7 @@ const dumpDatabase = async () => {
 
 // Upload a file to a bucket
 const uploadToBucket = async (file, bucketName) => {
-    if (environment !== 'production') {
+    if (config.environment !== 'production') {
         logger.info('Not in a production environment, skipping database backup upload.');
         return;
     }
@@ -42,8 +40,7 @@ const uploadToBucket = async (file, bucketName) => {
 const backupDatabase = async () => {
     const dumpLocation = await dumpDatabase();
 
-    const bucketName = process.env.BACKUPS_BUCKET_NAME;
-    await uploadToBucket(dumpLocation, bucketName);
+    await uploadToBucket(dumpLocation, config.database.backupsBucketName);
 
     // Delete database dump file
     await fsPromises.unlink(dumpLocation);
