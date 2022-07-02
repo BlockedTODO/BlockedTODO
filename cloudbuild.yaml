@@ -69,38 +69,38 @@ steps:
 
   # Run containers in the background
   - id: 'Run containers'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'up', '--detach']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'up', '--detach']
     waitFor: ['Build backend image', 'Build frontend image', 'Build website image']
 
   - id: 'Backend tests'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'test']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'test']
     waitFor: ['Run containers']
 
   - id: 'Frontend tests'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'test']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'test']
     waitFor: ['Run containers']
 
   - id: 'Website tests'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'test']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'test']
     waitFor: ['Run containers']
 
   - id: 'Backend Linting'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'lint']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'lint']
     waitFor: ['Run containers']
 
   - id: 'Frontend Linting'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'lint']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'lint']
     waitFor: ['Run containers']
 
   - id: 'Website Linting'
-    name: 'docker/compose:1.29.2'
-    args: ['--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'lint']
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'lint']
     waitFor: ['Run containers']
 
   - id: 'Push backend image to registry'
