@@ -20,17 +20,17 @@ show-help:
 	@echo '  k8s-stop | deletes running deployments, pods, services.'
 
 build:
-	docker-compose --file services/docker-compose.yaml build --parallel
+	docker compose --file services/docker-compose.yaml build --parallel
 
 start:
 	- (smee --url ${SMEE_CHANNEL_URL} --path /github_event_handler --port 3000 > /dev/null 2>&1)&
-	- docker-compose --file services/docker-compose.yaml up --renew-anon-volumes
+	- docker compose --file services/docker-compose.yaml up --renew-anon-volumes
 
 stop:
 	docker stop `docker ps -aq`
 
 down:
-	docker-compose --file services/docker-compose.yaml down -v
+	docker compose --file services/docker-compose.yaml down -v
 
 nuke:
 	- docker stop `docker ps -aq`
@@ -38,22 +38,22 @@ nuke:
 	- docker system prune --all --volumes
 
 inspect-database:
-	docker-compose --file services/docker-compose.yaml exec database psql app-database app-database-user
+	docker compose --file services/docker-compose.yaml exec database psql app-database app-database-user
 
 inspect-backend:
-	docker-compose --file services/docker-compose.yaml exec backend /bin/bash
+	docker compose --file services/docker-compose.yaml exec backend /bin/bash
 
 attach-backend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_backend_1
 
 inspect-frontend:
-	docker-compose --file services/docker-compose.yaml exec frontend /bin/sh
+	docker compose --file services/docker-compose.yaml exec frontend /bin/sh
 
 attach-frontend:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_frontend_1
 
 inspect-website:
-	docker-compose --file services/docker-compose.yaml exec website /bin/sh
+	docker compose --file services/docker-compose.yaml exec website /bin/sh
 
 attach-website:
 	docker attach --detach-keys="ctrl-\\" blockedtodo_docker_website_1
