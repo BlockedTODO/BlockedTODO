@@ -71,12 +71,22 @@ steps:
   - id: 'Run containers'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'up', '--detach']
+    env:
+      - 'NODE_ENV=test'
     waitFor: ['Build backend image', 'Build frontend image', 'Build website image']
+
+  # The "Run containers" step stops when containers are running, but before the services start running.
+  # The docker-start scripts run migrations before starting the backend service.
+  # We ping the backend /health endpoint until we get a successful response, which indicates that migrations are complete.
+  - id: 'Wait for migrations'
+    name: 'bash'
+    args: ['./services/backend/scripts/wait-for.sh', 'http://localhost:3000/health', '--timeout', '60']
+    waitFor: ['Run containers']
 
   - id: 'Backend tests'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'test']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for migrations']
 
   - id: 'Frontend tests'
     name: 'gcr.io/cloud-builders/docker'

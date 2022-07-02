@@ -9,6 +9,7 @@ services:
     build:
       context: ./backend
     environment:
+      - NODE_ENV
       - DATABASE_HOST=database # Needed for docker-start script
       - DATABASE_PORT=5432 # Needed for docker-start script
       - GITHUB_WEBHOOKS_SECRET
@@ -33,6 +34,7 @@ services:
     build:
       context: ./frontend
     environment:
+      - NODE_ENV
       - REACT_APP_BACKEND_PROTOCOL=http
       - REACT_APP_BACKEND_HOST=localhost
       - REACT_APP_BACKEND_PORT=3000
@@ -51,6 +53,7 @@ services:
     build:
       context: ./website
     environment:
+      - NODE_ENV
       - REACT_APP_FRONTEND_PROTOCOL=http
       - REACT_APP_FRONTEND_HOST=localhost
       - REACT_APP_FRONTEND_PORT=3001
