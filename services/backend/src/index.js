@@ -4,7 +4,7 @@ import app from './app.js';
 const server = app.listen(config.backend.port);
 
 process.on('unhandledRejection', (error) => {
-    logger.error(`Unhandled Rejection at Promise: ${error.message}`);
+    logger.error(`Unhandled Rejection at Promise: ${error.message}\n${error.stack}`);
 });
 
 server.on('listening', () => {
