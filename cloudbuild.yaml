@@ -79,8 +79,13 @@ steps:
   # The docker-start scripts perform steps such as running migrations before starting the backend service.
   # We ping the backend /health endpoint until we get a successful response, which indicates that pre-run steps are complete.
   - id: 'Wait for services'
-    name: 'gcr.io/cloud-builders/docker'
-    args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', './scripts/wait-for.sh', 'http://backend:3000/health', '--timeout', '120']
+    name: 'bash'
+    args:
+      - '-c'
+      - |
+        ./services/backend/scripts/wait-for.sh http://localhost:3000/health --timeout 120 \
+        && ./services/backend/scripts/wait-for.sh http://localhost:3001 --timeout 120 \
+        && ./services/backend/scripts/wait-for.sh http://localhost:3002 --timeout 120
     waitFor: ['Run containers']
 
   - id: 'Backend tests'
