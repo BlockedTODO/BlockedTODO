@@ -13,7 +13,7 @@ WORKDIR /home/node/frontend
 
 # Install dependencies
 COPY --chown=node:node package*.json ./
-RUN npm ci
+RUN npm ci --production
 
 # Copy source code, create production build
 COPY --chown=node:node . .
