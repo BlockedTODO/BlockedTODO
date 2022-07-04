@@ -75,35 +75,83 @@ steps:
       - 'NODE_ENV=test'
     waitFor: ['Build backend image', 'Build frontend image', 'Build website image']
 
+  # The "Run containers" step stops when containers are running, but before the services start running.
+  # The docker-start script performs steps such as installing dev dependencies and running migrations before starting the backend service.
+  # We ping the backend /health endpoint until we get a successful response, which indicates that pre-run steps are complete.
+  - id: 'Wait for backend'
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'compose'
+      - '--file'
+      - 'services/docker-compose.yaml'
+      - 'exec'
+      - '-T'
+      - 'backend'
+      - './scripts/wait-for.sh'
+      - 'http://backend:3000/health'
+      - '--timeout'
+      - '300'
+    waitFor: ['Run containers']
+
+  - id: 'Wait for frontend'
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'compose'
+      - '--file'
+      - 'services/docker-compose.yaml'
+      - 'exec'
+      - '-T'
+      - 'backend'
+      - './scripts/wait-for.sh'
+      - 'http://frontend:3001'
+      - '--timeout'
+      - '300'
+    waitFor: ['Run containers']
+
+  - id: 'Wait for website'
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'compose'
+      - '--file'
+      - 'services/docker-compose.yaml'
+      - 'exec'
+      - '-T'
+      - 'backend'
+      - './scripts/wait-for.sh'
+      - 'http://website:3002'
+      - '--timeout'
+      - '300'
+    waitFor: ['Run containers']
+
   - id: 'Backend tests'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'test']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for backend']
 
   - id: 'Frontend tests'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'test']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for frontend']
 
   - id: 'Website tests'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'test']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for website']
 
   - id: 'Backend Linting'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'backend', 'npm', 'run', 'lint']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for backend']
 
   - id: 'Frontend Linting'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'frontend', 'npm', 'run', 'lint']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for frontend']
 
   - id: 'Website Linting'
     name: 'gcr.io/cloud-builders/docker'
     args: ['compose', '--file', 'services/docker-compose.yaml', 'exec', '-T', 'website', 'npm', 'run', 'lint']
-    waitFor: ['Run containers']
+    waitFor: ['Wait for website']
 
   - id: 'Push backend image to registry'
     name: 'gcr.io/cloud-builders/docker'
