@@ -28,13 +28,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 3000
+            port: 3001
           timeoutSeconds: 8
           failureThreshold: 4
         readinessProbe:
           httpGet:
             path: /
-            port: 3000
+            port: 3001
           timeoutSeconds: 8
           failureThreshold: 4
         env:
