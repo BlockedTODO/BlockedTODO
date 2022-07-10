@@ -21,6 +21,7 @@ app.use(githubWebhooks);
 
 app.get('/', (req, res, next) => res.send('BlockedTODO Backend Server'));
 app.get('/ping', (req, res, next) => res.send('Pong!'));
+app.get('/health', (req, res, next) => res.send('OK'));
 
 app.use('/auth', authRouter);
 app.use('/github', githubRouter);
