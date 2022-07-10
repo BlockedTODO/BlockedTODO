@@ -10,68 +10,68 @@ metadata:
   namespace: {{.Values.namespace}}
 spec:
   rules:
-    - host: {{.Values.backend.host}}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-service
-                port:
-                  number: {{.Values.backend.port}}
-    - host: www.{{.Values.backend.host}}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-service
-                port:
-                  number: {{.Values.backend.port}}
+  - host: {{.Values.backend.host}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: {{.Values.backend.port}}
+  - host: www.{{.Values.backend.host}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-service
+            port:
+              number: {{.Values.backend.port}}
 
-    - host: {{.Values.frontend.host}}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-service
-                port:
-                  number: {{.Values.frontend.port}}
-    - host: www.{{.Values.frontend.host}}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-service
-                port:
-                  number: {{.Values.frontend.port}}
+  - host: {{.Values.frontend.host}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: {{.Values.frontend.port}}
+  - host: www.{{.Values.frontend.host}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: {{.Values.frontend.port}}
 
-    - host: {{.Values.website.host}}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: website-service
-                port:
-                  number: {{.Values.website.port}}
-    - host: www.{{.Values.website.host}}
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: website-service
-                port:
-                  number: {{.Values.website.port}}
+  - host: {{.Values.website.host}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: website-service
+            port:
+              number: {{.Values.website.port}}
+  - host: www.{{.Values.website.host}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: website-service
+            port:
+              number: {{.Values.website.port}}
 
 ---
 
@@ -84,12 +84,12 @@ metadata:
   namespace: {{.Values.namespace}}
 spec:
   domains:
-    - {{.Values.backend.host}}
-    - www.{{.Values.backend.host}}
-    - {{.Values.frontend.host}}
-    - www.{{.Values.frontend.host}}
-    - {{.Values.website.host}}
-    - www.{{.Values.website.host}}
+  - {{.Values.backend.host}}
+  - www.{{.Values.backend.host}}
+  - {{.Values.frontend.host}}
+  - www.{{.Values.frontend.host}}
+  - {{.Values.website.host}}
+  - www.{{.Values.website.host}}
 {{- end}}
 
 ---

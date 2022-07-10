@@ -5,47 +5,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: {{$label}}-deployment
-    labels:
-        app: {{$label}}
-    namespace: {{.Values.namespace}}
+  name: {{$label}}-deployment
+  labels:
+    app: {{$label}}
+  namespace: {{.Values.namespace}}
 spec:
-    replicas: 1
-    selector:
-        matchLabels:
-            app: {{$label}}
-    template:
-        metadata:
-            labels:
-                app: {{$label}}
-        spec:
-            containers:
-              - name: website
-                image: {{.Values.website.image}}
-                imagePullPolicy: IfNotPresent
-                ports:
-                  - containerPort: 3002
-                env:
-                  - name: NODE_ENV
-                    value: {{.Values.environment}}
-                  - name: REACT_APP_FRONTEND_PROTOCOL
-                    value: {{.Values.frontend.protocol}}
-                  - name: REACT_APP_FRONTEND_HOST
-                    value: {{.Values.frontend.host}}
-                  - name: REACT_APP_FRONTEND_PORT
-                    value: {{.Values.frontend.port | squote}}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{$label}}
+  template:
+    metadata:
+      labels:
+        app: {{$label}}
+    spec:
+      containers:
+      - name: website
+        image: {{.Values.website.image}}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3002
+        env:
+        - name: NODE_ENV
+          value: {{.Values.environment}}
+        - name: REACT_APP_FRONTEND_PROTOCOL
+          value: {{.Values.frontend.protocol}}
+        - name: REACT_APP_FRONTEND_HOST
+          value: {{.Values.frontend.host}}
+        - name: REACT_APP_FRONTEND_PORT
+          value: {{.Values.frontend.port | squote}}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-    name: {{$label}}-service
-    namespace: {{.Values.namespace}}
+  name: {{$label}}-service
+  namespace: {{.Values.namespace}}
 spec:
-    type: NodePort
-    selector:
-        app: {{$label}}
-    ports:
-      - port: {{.Values.website.port}}
-        targetPort: 3002
+  type: NodePort
+  selector:
+    app: {{$label}}
+  ports:
+  - port: {{.Values.website.port}}
+    targetPort: 3002
