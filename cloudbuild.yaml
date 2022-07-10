@@ -82,7 +82,7 @@ steps:
   - '-T'
   - 'backend'
   - './scripts/wait-for.sh'
-  - 'http://backend:3000/'
+  - 'http://backend:3000/health'
   - '--timeout'
   - '300'
   waitFor: ['Run containers']

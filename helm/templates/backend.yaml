@@ -26,6 +26,18 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          timeoutSeconds: 8
+          failureThreshold: 4
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          timeoutSeconds: 8
+          failureThreshold: 4
         env:
         - name: NODE_ENV
           value: {{.Values.environment}}

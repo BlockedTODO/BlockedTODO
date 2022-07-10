@@ -17,7 +17,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: backend-service
+            name: {{.Values.backend.label}}-service
             port:
               number: {{.Values.backend.port}}
   - host: www.{{.Values.backend.host}}
@@ -27,7 +27,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: backend-service
+            name: {{.Values.backend.label}}-service
             port:
               number: {{.Values.backend.port}}
 
@@ -38,7 +38,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: frontend-service
+            name: {{.Values.frontend.label}}-service
             port:
               number: {{.Values.frontend.port}}
   - host: www.{{.Values.frontend.host}}
@@ -48,7 +48,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: frontend-service
+            name: {{.Values.frontend.label}}-service
             port:
               number: {{.Values.frontend.port}}
 
@@ -59,7 +59,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: website-service
+            name: {{.Values.website.label}}-service
             port:
               number: {{.Values.website.port}}
   - host: www.{{.Values.website.host}}
@@ -69,7 +69,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: website-service
+            name: {{.Values.website.label}}-service
             port:
               number: {{.Values.website.port}}
 
