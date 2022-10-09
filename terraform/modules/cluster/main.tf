@@ -32,6 +32,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
 
     management {
         auto_upgrade = true
+        auto_repair = true
     }
 
     node_config {
@@ -53,4 +54,10 @@ resource "google_storage_bucket" "cluster_database_backups" {
     name = "${var.project_name}-cluster-database-backups"
     location = var.gcp_region
     storage_class = "NEARLINE"
+}
+
+# SSL policy for HTTPS (referred to in ingress.yaml)
+resource "google_compute_ssl_policy" "gke-ingress-ssl-policy" {
+  name    = "gke-ingress-ssl-policy"
+  profile = "MODERN"
 }

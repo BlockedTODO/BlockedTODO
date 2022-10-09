@@ -60,7 +60,7 @@ attach-website:
 
 k8s-start:
 	- eval $(minikube -p minikube docker-env)
-	- minikube start
+	- minikube start --kubernetes-version=v1.22.12
 	- make build
 	- helm upgrade \
 		--set backend.secrets.github_app_private_key='${GITHUB_APP_PRIVATE_KEY}' \
