@@ -88,8 +88,16 @@ await loadEnvironmentVariables([
         validation: joi.string().required(),
     },
     {
+        // The backend port is the one that is publicly exposed (80 for http or 443 for https in production).
         name: 'BACKEND_PORT',
         defaults: {development: 3000, test: 3000},
+        format: (variable) => parseInt(variable),
+        validation: joi.number().port().required(),
+    },
+    {
+        // The internal port is the port that the app code listens on. In kubernetes terms, it is the targetPort.
+        name: 'BACKEND_INTERNAL_PORT',
+        defaults: {development: 3000, test: 3000, production: 3000},
         format: (variable) => parseInt(variable),
         validation: joi.number().port().required(),
     },
@@ -161,7 +169,9 @@ const config = {
         protocol: variables.BACKEND_PROTOCOL,
         host: variables.BACKEND_HOST,
         port: variables.BACKEND_PORT,
-        url: `${variables.BACKEND_PROTOCOL}://${variables.BACKEND_HOST}:${variables.BACKEND_PORT}`
+        url: `${variables.BACKEND_PROTOCOL}://${variables.BACKEND_HOST}:${variables.BACKEND_PORT}`,
+        internalPort: variables.BACKEND_INTERNAL_PORT,
+        internalUrl: `${variables.BACKEND_PROTOCOL}://${variables.BACKEND_HOST}:${variables.BACKEND_INTERNAL_PORT}`
     },
     frontend: {
         protocol: variables.FRONTEND_PROTOCOL,
