@@ -6,6 +6,7 @@ namespace: 'blockedtodo'
 environment: 'development'
 
 static_ip_name: 'blockedtodo-ip'
+ssl_policy_name: 'gke-ingress-ssl-policy'
 backups_bucket_name: 'blockedtodo-cluster-database-backups'
 
 database:
