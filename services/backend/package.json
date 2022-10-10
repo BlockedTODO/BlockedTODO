@@ -4,7 +4,7 @@
     "url": "https://github.com/blockedtodo/blockedtodo/issues"
   },
   "dependencies": {
-    "@google-cloud/storage": "^5.20.0",
+    "@google-cloud/storage": "^6.5.2",
     "@octokit/auth-app": "^3.5.3",
     "@octokit/webhooks": "^10.0.7",
     "ajv-formats": "^2.1.1",
@@ -68,6 +68,7 @@
     "db:migrate": "knex migrate:latest --knexfile=src/db/config/knexfile.js",
     "db:rollback": "knex migrate:rollback --knexfile=src/db/config/knexfile.js",
     "db:seed": "knex seed:run --knexfile=src/db/config/knexfile.js",
+    "db:backup": "node src/jobs/backupDatabase.js",
     "lint": "eslint './**/*.js'",
     "repl": "node --experimental-repl-await ./repl.js",
     "start": "nodemon src/",
