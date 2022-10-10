@@ -74,6 +74,7 @@
     "start": "nodemon src/",
     "start:debug": "nodemon --inspect=0.0.0.0:9229 src/",
     "start:prod": "node src/",
+    "scan:all": "node src/jobs/scanRepositories.js",
     "test": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest",
     "test:watch": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --watchAll"
   },
