@@ -113,8 +113,8 @@ spec:
           - name: database-backup-job
             image: {{.Values.backend.image}}
             imagePullPolicy: IfNotPresent
-            command: ["node"]
-            args: ["src/jobs/backupDatabase.js"]
+            command: ["npm"]
+            args: ["run", "db:backup"]
             env:
             - name: NODE_ENV
               value: {{.Values.environment}}
@@ -151,8 +151,8 @@ spec:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
             imagePullPolicy: IfNotPresent
-            command: ["node"]
-            args: ["src/jobs/scanRepositories.js"]
+            command: ["npm"]
+            args: ["run", "scan:all"]
             env:
             - name: NODE_ENV
               value: {{.Values.environment}}
