@@ -38,6 +38,7 @@ In a terminal at the root of the repository, run the following commands:
 - `kubectl get all` to see the status of the cluster
 - `minikube dashboard` to see more detailed information in a browser
 - `kubectl get pods -n blockedtodo` followed by `kubectl -n blockedtodo exec --stdin --tty <pod name> -- /bin/sh` to open up a terminal in a running container
+- `kubectl -n blockedtodo create job <your-new-job-name> --from=cronjob/<name-of-deployed-cron-job>` to manually trigger a cron job
 
 ## Stop the cluster
 
