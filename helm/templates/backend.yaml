@@ -1,7 +1,50 @@
 {{$label := .Values.backend.label}}
-{{$secrets := .Values.backend.secrets}}
-{{$database_secrets := .Values.database.secrets}}
-{{$frontend_secrets := .Values.frontend.secrets}}
+
+{{- define "blockedtodo.backend.environment_variables" -}}
+
+{{- $secrets := .Values.backend.secrets -}}
+{{- $database_secrets := .Values.database.secrets -}}
+{{- $frontend_secrets := .Values.frontend.secrets -}}
+
+- name: NODE_ENV
+  value: {{.Values.environment}}
+- name: ENCRYPTION_SECRET
+  value: {{$secrets.encryption_secret}}
+- name: GITHUB_WEBHOOKS_SECRET
+  value: {{$secrets.github_webhooks_secret | squote}}
+- name: GITHUB_APP_ID
+  value: {{$secrets.github_app_id | squote}}
+- name: GITHUB_APP_PRIVATE_KEY
+  value: {{$secrets.github_app_private_key | squote}}
+- name: GITHUB_CLIENT_ID
+  value: {{$secrets.github_client_id | squote}}
+- name: GITHUB_CLIENT_SECRET
+  value: {{$secrets.github_client_secret | squote}}
+- name: DATABASE_NAME
+  value: {{$database_secrets.database_name}}
+- name: DATABASE_USER
+  value: {{$database_secrets.database_user}}
+- name: DATABASE_PASSWORD
+  value: {{$database_secrets.database_password}}
+- name: DATABASE_HOST
+  value: {{.Values.database.label}}-service
+- name: DATABASE_PORT
+  value: {{$database_secrets.database_port | squote}}
+- name: BACKEND_PROTOCOL
+  value: {{.Values.backend.protocol}}
+- name: BACKEND_HOST
+  value: {{.Values.backend.host}}
+- name: BACKEND_PORT
+  value: {{.Values.backend.port | squote}}
+- name: FRONTEND_PROTOCOL
+  value: {{.Values.frontend.protocol}}
+- name: FRONTEND_HOST
+  value: {{.Values.frontend.host}}
+- name: FRONTEND_PORT
+  value: {{.Values.frontend.port | squote}}
+{{- end -}}
+
+---
 
 apiVersion: apps/v1
 kind: Deployment
@@ -41,42 +84,7 @@ spec:
           failureThreshold: 4
           initialDelaySeconds: 60
         env:
-        - name: NODE_ENV
-          value: {{.Values.environment}}
-        - name: ENCRYPTION_SECRET
-          value: {{$secrets.encryption_secret}}
-        - name: GITHUB_WEBHOOKS_SECRET
-          value: {{$secrets.github_webhooks_secret | squote}}
-        - name: GITHUB_APP_ID
-          value: {{$secrets.github_app_id | squote}}
-        - name: GITHUB_APP_PRIVATE_KEY
-          value: {{$secrets.github_app_private_key | squote}}
-        - name: GITHUB_CLIENT_ID
-          value: {{$secrets.github_client_id | squote}}
-        - name: GITHUB_CLIENT_SECRET
-          value: {{$secrets.github_client_secret | squote}}
-        - name: DATABASE_NAME
-          value: {{$database_secrets.database_name}}
-        - name: DATABASE_USER
-          value: {{$database_secrets.database_user}}
-        - name: DATABASE_PASSWORD
-          value: {{$database_secrets.database_password}}
-        - name: DATABASE_HOST
-          value: {{.Values.database.label}}-service
-        - name: DATABASE_PORT
-          value: {{$database_secrets.database_port | squote}}
-        - name: BACKEND_PROTOCOL
-          value: {{.Values.backend.protocol}}
-        - name: BACKEND_HOST
-          value: {{.Values.backend.host}}
-        - name: BACKEND_PORT
-          value: {{.Values.backend.port | squote}}
-        - name: FRONTEND_PROTOCOL
-          value: {{.Values.frontend.protocol}}
-        - name: FRONTEND_HOST
-          value: {{.Values.frontend.host}}
-        - name: FRONTEND_PORT
-          value: {{.Values.frontend.port | squote}}
+        {{- include "blockedtodo.backend.environment_variables" . | nindent 8}}
 
 ---
 
@@ -116,20 +124,9 @@ spec:
             command: ["npm"]
             args: ["run", "db:backup"]
             env:
-            - name: NODE_ENV
-              value: {{.Values.environment}}
+            {{- include "blockedtodo.backend.environment_variables" . | nindent 12}}
             - name: BACKUPS_BUCKET_NAME
               value: {{.Values.backups_bucket_name}}
-            - name: DATABASE_NAME
-              value: {{$database_secrets.database_name}}
-            - name: DATABASE_USER
-              value: {{$database_secrets.database_user}}
-            - name: DATABASE_PASSWORD
-              value: {{$database_secrets.database_password}}
-            - name: DATABASE_HOST
-              value: {{.Values.database.label}}-service
-            - name: DATABASE_PORT
-              value: {{$database_secrets.database_port | squote}}
 
 ---
 
@@ -154,27 +151,4 @@ spec:
             command: ["npm"]
             args: ["run", "scan:all"]
             env:
-            - name: NODE_ENV
-              value: {{.Values.environment}}
-            - name: ENCRYPTION_SECRET
-              value: {{$secrets.encryption_secret}}
-            - name: GITHUB_WEBHOOKS_SECRET
-              value: {{$secrets.github_webhooks_secret | squote}}
-            - name: GITHUB_APP_ID
-              value: {{$secrets.github_app_id | squote}}
-            - name: GITHUB_APP_PRIVATE_KEY
-              value: {{$secrets.github_app_private_key | squote}}
-            - name: GITHUB_CLIENT_ID
-              value: {{$secrets.github_client_id | squote}}
-            - name: GITHUB_CLIENT_SECRET
-              value: {{$secrets.github_client_secret | squote}}
-            - name: DATABASE_NAME
-              value: {{$database_secrets.database_name}}
-            - name: DATABASE_USER
-              value: {{$database_secrets.database_user}}
-            - name: DATABASE_PASSWORD
-              value: {{$database_secrets.database_password}}
-            - name: DATABASE_HOST
-              value: {{.Values.database.label}}-service
-            - name: DATABASE_PORT
-              value: {{$database_secrets.database_port | squote}}
+            {{- include "blockedtodo.backend.environment_variables" . | nindent 12}}
