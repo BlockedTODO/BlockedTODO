@@ -60,4 +60,5 @@ spec:
     app: {{$label}}
   ports:
   - port: {{.Values.website.port}}
+    protocol: TCP
     targetPort: 3002

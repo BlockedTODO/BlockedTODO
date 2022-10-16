@@ -99,6 +99,7 @@ spec:
     app: {{$label}}
   ports:
   - port: {{.Values.backend.port}}
+    protocol: TCP
     targetPort: 3000
 
 ---
