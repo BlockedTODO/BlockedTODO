@@ -12,6 +12,8 @@ app.use(express.json({limit: '10mb'}));
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms')); // eslint-disable-line
 
 app.use(cookieParser());
+
+app.set('trust proxy', 1); // As per https://github.com/expressjs/session#cookiesecure
 app.use(sessions());
 
 app.use(passport.initialize());
