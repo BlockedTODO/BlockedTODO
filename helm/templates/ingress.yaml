@@ -5,7 +5,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: gce
     kubernetes.io/ingress.global-static-ip-name: {{.Values.static_ip_name}}
-    networking.gke.io/managed-certificates: blockedtodo-certificate-2
+    networking.gke.io/managed-certificates: blockedtodo-certificate
     networking.gke.io/v1beta1.FrontendConfig: https-redirect
   namespace: {{.Values.namespace}}
 spec:
@@ -85,7 +85,7 @@ spec:
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: blockedtodo-certificate-2
+  name: blockedtodo-certificate
   namespace: {{.Values.namespace}}
 spec:
   domains:
