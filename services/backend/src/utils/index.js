@@ -10,3 +10,4 @@ export {AuthenticationError} from './errors.js';
 export {encrypt, decrypt} from './cryptography.js';
 export {base64Encode, base64Decode} from './base64.js';
 export {filepath, dirpath, filename, dirname, resolvePath} from './pathHelpers.js';
+export {urlString} from './urlHelpers.js';
