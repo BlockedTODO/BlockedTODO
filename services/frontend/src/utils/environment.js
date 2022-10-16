@@ -17,11 +17,7 @@ if (window.BACKEND_PROTOCOL === '__BACKEND_PROTOCOL__') {
     window.BACKEND_PROTOCOL = process.env.REACT_APP_BACKEND_PROTOCOL;
 }
 
-let BACKEND_URL = `${window.BACKEND_PROTOCOL}://${window.BACKEND_HOST}`;
-
-if (window.BACKEND_PORT !== '80' && window.BACKEND_PORT !== '443') {
-    BACKEND_URL = `${BACKEND_URL}:${window.BACKEND_PORT}`;
-}
+let BACKEND_URL = `${window.BACKEND_PROTOCOL}://${window.BACKEND_HOST}:${window.BACKEND_PORT}`;
 
 export {
     BACKEND_URL,
