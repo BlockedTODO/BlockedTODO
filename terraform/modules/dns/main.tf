@@ -21,10 +21,47 @@ resource "google_dns_record_set" "base" {
     rrdatas = [google_compute_global_address.primary.address]
 }
 
-resource "google_dns_record_set" "wildcard" {
+resource "google_dns_record_set" "www_base" {
     managed_zone = google_dns_managed_zone.prod.name
 
-    name = "*.${google_dns_managed_zone.prod.dns_name}"
+    name = "www.${google_dns_managed_zone.prod.dns_name}"
+    type = "A"
+    ttl = 300
+    rrdatas = [google_compute_global_address.primary.address]
+}
+
+
+resource "google_dns_record_set" "backend" {
+    managed_zone = google_dns_managed_zone.prod.name
+
+    name = "backend.${google_dns_managed_zone.prod.dns_name}"
+    type = "A"
+    ttl = 300
+    rrdatas = [google_compute_global_address.primary.address]
+}
+
+resource "google_dns_record_set" "www_backend" {
+    managed_zone = google_dns_managed_zone.prod.name
+
+    name = "www.backend.${google_dns_managed_zone.prod.dns_name}"
+    type = "A"
+    ttl = 300
+    rrdatas = [google_compute_global_address.primary.address]
+}
+
+resource "google_dns_record_set" "frontend" {
+    managed_zone = google_dns_managed_zone.prod.name
+
+    name = "app.${google_dns_managed_zone.prod.dns_name}"
+    type = "A"
+    ttl = 300
+    rrdatas = [google_compute_global_address.primary.address]
+}
+
+resource "google_dns_record_set" "www_frontend" {
+    managed_zone = google_dns_managed_zone.prod.name
+
+    name = "www.app.${google_dns_managed_zone.prod.dns_name}"
     type = "A"
     ttl = 300
     rrdatas = [google_compute_global_address.primary.address]
