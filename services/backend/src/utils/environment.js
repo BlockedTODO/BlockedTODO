@@ -1,6 +1,7 @@
 import joi from 'joi';
 import dotenv from 'dotenv';
 import {dirpath} from './pathHelpers.js';
+import {urlString} from './urlHelpers.js';
 
 // Load up variables from .env file (if present).
 // Note that if a variable is defined both in the environment and .env file, the environment variable value takes priority.
@@ -169,15 +170,15 @@ const config = {
         protocol: variables.BACKEND_PROTOCOL,
         host: variables.BACKEND_HOST,
         port: variables.BACKEND_PORT,
-        url: `${variables.BACKEND_PROTOCOL}://${variables.BACKEND_HOST}:${variables.BACKEND_PORT}`,
+        url: urlString(variables.BACKEND_PROTOCOL, variables.BACKEND_HOST, variables.BACKEND_PORT),
         internalPort: variables.BACKEND_INTERNAL_PORT,
-        internalUrl: `${variables.BACKEND_PROTOCOL}://${variables.BACKEND_HOST}:${variables.BACKEND_INTERNAL_PORT}`
+        internalUrl: urlString(variables.BACKEND_PROTOCOL, variables.BACKEND_HOST, variables.BACKEND_PORT),
     },
     frontend: {
         protocol: variables.FRONTEND_PROTOCOL,
         host: variables.FRONTEND_HOST,
         port: variables.FRONTEND_PORT,
-        url: `${variables.FRONTEND_PROTOCOL}://${variables.FRONTEND_HOST}:${variables.FRONTEND_PORT}`
+        url: urlString(variables.FRONTEND_PROTOCOL, variables.FRONTEND_HOST, variables.FRONTEND_PORT),
     },
     github: {
         webhooksSecret: variables.GITHUB_WEBHOOKS_SECRET,
