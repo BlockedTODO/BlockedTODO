@@ -21,6 +21,9 @@ resource "google_dns_record_set" "base" {
     rrdatas = [google_compute_global_address.primary.address]
 }
 
+# Create individual A records for each subdomain
+# We cannot use a wildcard certificate because Google-managed certificates only support non-wildcard certificates
+# More info here: https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs#limitations
 resource "google_dns_record_set" "www_base" {
     managed_zone = google_dns_managed_zone.prod.name
 
@@ -29,7 +32,6 @@ resource "google_dns_record_set" "www_base" {
     ttl = 300
     rrdatas = [google_compute_global_address.primary.address]
 }
-
 
 resource "google_dns_record_set" "backend" {
     managed_zone = google_dns_managed_zone.prod.name
