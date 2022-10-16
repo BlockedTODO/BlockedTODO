@@ -13,8 +13,8 @@ spec:
   - host: {{.Values.backend.host}}
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /*
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{.Values.backend.label}}-service
@@ -23,8 +23,8 @@ spec:
   - host: www.{{.Values.backend.host}}
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /*
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{.Values.backend.label}}-service
@@ -34,8 +34,8 @@ spec:
   - host: {{.Values.frontend.host}}
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /*
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{.Values.frontend.label}}-service
@@ -44,8 +44,8 @@ spec:
   - host: www.{{.Values.frontend.host}}
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /*
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{.Values.frontend.label}}-service
@@ -55,8 +55,8 @@ spec:
   - host: {{.Values.website.host}}
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /*
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{.Values.website.label}}-service
@@ -65,8 +65,8 @@ spec:
   - host: www.{{.Values.website.host}}
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /*
+        pathType: ImplementationSpecific
         backend:
           service:
             name: {{.Values.website.label}}-service

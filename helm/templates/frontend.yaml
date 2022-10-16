@@ -60,4 +60,5 @@ spec:
     app: {{$label}}
   ports:
   - port: {{.Values.frontend.port}}
+    protocol: TCP
     targetPort: 3001
