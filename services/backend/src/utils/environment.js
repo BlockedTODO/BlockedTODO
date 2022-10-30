@@ -49,6 +49,11 @@ await loadEnvironmentVariables([
         validation: joi.string().valid('development', 'test', 'production').required(),
     },
     {
+        name: 'LOG_LEVEL',
+        defaults: {development: 'info', test: 'warn', production: 'info'},
+        validation: joi.string().required(),
+    },
+    {
         name: 'DATABASE_HOST',
         defaults: {development: 'database', test: 'database'},
         validation: joi.string().required(),
@@ -158,6 +163,7 @@ await loadEnvironmentVariables([
 // Config created from loaded (validated and formatted) environment variables.
 const config = {
     environment: variables.NODE_ENV,
+    logLevel: variables.LOG_LEVEL,
     database: {
         host: variables.DATABASE_HOST,
         port: variables.DATABASE_PORT,
