@@ -4,7 +4,7 @@ import auth from '../appAuthentication.js';
 export const createAppClient = async () => {
     const {token} = await auth({type: 'app'});
 
-    return axios.create({
+    const client = axios.create({
         baseURL: 'https://api.github.com',
         headers: {
             common: {
@@ -14,12 +14,16 @@ export const createAppClient = async () => {
             }
         }
     });
+
+    client.interceptors.response.use(githubGraphqlErrorInterceptor);
+
+    return client;
 };
 
 export const createInstallationClient = async (installationId) => {
     const {token} = await auth({type: 'installation', installationId});
 
-    return axios.create({
+    const client = axios.create({
         baseURL: 'https://api.github.com',
         headers: {
             common: {
@@ -29,17 +33,40 @@ export const createInstallationClient = async (installationId) => {
             }
         }
     });
+
+    client.interceptors.response.use(githubGraphqlErrorInterceptor);
+
+    return client;
 };
 
 export const createOauthClient = async (token) => {
-    return axios.create({
+    const client = axios.create({
         baseURL: 'https://api.github.com',
         headers: {
             common: {
                 'Content-Type': 'application/json',
-                'Authorization': `token ${token}`,
+                'Authorization': `token ${token}`, // Note: this is 'token' instead of 'Bearer'
                 'Accept': 'application/vnd.github.machine-man-preview+json',
             }
         }
     });
+
+    client.interceptors.response.use(githubGraphqlErrorInterceptor);
+
+    return client;
+};
+
+// GitHub GraphQL errors return a 200 status code and drop errors in response.data.errors
+const githubGraphqlErrorInterceptor = (response) => {
+    const graphqlErrors = response.data?.errors;
+    if (graphqlErrors && graphqlErrors.length > 0) {
+        const errorMessages = graphqlErrors.map((error) => error.message);
+
+        const error = new Error(`GitHub request returned the following errors: ${errorMessages}`);
+        error.response = response;
+
+        throw error;
+    }
+
+    return response;
 };
