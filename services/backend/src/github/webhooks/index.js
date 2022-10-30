@@ -17,7 +17,7 @@ webhooks.onAny(({id, name, payload}) => {
 });
 
 webhooks.onError((error) => {
-    logger.error(error.stack);
+    logger.error('Encountered GitHub webhook error', {error});
 });
 
 webhooks.on('installation.created', onInstallationCreated);

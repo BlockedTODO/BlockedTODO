@@ -31,7 +31,7 @@ const scanOneFile = async (file, config) => {
         }
         return fileIssueUrls;
     } catch (error) {
-        logger.error(`Error occurred while reading file ${file}: ${error}`);
+        logger.error(`Error occurred while reading file ${file}`, {error});
         throw error;
     }
 };
