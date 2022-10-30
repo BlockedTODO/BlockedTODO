@@ -31,7 +31,7 @@ const loadConfig = async (filePath) => {
          * to ensure that all keys are optional */
         return {...DEFAULT_CONFIG, ...config};
     } catch (error) {
-        logger.error(`An error occurred while parsing config file ${filePath}: ${error.message} - Using default config.`);
+        logger.error(`An error occurred while parsing config file ${filePath}. Using default config.`, {error});
         return DEFAULT_CONFIG;
     }
 };

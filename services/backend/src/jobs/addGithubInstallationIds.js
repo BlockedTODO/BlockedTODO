@@ -49,8 +49,7 @@ const addGithubInstallationIds = async () => {
     // Verify that the job worked
     const failedUpdates = await Repository.query().whereNull('installationId');
     if (failedUpdates.length !== 0) {
-        logger.error('updating installation id failed for the following repositories:');
-        logger.error(failedUpdates);
+        logger.error('updating installation id failed for the following repositories:', {failedRepositories: failedUpdates});
 
         throw new Error('Some repositories are still missing an installation id');
     }
@@ -59,12 +58,12 @@ const addGithubInstallationIds = async () => {
 };
 
 const onSuccess = (result) => {
-    logger.info(result);
+    logger.info({result});
     process.exit(0); // Success exit code
 };
 
 const onError = (error) => {
-    logger.error(error.message);
+    logger.error({error});
     process.exit(1); // Error exit code
 };
 

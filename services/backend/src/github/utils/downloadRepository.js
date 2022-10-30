@@ -38,7 +38,7 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     try {
         await asyncWriteFile(fileResponse.data, zipLocation);
     } catch (error) {
-        logger.error(`Error occurred during asyncWriteFile: ${error}`);
+        logger.error('Error occurred during asyncWriteFile', {error});
         throw error;
     }
 
@@ -46,7 +46,7 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     try {
         await asyncUnzip(zipLocation, destination);
     } catch (error) {
-        logger.error(`Error occurred during asyncUnzip: ${error}`);
+        logger.error('Error occurred during asyncUnzip', {error});
         throw error;
     }
 

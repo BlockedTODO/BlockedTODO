@@ -13,12 +13,12 @@ const scanRepositories = async () => {
 };
 
 const onSuccess = (result) => {
-    logger.info(result);
+    logger.info({result});
     process.exit(0); // Success exit code
 };
 
 const onError = (error) => {
-    logger.error(error.message);
+    logger.error({error});
     process.exit(1); // Error exit code
 };
 
