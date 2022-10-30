@@ -22,7 +22,7 @@ export const createMissingTasks = async (repository, githubClient, referencedIss
 
         const {closed} = await getIssue(githubClient, issue);
         if (!closed) {
-            logger.info(`issue ${issue.id} is still open`);
+            logger.info(`issue ${issue.id} is still open`, {issue});
             return;
         }
 
@@ -37,7 +37,7 @@ export const createMissingTasks = async (repository, githubClient, referencedIss
             repositoryId: repository.id,
             issueId: issue.id,
         });
-        logger.info(`Task ${task.id} created`);
+        logger.info('Task created', {task});
 
         return task;
     };

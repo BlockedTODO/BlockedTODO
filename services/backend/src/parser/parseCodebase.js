@@ -66,7 +66,7 @@ const mergeScanResults = (results, codeFolder) => {
 /* Take in a path to a codebase, return a set of issue URLs */
 const parseCodebase = async (codeFolder) => {
     const config = await getConfig(codeFolder);
-    logger.info(config);
+    logger.info({config});
 
     const filesToScan = await globby(`${codeFolder}/**/*`);
     logger.info(`files to scan: ${filesToScan}`);

@@ -45,7 +45,7 @@ const pruneGithubRepositories = async () => {
             continue;
         }
 
-        logger.info(`Deleting repository ${repository.id} with nodeId ${repository.nodeId}`);
+        logger.info('Deleting repository', {repository});
         await repository.$query().delete();
     }
 

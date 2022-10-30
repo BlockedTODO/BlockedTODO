@@ -20,15 +20,14 @@ const getInstallationRepositories = async (installationClient) => {
     do {
         const params = {per_page: RESULTS_PER_PAGE, page};
         response = await installationClient.get('/installation/repositories', {params});
-        logger.info(`Response from GitHub: ${response.status}`);
+        logger.info(`Response from GitHub: ${response.status}`, {response});
 
         repositories.push(...response.data.repositories);
-        logger.info(`response.data.repositories length: ${response.data.repositories.length}`);
 
         page += 1;
     } while (response.data.repositories.length === RESULTS_PER_PAGE);
 
-    logger.info(`Found ${repositories.length} repositories for this installation`);
+    logger.info(`Found ${repositories.length} repositories for this installation`, {repositories});
 
     return repositories;
 };

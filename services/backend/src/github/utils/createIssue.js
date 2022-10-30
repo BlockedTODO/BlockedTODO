@@ -41,7 +41,7 @@ const createIssue = async (githubClient, issue, repository, issueReferences) => 
     `);
 
     const response = await githubClient.post('/graphql', createIssue);
-    logger.info(`Response from GitHub: ${response.status}`);
+    logger.info(`Response from GitHub: ${response.status}`, {response});
 
     return response.data.data.createIssue.issue;
 };

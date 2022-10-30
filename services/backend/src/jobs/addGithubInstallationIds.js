@@ -42,7 +42,7 @@ const addGithubInstallationIds = async () => {
             }
 
             await repository.$query().patch({installationId: installation.id.toString()});
-            logger.info(`Updated repository ${repository.id}`);
+            logger.info('Updated repository', {repository});
         }
     }
 
