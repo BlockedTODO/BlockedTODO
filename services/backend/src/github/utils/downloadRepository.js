@@ -23,7 +23,7 @@ const repositoryDownloadLink = async (githubClient, repositoryNodeId) => {
     `);
 
     const response = await githubClient.post('/graphql', getArchiveUrl);
-    logger.info(`Response from GitHub: ${response.status}`);
+    logger.info(`Response from GitHub: ${response.status}`, {response});
     const downloadLink = response.data.data.node.defaultBranchRef.target.zipballUrl;
 
     return downloadLink;
@@ -34,6 +34,8 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     // Download zip file
     const zipLocation = `${destination}/repository.zip`;
     const downloadLink = await repositoryDownloadLink(githubClient, repositoryNodeId);
+    logger.info(`Download link for repository ${repositoryNodeId}: ${downloadLink}`);
+
     const fileResponse = await githubClient.get(downloadLink, {responseType: 'stream'});
 
     logger.info('Writing repository to zip file');

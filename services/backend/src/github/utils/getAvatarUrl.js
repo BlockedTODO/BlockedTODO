@@ -13,7 +13,7 @@ const getAvatarUrl = async (githubClient, userNodeId) => {
     `);
 
     const response = await githubClient.post('/graphql', avatarUrlQuery);
-    logger.info(`Response from GitHub: ${response.status}`);
+    logger.info(`Response from GitHub: ${response.status}`, {response});
 
     return response.data.data.node.avatarUrl;
 };
