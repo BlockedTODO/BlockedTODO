@@ -35,6 +35,8 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     const zipLocation = `${destination}/repository.zip`;
     const downloadLink = await repositoryDownloadLink(githubClient, repositoryNodeId);
     const fileResponse = await githubClient.get(downloadLink, {responseType: 'stream'});
+
+    logger.info('Writing repository to zip file');
     try {
         await asyncWriteFile(fileResponse.data, zipLocation);
     } catch (error) {
@@ -43,6 +45,7 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     }
 
     // Extract files
+    logger.info('Extracting repository zip archive');
     try {
         await asyncUnzip(zipLocation, destination);
     } catch (error) {
@@ -51,6 +54,7 @@ const downloadRepository = async (githubClient, repositoryNodeId, destination) =
     }
 
     // Delete zip file
+    logger.info('Deleting repository zip archive');
     await fsPromises.unlink(zipLocation);
 
     // The archive is unzipped as a single folder with a random name that contains the code
