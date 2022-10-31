@@ -1,5 +1,6 @@
 import winston from 'winston';
 import {config} from './environment.js';
+import {serializeError} from 'serialize-error';
 
 const {createLogger, format, transports} = winston;
 
@@ -31,26 +32,45 @@ const colors = {
     bgWhite: '\x1b[47m',
 };
 
-const prettyFormat = format.printf(({level, message, ...metadata}) => {
-    const formattedMessage = typeof message === 'string' ? message : JSON.stringify(message, null, 4);
+/* Why we use serializeError:
+ *
+ * JSON.stringify() only serializes enumerable properties. Error objects don't have enumerable properties by default.
+ * serializeError ensures that non-enumerable error properties (eg. message, stack) will be shown when we call JSON.stringify.
+ *
+ * JSON.stringify() does not handle circular references by default.
+ * serializeError also ensures that cycles are replaced with the string '[Circular]'
+ *
+ * More info in the comments on this StackOverflow answer: https://stackoverflow.com/a/47203837/7056420 */
+const prettyStringify = (value) => JSON.stringify(serializeError(value), null , 4);
 
-    let logMessage = `${level}: ${formattedMessage}`;
+const prettyFormat = format.printf(({level, message, ...metadata}) => {
+    let logMessage = `${level}: ${prettyStringify(message)}`;
 
     if (metadata && Object.keys(metadata).length !== 0) {
-        logMessage += `,\n${colors.fgMagenta}metadata${colors.reset}: ${JSON.stringify(metadata, null, 4)}`;
+        logMessage += `,\n${colors.fgMagenta}metadata${colors.reset}: ${prettyStringify(metadata)}`;
     }
 
     return logMessage;
+});
+
+const jsonFormat = format.printf(({timestamp, level, message, ...metadata}) => {
+    const log = {
+        timestamp,
+        level,
+        message: serializeError(message),
+        metadata: serializeError(metadata),
+    };
+
+    return JSON.stringify(log);
 });
 
 const devFormat = format.combine(
     format.colorize(),
     prettyFormat,
 );
-
 const prodFormat = format.combine(
     format.timestamp(),
-    format.json(),
+    jsonFormat
 );
 
 // Configure the Winston logger. For the complete documentation see https://github.com/winstonjs/winston

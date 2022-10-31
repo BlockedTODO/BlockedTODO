@@ -37,7 +37,7 @@ const scanOneFile = async (file, config) => {
 };
 
 /* Create a set of issue URLs from a list of settled promises (no duplicates),
- * represented as an object with the following structure: {<url>: [{file, comment}]}*/
+ * represented as an object with the following structure: {<url>: [{file, comment}]} */
 const mergeScanResults = (results, codeFolder) => {
     const referencedIssues = {};
     for (const {status, value: urlList} of results) {
