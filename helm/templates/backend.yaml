@@ -175,7 +175,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: repository-scan-job
+          - name: prune-repositories-job
             image: {{.Values.backend.image}}
             imagePullPolicy: IfNotPresent
             command: ["npm"]
@@ -202,7 +202,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: repository-scan-job
+          - name: add-missing-repositories-job
             image: {{.Values.backend.image}}
             imagePullPolicy: IfNotPresent
             command: ["npm"]
@@ -229,7 +229,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: repository-scan-job
+          - name: set-missing-installation-ids-job
             image: {{.Values.backend.image}}
             imagePullPolicy: IfNotPresent
             command: ["npm"]
