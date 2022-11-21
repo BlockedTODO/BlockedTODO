@@ -143,10 +143,10 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 1
       template:
         spec:
           restartPolicy: OnFailure
-          backoffLimit: 1
           containers:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
