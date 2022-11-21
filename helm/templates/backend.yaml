@@ -145,8 +145,8 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: Never
-          backoffLimit: 0
+          restartPolicy: OnFailure
+          backoffLimit: 1
           containers:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
@@ -164,16 +164,16 @@ metadata:
   name: prune-repositories-cronjob
   namespace: {{.Values.namespace}}
 spec:
-  schedule: "20 13 * * SAT"
+  schedule: "20 13 * * 6"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 2
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 1
       template:
         spec:
-          restartPolicy: Never
-          backoffLimit: 0
+          restartPolicy: OnFailure
           containers:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
@@ -191,16 +191,16 @@ metadata:
   name: add-missing-repositories-cronjob
   namespace: {{.Values.namespace}}
 spec:
-  schedule: "20 14 * * SAT"
+  schedule: "20 14 * * 6"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 2
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 1
       template:
         spec:
-          restartPolicy: Never
-          backoffLimit: 0
+          restartPolicy: OnFailure
           containers:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
@@ -218,16 +218,16 @@ metadata:
   name: set-missing-installation-ids-cronjob
   namespace: {{.Values.namespace}}
 spec:
-  schedule: "20 15 * * SAT"
+  schedule: "20 15 * * 6"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 2
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 1
       template:
         spec:
-          restartPolicy: Never
-          backoffLimit: 0
+          restartPolicy: OnFailure
           containers:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
