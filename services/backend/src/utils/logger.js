@@ -1,6 +1,6 @@
 import winston from 'winston';
-import {config} from './environment.js';
 import {serializeError} from 'serialize-error';
+import {config, secrets} from './environment.js';
 
 const {createLogger, format, transports} = winston;
 
@@ -32,6 +32,14 @@ const colors = {
     bgWhite: '\x1b[47m',
 };
 
+const filterSecrets = (message) => {
+    for (const [key, value] of Object.entries(secrets)) {
+        message = message.replaceAll(value, `[Secret: ${key}]`);
+    }
+
+    return message;
+};
+
 /* Why we use serializeError:
  *
  * JSON.stringify() only serializes enumerable properties. Error objects don't have enumerable properties by default.
@@ -50,7 +58,7 @@ const prettyFormat = format.printf(({level, message, ...metadata}) => {
         logMessage += `,\n${colors.fgMagenta}metadata${colors.reset}: ${prettyStringify(metadata)}`;
     }
 
-    return logMessage;
+    return filterSecrets(logMessage);
 });
 
 const jsonFormat = format.printf(({timestamp, level, message, ...metadata}) => {
@@ -61,7 +69,9 @@ const jsonFormat = format.printf(({timestamp, level, message, ...metadata}) => {
         metadata: serializeError(metadata),
     };
 
-    return JSON.stringify(log);
+    const jsonLog = JSON.stringify(log);
+
+    return filterSecrets(jsonLog);
 });
 
 const devFormat = format.combine(
