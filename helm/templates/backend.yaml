@@ -140,16 +140,99 @@ spec:
   schedule: "0 3 * * *"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
+          backoffLimit: 0
           containers:
           - name: repository-scan-job
             image: {{.Values.backend.image}}
             imagePullPolicy: IfNotPresent
             command: ["npm"]
             args: ["run", "scan:all"]
+            env:
+            {{- include "blockedtodo.backend.environment_variables" . | nindent 12}}
+
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: prune-repositories-cronjob
+  namespace: {{.Values.namespace}}
+spec:
+  schedule: "20 13 * * SAT"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          backoffLimit: 0
+          containers:
+          - name: repository-scan-job
+            image: {{.Values.backend.image}}
+            imagePullPolicy: IfNotPresent
+            command: ["npm"]
+            args: ["run", "repositories:prune"]
+            env:
+            {{- include "blockedtodo.backend.environment_variables" . | nindent 12}}
+
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: add-missing-repositories-cronjob
+  namespace: {{.Values.namespace}}
+spec:
+  schedule: "20 14 * * SAT"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          backoffLimit: 0
+          containers:
+          - name: repository-scan-job
+            image: {{.Values.backend.image}}
+            imagePullPolicy: IfNotPresent
+            command: ["npm"]
+            args: ["run", "repositories:add-missing"]
+            env:
+            {{- include "blockedtodo.backend.environment_variables" . | nindent 12}}
+
+---
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: set-missing-installation-ids-cronjob
+  namespace: {{.Values.namespace}}
+spec:
+  schedule: "20 15 * * SAT"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          backoffLimit: 0
+          containers:
+          - name: repository-scan-job
+            image: {{.Values.backend.image}}
+            imagePullPolicy: IfNotPresent
+            command: ["npm"]
+            args: ["run", "repositories:set-missing-installation-ids"]
             env:
             {{- include "blockedtodo.backend.environment_variables" . | nindent 12}}
