@@ -20,7 +20,7 @@ import {createAppClient, createInstallationClient, getInstallationRepositories} 
  * https://docs.github.com/en/rest/reference/apps#list-repositories-accessible-to-the-app-installation
  *
  */
-const addGithubInstallationIds = async () => {
+const addMissingGithubRepositories = async () => {
     const appClient = await createAppClient();
 
     // Get all installations
@@ -56,4 +56,4 @@ const onError = (error) => {
 };
 
 // Run code synchronously to ensure proper process error codes are returned.
-addGithubInstallationIds().then(onSuccess).catch(onError);
+addMissingGithubRepositories().then(onSuccess).catch(onError);
