@@ -9,6 +9,14 @@ resource "google_container_cluster" "primary" {
     remove_default_node_pool = true
     initial_node_count = 1
 
+    auto_provisioning_defaults {
+        image_type = "COS_CONTAINERD"
+    }
+    
+    node_config {
+        image_type = "COS_CONTAINERD"
+    }
+
     release_channel {
         channel = "REGULAR"
     }
