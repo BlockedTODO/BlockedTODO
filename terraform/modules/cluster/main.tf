@@ -47,6 +47,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
         preemptible  = true
         disk_size_gb = var.node_disk_size
         machine_type = var.node_machine_type
+        image_type = "COS_CONTAINERD"
 
         metadata = {
             disable-legacy-endpoints = "true"
