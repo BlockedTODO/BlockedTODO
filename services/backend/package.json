@@ -29,7 +29,7 @@
     "passport": "^0.5.3",
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
-    "pg": "^8.7.3",
+    "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
     "re2": "^1.17.7",
     "serialize-error": "^11.0.0",
